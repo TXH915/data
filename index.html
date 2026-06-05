@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据分析在线学习平台</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/material-darker.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">📊 Python数据分析学习平台</h1>
+            <div class="achievements-badge" id="achievementsBadge">
+                <span class="badge-icon">🏆</span>
+                <span class="badge-count" id="badgeCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 课程目录</h2>
+            </div>
+            <nav class="project-nav" id="projectNav"></nav>
+        </aside>
+
+        <section class="content" id="content">
+            <div class="project-header" id="projectHeader">
+                <span class="level-badge" id="levelBadge"></span>
+                <h2 id="projectTitle">选择一个项目开始学习</h2>
+            </div>
+
+            <div class="panels-container" id="panelsContainer">
+                <div class="panel theory-panel" id="theoryPanel">
+                    <div class="panel-header">
+                        <h3>📖 理论知识</h3>
+                    </div>
+                    <div class="panel-content scrollable" id="theoryContent"></div>
+                </div>
+
+                <div class="panel center-panel">
+                    <div class="panel code-panel">
+                        <div class="panel-header">
+                            <h3>💻 代码练习</h3>
+                            <div class="code-actions">
+                                <button class="btn btn-secondary" id="resetBtn">🔄 重置</button>
+                                <button class="btn btn-primary" id="runBtn">▶️ 运行</button>
+                            </div>
+                        </div>
+                        <div class="panel-content">
+                            <textarea id="codeEditor"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="panel output-panel">
+                        <div class="panel-header">
+                            <h3>📤 输出结果</h3>
+                            <button class="btn btn-small" id="clearOutputBtn">🗑️ 清空</button>
+                        </div>
+                        <div class="panel-content scrollable" id="outputContent">
+                            <div class="placeholder">运行代码后结果将显示在这里</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel right-panel">
+                    <div class="panel solution-panel">
+                        <div class="panel-header">
+                            <h3>✅ 参考答案</h3>
+                            <button class="btn btn-small" id="toggleSolutionBtn">👁️ 显示</button>
+                        </div>
+                        <div class="panel-content scrollable" id="solutionContent">
+                            <div class="placeholder">点击显示参考答案</div>
+                        </div>
+                    </div>
+
+                    <div class="panel quiz-panel">
+                        <div class="panel-header">
+                            <h3>📝 测评练习</h3>
+                        </div>
+                        <div class="panel-content scrollable" id="quizContent">
+                            <div class="placeholder">选择项目后显示测评</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal" id="achievementsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🏆 成就系统</h2>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body" id="achievementsContent"></div>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>正在加载 Python 环境...</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/python/python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.5/split.min.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/achievements.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/python-runner.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
