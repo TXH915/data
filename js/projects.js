@@ -791,7 +791,8 @@ print(f"方差: {var_val:.2f}")
 
 # 使用Pandas生成完整统计摘要
 df = pd.DataFrame({'数据': data})
-print("\\nPandas统计摘要:")
+print("")
+print("Pandas统计摘要:")
 print(df.describe())`
             }
         },
