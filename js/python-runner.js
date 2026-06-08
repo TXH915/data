@@ -197,7 +197,10 @@ len(figs) > 0
 `);
 
             if (hasFigures) {
-                const figureCount = this.pyodide.runPython('len(plt.get_fignums())');
+                const figureCount = this.pyodide.runPython(`
+import matplotlib.pyplot as plt
+len(plt.get_fignums())
+`);
                 output += `\n📊 生成了 ${figureCount} 个图形\n`;
 
                 for (let i = 0; i < figureCount; i++) {
@@ -214,7 +217,7 @@ img_base64
 `);
                     this.appendImage(imgData);
                 }
-                plt.close('all');
+                await this.pyodide.runPython('plt.close(\'all\')');
             }
 
             if (!output.trim()) {
