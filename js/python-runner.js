@@ -3,7 +3,7 @@ class PythonRunner {
         this.pyodide = null;
         this.initialized = false;
         this.packagesLoaded = false;
-        this.initPromise = this.init();
+        this.initPromise = null;
         this.currentProgress = 0;
         this.loadingMessages = [
             '正在初始化 Python 引擎...',
@@ -15,6 +15,15 @@ class PythonRunner {
     }
 
     async init() {
+        if (this.initPromise) {
+            return this.initPromise;
+        }
+        
+        this.initPromise = this._init();
+        return this.initPromise;
+    }
+
+    async _init() {
         try {
             document.getElementById('loadingOverlay').classList.add('active');
             this.setProgress(0);
@@ -35,7 +44,7 @@ class PythonRunner {
             this.setProgress(35);
             this.updateLoadingMessage('正在加载数据科学库...', '安装 numpy, pandas, matplotlib...');
 
-            // 预装所有常用的数据科学库
+            // 预装核心数据科学库
             await this.loadPackages();
 
             this.packagesLoaded = true;
@@ -88,54 +97,26 @@ class PythonRunner {
         const essentialPackages = [
             'numpy',
             'pandas',
-            'matplotlib',
-            'scipy',
-            'scikit-learn'
-        ];
-
-        const optionalPackages = [
-            'seaborn',
-            'statsmodels',
-            'networkx',
-            'beautifulsoup4',
-            'lxml',
-            'html5lib',
-            'pytz',
-            'python-dateutil',
-            'six',
-            'pyparsing',
-            'cycler',
-            'kiwisolver',
-            'joblib',
-            'threadpoolctl'
+            'matplotlib'
         ];
 
         const totalPackages = essentialPackages.length;
         let loadedCount = 0;
 
         try {
-            // 优先加载核心包
+            // 只加载最核心的包，加快加载速度
             for (const pkg of essentialPackages) {
                 loadedCount++;
                 this.updateLoadingDetail(`正在安装: ${pkg}`);
                 await this.pyodide.loadPackage(pkg);
-                this.setProgress(35 + (loadedCount / totalPackages) * 50);
+                this.setProgress(35 + (loadedCount / totalPackages) * 55);
             }
             
             console.log('Essential packages loaded successfully');
             
-            // 尝试加载可选包（不阻塞）
-            for (const pkg of optionalPackages) {
-                try {
-                    await this.pyodide.loadPackage(pkg);
-                } catch (err) {
-                    console.warn(`Failed to load optional package ${pkg}:`, err);
-                }
-            }
-            
         } catch (err) {
-            console.warn('Some packages failed to load, falling back to essentials:', err);
-            await this.pyodide.loadPackage(['numpy', 'pandas', 'matplotlib']);
+            console.warn('Some packages failed to load, falling back to basics:', err);
+            await this.pyodide.loadPackage(['numpy', 'matplotlib']);
         }
 
         // 设置matplotlib后端
@@ -145,7 +126,6 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import sys
 from io import StringIO
 `);

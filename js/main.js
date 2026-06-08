@@ -539,7 +539,7 @@ document.head.appendChild(achievementNotificationStyle);
 
 let app;
 document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        app = new DataAnalysisApp();
-    }, 100);
+    // 页面立即显示，不阻塞加载
+    app = new DataAnalysisApp();
+    console.log('页面已加载完成！');
 });
