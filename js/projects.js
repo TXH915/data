@@ -1054,7 +1054,7 @@ print(df.describe())
                 initialCode: "# 请在此处编写代码\nimport pandas as pd\nimport numpy as np\n\n# 创建销售DataFrame\n\n\n# 计算销售额\n\n\n# 按产品分组统计\n\n\n# 按销售额降序排序",
                 solutionCode: "import pandas as pd\nimport numpy as np\n\n# 创建销售DataFrame\nnp.random.seed(42)\ndata = {\n    '产品': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'A', 'B', 'C'],\n    '区域': ['东', '西', '东', '南', '西', '北', '南', '东', '西', '北'],\n    '销量': np.random.randint(100, 500, 10),\n    '单价': np.random.uniform(10, 100, 10).round(2)\n}\ndf = pd.DataFrame(data)\n\n# 计算销售额\ndf['销售额'] = df['销量'] * df['单价']\n\n# 按产品分组统计\nresult = df.groupby('产品').agg({\n    '销量': 'sum',\n    '销售额': 'sum'\n}).round(2)\n\n# 按销售额降序排序\nresult = result.sort_values('销售额', ascending=False)\n\nprint(\"分组统计结果:\")\nprint(result)"
             }
-        ],
+        },
         initialCode: "",
         solutionCode: `import pandas as pd
 import numpy as np
