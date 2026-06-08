@@ -122,7 +122,7 @@ class PythonRunner {
         } catch (err) {
             console.warn('Some packages failed to load:', err);
             await this.pyodide.loadPackage(this.corePackages);
-            this.loadedPackages = [...this.corePackages;
+            this.loadedPackages = [...this.corePackages];
         }
 
         // 设置matplotlib后端
@@ -158,22 +158,22 @@ from io import StringIO
 
     updateLibraryStatus() {
         const libraryInfo = document.getElementById('libraryInfo');
-        if (!libraryInfo) {
-            let statusHTML = `
-                <div class="title">
-                    <span>📦</span>
-                    <span>预装数据科学库</span>
-                </div>
-                <div class="packages">
-                    ${[...this.corePackages, ...this.optionalPackages].map(pkg => {
-                        const isLoaded = this.loadedPackages.includes(pkg);
-                        return `<span class="pkg-tag ${isLoaded ? 'pkg-loaded' : 'pkg-loading'}">${pkg}${isLoaded ? ' ✓' : '...'}</span>`;
-                    }).join('')}
-                </div>
-                ${this.allPackagesLoaded ? '<div style="font-size:0.75rem; color:#22c55e; margin-top:0.5rem;">🎉 所有库已下载完成！</div>' : ''}
-            `;
-            libraryInfo.innerHTML = statusHTML;
-        }
+        if (!libraryInfo) return;
+        
+        let statusHTML = `
+            <div class="title">
+                <span>📦</span>
+                <span>预装数据科学库</span>
+            </div>
+            <div class="packages">
+                ${[...this.corePackages, ...this.optionalPackages].map(pkg => {
+                    const isLoaded = this.loadedPackages.includes(pkg);
+                    return `<span class="pkg-tag ${isLoaded ? 'pkg-loaded' : 'pkg-loading'}">${pkg}${isLoaded ? ' ✓' : '...'}</span>`;
+                }).join('')}
+            </div>
+            ${this.allPackagesLoaded ? '<div style="font-size:0.75rem; color:#22c55e; margin-top:0.5rem;">🎉 所有库已下载完成！</div>' : ''}
+        `;
+        libraryInfo.innerHTML = statusHTML;
     }
 
     async ensurePackageLoaded(packageName) {
@@ -215,11 +215,6 @@ import sys
 from io import StringIO
 import base64
 import matplotlib.pyplot as plt
-import codecs
-
-# 确保输出正确处理UTF-8
-sys.stdout.reconfigure(encoding='utf-8', errors='replace') if hasattr(sys.stdout, 'reconfigure') else None
-sys.stderr.reconfigure(encoding='utf-8', errors='replace') if hasattr(sys.stderr, 'reconfigure') else None
 
 # 重置stdout/stderr
 sys.stdout = StringIO()
@@ -280,87 +275,69 @@ img_base64
             achievementSystem.recordCodeRun();
 
         } catch (error) {
-            console.error('Python execution error:', error);
-            let errorMsg = '❌ 运行错误:\n\n';
-            if (error.message) {
-                errorMsg += error.message;
-            } else if (typeof error === 'string') {
-                errorMsg += error;
-            } else {
-                errorMsg += '未知错误';
-            }
-            this.showOutput(errorMsg, 'error');
+            console.error('Code execution error:', error);
+            this.showOutput('❌ 代码执行错误:\n\n' + error.message, 'error');
         }
     }
 
-    appendOutput(text, type) {
-        const outputDiv = document.getElementById('outputContent');
-        const placeholder = outputDiv.querySelector('.placeholder');
-        if (placeholder) {
-            outputDiv.innerHTML = '';
+    appendOutput(text, type = 'stdout') {
+        const outputContent = document.getElementById('outputContent');
+        if (!outputContent) return;
+        
+        const line = document.createElement('div');
+        line.className = `output-line ${type}`;
+        line.textContent = text;
+        outputContent.appendChild(line);
+        
+        // 自动滚动到底部
+        const outputArea = document.getElementById('outputArea');
+        if (outputArea) {
+            outputArea.scrollTop = outputArea.scrollHeight;
         }
-
-        const span = document.createElement('span');
-        span.style.color = type === 'stderr' ? '#ff6b6b' : '#e2e8f0';
-        span.style.whiteSpace = 'pre-wrap';
-        span.textContent = text;
-        outputDiv.appendChild(span);
     }
 
     appendImage(base64Data) {
-        const outputDiv = document.getElementById('outputContent');
-        const placeholder = outputDiv.querySelector('.placeholder');
-        if (placeholder) {
-            outputDiv.innerHTML = '';
-        }
-
+        const outputContent = document.getElementById('outputContent');
+        if (!outputContent) return;
+        
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'image-output';
+        
         const img = document.createElement('img');
         img.src = `data:image/png;base64,${base64Data}`;
-        img.style.maxWidth = '100%';
-        img.style.marginTop = '1rem';
-        img.style.marginBottom = '1rem';
-        img.style.borderRadius = '8px';
-        img.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
-        outputDiv.appendChild(img);
+        img.alt = 'Matplotlib 输出';
+        
+        imgContainer.appendChild(img);
+        outputContent.appendChild(imgContainer);
     }
 
     clearOutput() {
-        document.getElementById('outputContent').innerHTML =
-            '<div class="placeholder" style="opacity: 0.5;">正在执行代码...</div>';
+        const outputContent = document.getElementById('outputContent');
+        if (outputContent) {
+            outputContent.innerHTML = '';
+        }
     }
 
-    showOutput(text, type = 'normal') {
-        const outputDiv = document.getElementById('outputContent');
-        const placeholder = outputDiv.querySelector('.placeholder');
-        if (placeholder) {
-            outputDiv.innerHTML = '';
+    showOutput(text, type = 'success') {
+        const outputContent = document.getElementById('outputContent');
+        if (!outputContent) return;
+        
+        const line = document.createElement('div');
+        line.className = `output-line ${type}`;
+        line.textContent = text;
+        outputContent.appendChild(line);
+        
+        // 自动滚动到底部
+        const outputArea = document.getElementById('outputArea');
+        if (outputArea) {
+            outputArea.scrollTop = outputArea.scrollHeight;
         }
-
-        const pre = document.createElement('pre');
-        pre.style.margin = '0';
-        pre.style.padding = '1rem';
-        pre.style.borderRadius = '8px';
-        pre.style.whiteSpace = 'pre-wrap';
-        pre.style.wordBreak = 'break-word';
-        pre.style.fontFamily = "'Fira Code', 'Consolas', monospace";
-        pre.style.fontSize = '0.9rem';
-        pre.style.lineHeight = '1.5';
-
-        if (type === 'error') {
-            pre.style.background = '#3d2020';
-            pre.style.color = '#ff6b6b';
-            pre.style.borderLeft = '4px solid #ff6b6b';
-        } else if (type === 'success') {
-            pre.style.background = '#1a3322';
-            pre.style.color = '#69db7c';
-        } else {
-            pre.style.background = '#1e293b';
-            pre.style.color = '#e2e8f0';
-        }
-
-        pre.textContent = text;
-        outputDiv.insertBefore(pre, outputDiv.firstChild);
     }
 }
 
-const pythonRunner = new PythonRunner();
+// 创建全局实例
+let pythonRunner;
+
+document.addEventListener('DOMContentLoaded', () => {
+    pythonRunner = new PythonRunner();
+});
