@@ -86,10 +86,20 @@ class DataAnalysisApp {
 
         codeEditor.setValue(project.initialCode);
 
-        document.getElementById('outputContent').innerHTML = '<div class="placeholder">运行代码后结果将显示在这里</div>';
-
         document.getElementById('solutionContent').innerHTML = '<div class="placeholder">点击显示参考答案</div>';
         document.getElementById('toggleSolutionBtn').textContent = '👁️ 显示';
+
+        // 确保输出区域结构正确
+        const outputContent = document.getElementById('outputContent');
+        let wrapper = outputContent.querySelector('.output-content-wrapper');
+        if (!wrapper) {
+            wrapper = document.createElement('div');
+            wrapper.className = 'output-content-wrapper';
+            outputContent.appendChild(wrapper);
+        }
+        if (wrapper.children.length === 0 || wrapper.querySelector('.placeholder')) {
+            wrapper.innerHTML = '<div class="placeholder">运行代码后结果将显示在这里 - 此内容宽度超过800像素以确保水平滚动条显示 - 您可以拖动滚动条查看更多内容</div>';
+        }
 
         this.renderQuiz(project);
         this.renderExamPlaceholder(project);
@@ -488,7 +498,14 @@ class DataAnalysisApp {
     }
 
     clearOutput() {
-        document.getElementById('outputContent').innerHTML = '<div class="placeholder">运行代码后结果将显示在这里</div>';
+        const outputContent = document.getElementById('outputContent');
+        let wrapper = outputContent.querySelector('.output-content-wrapper');
+        if (!wrapper) {
+            wrapper = document.createElement('div');
+            wrapper.className = 'output-content-wrapper';
+            outputContent.appendChild(wrapper);
+        }
+        wrapper.innerHTML = '<div class="placeholder">运行代码后结果将显示在这里 - 此内容宽度超过800像素以确保水平滚动条显示 - 您可以拖动滚动条查看更多内容</div>';
     }
 
     updateBadgeCount() {
