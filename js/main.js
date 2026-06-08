@@ -98,7 +98,7 @@ class DataAnalysisApp {
             outputContent.appendChild(wrapper);
         }
         if (wrapper.children.length === 0 || wrapper.querySelector('.placeholder')) {
-            wrapper.innerHTML = '<div class="placeholder">运行代码后结果将显示在这里 - 此内容宽度超过800像素以确保水平滚动条显示 - 您可以拖动滚动条查看更多内容</div>';
+            wrapper.innerHTML = '<div class="placeholder">运行代码后结果将显示在这里</div><div style="width: 850px; height: 1px; visibility: hidden;"></div>';
         }
 
         this.renderQuiz(project);
@@ -505,7 +505,7 @@ class DataAnalysisApp {
             wrapper.className = 'output-content-wrapper';
             outputContent.appendChild(wrapper);
         }
-        wrapper.innerHTML = '<div class="placeholder">运行代码后结果将显示在这里 - 此内容宽度超过800像素以确保水平滚动条显示 - 您可以拖动滚动条查看更多内容</div>';
+        wrapper.innerHTML = '<div class="placeholder">运行代码后结果将显示在这里</div><div style="width: 850px; height: 1px; visibility: hidden;"></div>';
     }
 
     updateBadgeCount() {
