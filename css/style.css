@@ -5,14 +5,14 @@
     --success-color: #22c55e;
     --warning-color: #f59e0b;
     --error-color: #ef4444;
-    --surface-color: #ffffff;
-    --background-color: #f8fafc;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --border-color: #e2e8f0;
-    --hover-color: #f1f5f9;
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --surface-color: #1e1e2e;
+    --background-color: #0f0f1a;
+    --text-primary: #e2e8f0;
+    --text-secondary: #a0aec0;
+    --border-color: #3d3d5c;
+    --hover-color: #2d2d44;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -23,7 +23,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+    background: linear-gradient(135deg, #0f0f1a, #1e1e2e, #2d2d44) !important;
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
@@ -38,12 +38,13 @@ body {
 
 /* 头部样式 */
 .header {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, #1e1e2e, #2d2d44);
     color: white;
     padding: 1rem 0;
     box-shadow: var(--shadow-lg);
     position: relative;
     z-index: 100;
+    border-bottom: 2px solid var(--border-color);
 }
 
 .header .container {
@@ -61,15 +62,16 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(99, 102, 241, 0.3);
     padding: 0.5rem 1rem;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s;
+    border: 1px solid rgba(99, 102, 241, 0.5);
 }
 
 .achievements-badge:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(99, 102, 241, 0.5);
     transform: scale(1.05);
 }
 
@@ -92,15 +94,16 @@ body {
 .sidebar {
     width: 280px;
     background: var(--surface-color);
-    border-right: 1px solid var(--border-color);
+    border-right: 2px solid var(--border-color);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-header {
     padding: 1.5rem;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
 }
 
 .sidebar-header h2 {
@@ -163,10 +166,11 @@ body {
 .project-header {
     padding: 1.5rem 2rem;
     background: var(--surface-color);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
     display: flex;
     align-items: center;
     gap: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .project-header h2 {
@@ -185,7 +189,9 @@ body {
     display: flex;
     flex-direction: column;
     background: var(--surface-color);
-    border-right: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     overflow: hidden;
 }
 
@@ -195,11 +201,12 @@ body {
 
 .panel-header {
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: var(--hover-color);
+    border-radius: 6px 6px 0 0;
 }
 
 .panel-header h3 {
@@ -288,7 +295,8 @@ body {
     flex: 1.2;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid var(--border-color);
+    border-right: 2px solid var(--border-color);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
 }
 
 .right-panel {
@@ -300,16 +308,20 @@ body {
 
 .code-panel, .output-panel, .solution-panel, .quiz-panel {
     border-right: none;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
 }
 
 .code-panel {
     flex: 1.5;
+    resize: both;
+    overflow: auto;
 }
 
 .output-panel {
     flex: 0 0 250px;
     min-height: 200px;
+    resize: both;
+    overflow: auto;
 }
 
 .solution-panel, .quiz-panel {
