@@ -1,45 +1,45 @@
 const projects = [
     {
         id: 1,
-        title: "Data清洗实践",
+        title: "数据清洗实践",
         level: "入门",
-        description: "学习处理缺失值、异常值和Data转换",
+        description: "学习处理缺失值、异常值和数据转换",
         theory: `
-<h3>一、Data清洗概述</h3>
-<p>Data清洗是Data分析流程的第一步，也是最关键的一步。据统计，Data分析师约80%的时间都花在Data清洗上。</p>
+<h3>一、数据清洗概述</h3>
+<p>数据清洗是数据分析流程的第一步，也是最关键的一步。据统计，数据分析师约80%的时间都花在数据清洗上。</p>
 
-<h4>1.1 Data质量的重要性</h4>
+<h4>1.1 数据质量的重要性</h4>
 <ul>
-    <li><b>"垃圾进，垃圾出"</b>：错误的Data会导致错误的分析结果</li>
-    <li><b>决策影响</b>：错误的Data可能导致错误的商业决策</li>
-    <li><b>模型训练</b>：脏Data会降低机器学习模型的准确性</li>
+    <li><b>"垃圾进，垃圾出"</b>：错误的数据会导致错误的分析结果</li>
+    <li><b>决策影响</b>：错误的数据可能导致错误的商业决策</li>
+    <li><b>模型训练</b>：脏数据会降低机器学习模型的准确性</li>
 </ul>
 
-<h3>二、常见Data问题</h3>
+<h3>二、常见数据问题</h3>
 
 <h4>2.1 缺失值</h4>
-<p>Data集中某些字段为空或不存在</p>
+<p>数据集中某些字段为空或不存在</p>
 <ul>
-    <li><b>原因</b>：Data采集遗漏、用户拒绝填写、系统错误</li>
+    <li><b>原因</b>：数据采集遗漏、用户拒绝填写、系统错误</li>
     <li><b>影响</b>：导致统计偏差、模型无法训练</li>
 </ul>
 
 <h4>2.2 异常值</h4>
-<p>与其他Data显著不同的数值</p>
+<p>与其他数据显著不同的数值</p>
 <ul>
-    <li><b>原因</b>：Data录入错误、测量误差、真实异常事件</li>
+    <li><b>原因</b>：数据录入错误、测量误差、真实异常事件</li>
     <li><b>影响</b>：扭曲统计结果、影响模型性能</li>
 </ul>
 
-<h4>2.3 重复Data</h4>
+<h4>2.3 重复数据</h4>
 <p>完全相同或高度相似的记录</p>
 <ul>
-    <li><b>原因</b>：Data重复录入、系统合并错误</li>
+    <li><b>原因</b>：数据重复录入、系统合并错误</li>
     <li><b>影响</b>：统计结果膨胀、分析结果失真</li>
 </ul>
 
-<h4>2.4 Data类型错误</h4>
-<p>Data类型与预期不符</p>
+<h4>2.4 数据类型错误</h4>
+<p>数据类型与预期不符</p>
 <ul>
     <li><b>常见问题</b>：数值存储为字符串、日期格式不一致</li>
     <li><b>影响</b>：无法进行数学运算、比较操作出错</li>
@@ -67,7 +67,7 @@ const projects = [
 <h4>3.3 高级方法</h4>
 <ul>
     <li><b>机器学习填充</b>：用KNN或回归模型预测缺失值</li>
-    <li><b>多重插补</b>：生成多个完整Data集进行分析</li>
+    <li><b>多重插补</b>：生成多个完整数据集进行分析</li>
 </ul>
 
 <h3>四、识别和处理异常值</h3>
@@ -81,28 +81,28 @@ const projects = [
 
 <h4>4.2 Z-score方法</h4>
 <ul>
-    <li><b>步骤</b>：计算每个Data点的Z分数</li>
+    <li><b>步骤</b>：计算每个数据点的Z分数</li>
     <li><b>异常值定义</b>：|Z| > 3（通常阈值）</li>
-    <li><b>优点</b>：适用于正态分布Data</li>
+    <li><b>优点</b>：适用于正态分布数据</li>
     <li><b>缺点</b>：受极端值影响较大</li>
 </ul>
 
 <h4>4.3 可视化方法</h4>
 <ul>
-    <li><b>箱线图</b>：直观展示Data分布和异常值</li>
+    <li><b>箱线图</b>：直观展示数据分布和异常值</li>
     <li><b>散点图</b>：发现离群点</li>
-    <li><b>直方图</b>：观察Data分布形态</li>
+    <li><b>直方图</b>：观察数据分布形态</li>
 </ul>
 
 <h4>4.4 异常值处理策略</h4>
 <ul>
-    <li><b>删除</b>：确认是错误Data时</li>
+    <li><b>删除</b>：确认是错误数据时</li>
     <li><b>替换</b>：用均值、中位数或插值替换</li>
     <li><b>保留</b>：确认真实异常时，作为特殊情况分析</li>
     <li><b>转换</b>：对数转换等方法降低异常值影响</li>
 </ul>
 
-<h3>五、Data类型转换</h3>
+<h3>五、数据类型转换</h3>
 
 <h4>5.1 基本转换</h4>
 <ul>
@@ -118,13 +118,13 @@ const projects = [
     <li><code>df['col'].str.replace(old, new)</code> - 字符串替换</li>
 </ul>
 
-<h3>六、Data清洗工作流程</h3>
+<h3>六、数据清洗工作流程</h3>
 <ol>
-    <li><b>检查Data</b>：查看Data结构、统计摘要</li>
-    <li><b>识别问题</b>：找出缺失值、异常值、重复Data</li>
+    <li><b>检查数据</b>：查看数据结构、统计摘要</li>
+    <li><b>识别问题</b>：找出缺失值、异常值、重复数据</li>
     <li><b>制定策略</b>：根据问题类型选择处理方法</li>
     <li><b>执行清洗</b>：应用清洗操作</li>
-    <li><b>验证结果</b>：检查清洗后的Data质量</li>
+    <li><b>验证结果</b>：检查清洗后的数据质量</li>
     <li><b>记录日志</b>：保存清洗过程和决策</li>
 </ol>
         `,
@@ -155,25 +155,25 @@ const projects = [
         exam: {
             singleChoice: [
                 {
-                    question: "Data清洗通常占Data分析工作的比例约为？",
+                    question: "数据清洗通常占数据分析工作的比例约为？",
                     options: ["20%", "50%", "80%", "95%"],
                     answer: 2
                 },
                 {
-                    question: "以下哪种方法最适合填充偏态分布Data的缺失值？",
+                    question: "以下哪种方法最适合填充偏态分布数据的缺失值？",
                     options: ["均值", "中位数", "众数", "0"],
                     answer: 1
                 },
                 {
-                    question: "Z-score方法适用于哪种Data分布？",
+                    question: "Z-score方法适用于哪种数据分布？",
                     options: ["正态分布", "偏态分布", "均匀分布", "任何分布"],
                     answer: 0
                 }
             ],
             multipleChoice: [
                 {
-                    question: "以下哪些是常见的Data质量问题？（多选）",
-                    options: ["缺失值", "异常值", "重复Data", "Data类型错误"],
+                    question: "以下哪些是常见的数据质量问题？（多选）",
+                    options: ["缺失值", "异常值", "重复数据", "数据类型错误"],
                     answer: [0, 1, 2, 3]
                 },
                 {
@@ -197,67 +197,67 @@ const projects = [
                 }
             ],
             codeQuestion: {
-                question: "编写代码：创建一个包含缺失值的DataFrame，统计各列缺失值数量，并Fill missing values with median",
-                initialCode: "# 请在此处编写代码\nimport pandas as pd\nimport numpy as np\n\n# 创建包含缺失值的DataFrame\n\n\n# 统计各列缺失值数量\n\n\n# Fill missing values with median",
-                solutionCode: "import pandas as pd\nimport numpy as np\n\n# 创建包含缺失值的DataFrame\ndata = {\n    'A': [1, 2, np.nan, 4, 5],\n    'B': [np.nan, 2, 3, np.nan, 5],\n    'C': [1, 2, 3, 4, 5]\n}\ndf = pd.DataFrame(data)\n\n# 统计各列缺失值数量\nprint(\"Missing Values Statistics:\")\nprint(df.isnull().sum())\n\n# Fill missing values with median\ndf_filled = df.fillna(df.median())\nprint(\"\\nFilled Data:\")\nprint(df_filled)"
+                question: "编写代码：创建一个包含缺失值的DataFrame，统计各列缺失值数量，并用中位数填充数值列的缺失值",
+                initialCode: "# 请在此处编写代码\nimport pandas as pd\nimport numpy as np\n\n# 创建包含缺失值的DataFrame\n\n\n# 统计各列缺失值数量\n\n\n# 用中位数填充数值列的缺失值",
+                solutionCode: "import pandas as pd\nimport numpy as np\n\n# 创建包含缺失值的DataFrame\ndata = {\n    'A': [1, 2, np.nan, 4, 5],\n    'B': [np.nan, 2, 3, np.nan, 5],\n    'C': [1, 2, 3, 4, 5]\n}\ndf = pd.DataFrame(data)\n\n# 统计各列缺失值数量\nprint(\"缺失值统计:\")\nprint(df.isnull().sum())\n\n# 用中位数填充数值列的缺失值\ndf_filled = df.fillna(df.median())\nprint(\"\\n填充后的数据:\")\nprint(df_filled)"
             }
         },
         initialCode: "",
         solutionCode: `import pandas as pd
 import numpy as np
 
-# 创建示例Data
+# 创建示例数据
 data = {
-    'Name': ['Alice', 'Bob', 'Charlie', 'David', None, 'Eve'],
-    'Age': [25, np.nan, 30, 35, 28, 200],
-    'Income': [5000, 6000, np.nan, 8000, 7000, 7500]
+    '姓名': ['张三', '李四', '王五', '赵六', None, '孙八'],
+    '年龄': [25, np.nan, 30, 35, 28, 200],
+    '收入': [5000, 6000, np.nan, 8000, 7000, 7500]
 }
 df = pd.DataFrame(data)
-print("Original Data:")
+print("原始数据：")
 print(df)
 print()
 
 # 查看缺失值
-print("Missing Values Statistics:")
+print("缺失值统计：")
 print(df.isnull().sum())
 print()
 
 # 填充缺失值
-df['Age'] = df['Age'].fillna(df['Age'].mean())
-df['Income'] = df['Income'].fillna(df['Income'].median())
-df = df.dropna(subset=['Name'])
+df['年龄'] = df['年龄'].fillna(df['年龄'].mean())
+df['收入'] = df['收入'].fillna(df['收入'].median())
+df = df.dropna(subset=['姓名'])
 
 # 处理异常值
-Q1 = df['Age'].quantile(0.25)
-Q3 = df['Age'].quantile(0.75)
+Q1 = df['年龄'].quantile(0.25)
+Q3 = df['年龄'].quantile(0.75)
 IQR = Q3 - Q1
-df = df[(df['Age'] >= Q1 - 1.5*IQR) & (df['Age'] <= Q3 + 1.5*IQR)]
+df = df[(df['年龄'] >= Q1 - 1.5*IQR) & (df['年龄'] <= Q3 + 1.5*IQR)]
 
-print("Cleaned Data:")
+print("清洗后的数据：")
 print(df)
 `
     },
     {
         id: 2,
-        title: "Data可视化基础",
+        title: "数据可视化基础",
         level: "入门",
         description: "使用 Matplotlib 绘制基础图表",
         theory: `
-<h3>一、Data可视化概述</h3>
-<p>Data可视化是将Data转化为图形或图表的过程，帮助人们理解Data中的模式、趋势和关系。</p>
+<h3>一、数据可视化概述</h3>
+<p>数据可视化是将数据转化为图形或图表的过程，帮助人们理解数据中的模式、趋势和关系。</p>
 
 <h4>1.1 可视化的重要性</h4>
 <ul>
-    <li><b>发现模式</b>：可视化能帮助发现Data中的隐藏模式</li>
+    <li><b>发现模式</b>：可视化能帮助发现数据中的隐藏模式</li>
     <li><b>沟通交流</b>：图表比表格更易于理解和传播</li>
     <li><b>决策支持</b>：帮助决策者快速把握关键信息</li>
-    <li><b>讲故事</b>：通过可视化讲述Data背后的故事</li>
+    <li><b>讲故事</b>：通过可视化讲述数据背后的故事</li>
 </ul>
 
 <h4>1.2 可视化设计原则</h4>
 <ul>
     <li><b>清晰性</b>：避免不必要的装饰，保持简洁</li>
-    <li><b>准确性</b>：Data展示必须准确无误</li>
+    <li><b>准确性</b>：数据展示必须准确无误</li>
     <li><b>一致性</b>：保持颜色、字体、风格的一致性</li>
     <li><b>可读性</b>：确保图表易于阅读和理解</li>
 </ul>
@@ -266,16 +266,16 @@ print(df)
 
 <h4>2.1 折线图 (Line Chart)</h4>
 <ul>
-    <li><b>用途</b>：展示趋势变化、时间序列Data</li>
-    <li><b>特点</b>：适合展示连续Data的变化趋势</li>
+    <li><b>用途</b>：展示趋势变化、时间序列数据</li>
+    <li><b>特点</b>：适合展示连续数据的变化趋势</li>
     <li><b>示例场景</b>：股票价格走势、销售趋势、温度变化</li>
 </ul>
 
 <h4>2.2 柱状图 (Bar Chart)</h4>
 <ul>
-    <li><b>用途</b>：比较不同类别的Data</li>
-    <li><b>特点</b>：适合离散Data的比较</li>
-    <li><b>示例场景</b>：各部门Revenue对比、不同ProductSales比较</li>
+    <li><b>用途</b>：比较不同类别的数据</li>
+    <li><b>特点</b>：适合离散数据的比较</li>
+    <li><b>示例场景</b>：各部门销售额对比、不同产品销量比较</li>
     <li><b>变种</b>：水平柱状图、堆叠柱状图、分组柱状图</li>
 </ul>
 
@@ -283,31 +283,31 @@ print(df)
 <ul>
     <li><b>用途</b>：展示两个变量之间的关系</li>
     <li><b>特点</b>：可以发现变量间的相关性</li>
-    <li><b>示例场景</b>：身高与体重的关系、广告投入与Revenue</li>
+    <li><b>示例场景</b>：身高与体重的关系、广告投入与销售额</li>
     <li><b>颜色编码</b>：可使用颜色表示第三个变量</li>
 </ul>
 
 <h4>2.4 直方图 (Histogram)</h4>
 <ul>
-    <li><b>用途</b>：展示Data的分布情况</li>
-    <li><b>特点</b>：将Data分组，显示每组的频数</li>
-    <li><b>示例场景</b>：学生成绩分布、Income分布</li>
-    <li><b>注意</b>：与柱状图的区别在于直方图展示连续Data</li>
+    <li><b>用途</b>：展示数据的分布情况</li>
+    <li><b>特点</b>：将数据分组，显示每组的频数</li>
+    <li><b>示例场景</b>：学生成绩分布、收入分布</li>
+    <li><b>注意</b>：与柱状图的区别在于直方图展示连续数据</li>
 </ul>
 
 <h4>2.5 饼图 (Pie Chart)</h4>
 <ul>
     <li><b>用途</b>：展示各部分占总体的比例</li>
-    <li><b>特点</b>：适合展示百分比Data</li>
+    <li><b>特点</b>：适合展示百分比数据</li>
     <li><b>示例场景</b>：市场份额、人口构成、费用占比</li>
     <li><b>注意</b>：类别不宜过多（建议不超过7个）</li>
 </ul>
 
 <h4>2.6 箱线图 (Box Plot)</h4>
 <ul>
-    <li><b>用途</b>：展示Data的分布和异常值</li>
+    <li><b>用途</b>：展示数据的分布和异常值</li>
     <li><b>特点</b>：显示五数概括（最小值、Q1、中位数、Q3、最大值）</li>
-    <li><b>示例场景</b>：比较不同组Data的分布、识别异常值</li>
+    <li><b>示例场景</b>：比较不同组数据的分布、识别异常值</li>
 </ul>
 
 <h3>三、Matplotlib基础</h3>
@@ -328,7 +328,7 @@ print(df)
 <ul>
     <li><b>color</b>：线条/填充颜色</li>
     <li><b>linestyle</b>：线条样式（'-', '--', '-.', ':'）</li>
-    <li><b>marker</b>：Data点标记（'o', 's', '^', '*'）</li>
+    <li><b>marker</b>：数据点标记（'o', 's', '^', '*'）</li>
     <li><b>alpha</b>：透明度（0-1）</li>
     <li><b>label</b>：图例标签</li>
 </ul>
@@ -346,7 +346,7 @@ print(df)
 <ul>
     <li><b>使用预定义配色方案</b>：plt.style.use('seaborn')</li>
     <li><b>使用颜色映射</b>：cmap参数</li>
-    <li><b>保持颜色一致性</b>：同一类Data使用相同颜色</li>
+    <li><b>保持颜色一致性</b>：同一类数据使用相同颜色</li>
 </ul>
 
 <h4>4.2 添加注释和标注</h4>
@@ -365,7 +365,7 @@ print(df)
 
 <h3>五、实战建议</h3>
 <ul>
-    <li><b>选择合适的图表类型</b>：根据Data类型和分析目的选择</li>
+    <li><b>选择合适的图表类型</b>：根据数据类型和分析目的选择</li>
     <li><b>避免图表过载</b>：一个图表只展示一个核心信息</li>
     <li><b>添加必要的注释</b>：帮助读者理解图表内容</li>
     <li><b>测试不同的配色方案</b>：确保图表在不同场景下都可读</li>
@@ -376,7 +376,7 @@ print(df)
             "创建包含两个系列的折线图",
             "绘制柱状图比较不同类别",
             "制作散点图展示相关关系",
-            "绘制直方图展示Data分布"
+            "绘制直方图展示数据分布"
         ],
         quiz: [
             {
@@ -393,12 +393,12 @@ print(df)
         exam: {
             singleChoice: [
                 {
-                    question: "展示时间序列Data的趋势变化，最合适的图表类型是？",
+                    question: "展示时间序列数据的趋势变化，最合适的图表类型是？",
                     options: ["柱状图", "折线图", "饼图", "直方图"],
                     answer: 1
                 },
                 {
-                    question: "以下哪种图表适合展示Data的分布情况？",
+                    question: "以下哪种图表适合展示数据的分布情况？",
                     options: ["折线图", "饼图", "直方图", "散点图"],
                     answer: 2
                 },
@@ -430,21 +430,21 @@ print(df)
                     answer: true
                 },
                 {
-                    question: "饼图适合展示超过10个类别的Data",
+                    question: "饼图适合展示超过10个类别的数据",
                     answer: false
                 }
             ],
             codeQuestion: {
                 question: "编写代码：创建一个包含三条曲线的折线图，每条曲线使用不同颜色和标记，并添加标题、坐标轴标签和图例",
-                initialCode: "# 请在此处编写代码\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建Data\n\n\n# 绘制三条曲线\n\n\n# 添加标题和标签\n\n\n# 添加图例\n\n\n# 保存图表",
-                solutionCode: "import matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建Data\nx = np.linspace(0, 10, 100)\ny1 = np.sin(x)\ny2 = np.cos(x)\ny3 = np.tan(x) * 0.1\n\n# 绘制三条曲线\nplt.figure(figsize=(10, 6))\nplt.plot(x, y1, label='sin(x)', color='blue', marker='o', markersize=3)\nplt.plot(x, y2, label='cos(x)', color='red', marker='s', markersize=3)\nplt.plot(x, y3, label='tan(x)*0.1', color='green', marker='^', markersize=3)\n\n# 添加标题和标签\nplt.title('Trigonometric Function Curves', fontsize=14)\nplt.xlabel('X-axis', fontsize=12)\nplt.ylabel('Y-axis', fontsize=12)\n\n# 添加图例\nplt.legend(fontsize=12)\n\n# 添加网格\nplt.grid(True, alpha=0.3)\n\n# 保存图表\nplt.savefig('trig_plot.png', dpi=150, bbox_inches='tight')\nprint(\"Chart saved as trig_plot.png\")"
+                initialCode: "# 请在此处编写代码\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建数据\n\n\n# 绘制三条曲线\n\n\n# 添加标题和标签\n\n\n# 添加图例\n\n\n# 保存图表",
+                solutionCode: "import matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建数据\nx = np.linspace(0, 10, 100)\ny1 = np.sin(x)\ny2 = np.cos(x)\ny3 = np.tan(x) * 0.1\n\n# 绘制三条曲线\nplt.figure(figsize=(10, 6))\nplt.plot(x, y1, label='sin(x)', color='blue', marker='o', markersize=3)\nplt.plot(x, y2, label='cos(x)', color='red', marker='s', markersize=3)\nplt.plot(x, y3, label='tan(x)*0.1', color='green', marker='^', markersize=3)\n\n# 添加标题和标签\nplt.title('三角函数曲线', fontsize=14)\nplt.xlabel('X轴', fontsize=12)\nplt.ylabel('Y轴', fontsize=12)\n\n# 添加图例\nplt.legend(fontsize=12)\n\n# 添加网格\nplt.grid(True, alpha=0.3)\n\n# 保存图表\nplt.savefig('trig_plot.png', dpi=150, bbox_inches='tight')\nprint(\"图表已保存为 trig_plot.png\")"
             }
         },
         initialCode: "",
         solutionCode: `import matplotlib.pyplot as plt
 import numpy as np
 
-# 创建Data
+# 创建数据
 x = np.linspace(0, 10, 100)
 y1 = np.sin(x)
 y2 = np.cos(x)
@@ -455,7 +455,7 @@ plt.figure(figsize=(12, 8))
 plt.subplot(2, 2, 1)
 plt.plot(x, y1, label='sin(x)', color='blue')
 plt.plot(x, y2, label='cos(x)', color='red', linestyle='--')
-plt.title('Trigonometric Function Curves')
+plt.title('三角函数曲线')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.legend()
@@ -486,7 +486,7 @@ plt.title('正态分布直方图')
 
 plt.tight_layout()
 plt.savefig('visualization.png', dpi=150)
-print("Chart saved as visualization.png")
+print("图表已保存为 visualization.png")
 `
     },
     {
@@ -496,19 +496,19 @@ print("Chart saved as visualization.png")
         description: "学习描述性统计和基础推断统计",
         theory: `
 <h3>一、统计学概述</h3>
-<p>统计学是研究Data收集、整理、分析和解释的科学，是Data分析的核心基础。</p>
+<p>统计学是研究数据收集、整理、分析和解释的科学，是数据分析的核心基础。</p>
 
 <h4>1.1 统计学的重要性</h4>
 <ul>
-    <li><b>Data理解</b>：帮助理解Data的特征和规律</li>
+    <li><b>数据理解</b>：帮助理解数据的特征和规律</li>
     <li><b>决策支持</b>：为决策提供量化依据</li>
-    <li><b>预测未来</b>：基于历史Data预测未来趋势</li>
+    <li><b>预测未来</b>：基于历史数据预测未来趋势</li>
     <li><b>假设检验</b>：验证假设是否成立</li>
 </ul>
 
 <h4>1.2 统计学分类</h4>
 <ul>
-    <li><b>描述性统计</b>：总结和描述Data的基本特征</li>
+    <li><b>描述性统计</b>：总结和描述数据的基本特征</li>
     <li><b>推断性统计</b>：从样本推断总体特征</li>
 </ul>
 
@@ -518,26 +518,26 @@ print("Chart saved as visualization.png")
 
 <h5>均值 (Mean)</h5>
 <ul>
-    <li><b>定义</b>：所有Data值的总和除以Data个数</li>
+    <li><b>定义</b>：所有数据值的总和除以数据个数</li>
     <li><b>公式</b>：μ = (x₁ + x₂ + ... + xₙ) / n</li>
-    <li><b>优点</b>：利用所有Data信息</li>
+    <li><b>优点</b>：利用所有数据信息</li>
     <li><b>缺点</b>：受极端值影响较大</li>
-    <li><b>适用场景</b>：Data分布对称，无极端值</li>
+    <li><b>适用场景</b>：数据分布对称，无极端值</li>
 </ul>
 
 <h5>中位数 (Median)</h5>
 <ul>
-    <li><b>定义</b>：将Data排序后位于中间位置的值</li>
+    <li><b>定义</b>：将数据排序后位于中间位置的值</li>
     <li><b>计算</b>：n为奇数时取中间值，n为偶数时取中间两个值的平均</li>
     <li><b>优点</b>：不受极端值影响</li>
-    <li><b>适用场景</b>：Data存在极端值或偏态分布</li>
+    <li><b>适用场景</b>：数据存在极端值或偏态分布</li>
 </ul>
 
 <h5>众数 (Mode)</h5>
 <ul>
     <li><b>定义</b>：出现次数最多的值</li>
     <li><b>特点</b>：可以有多个众数，也可能没有众数</li>
-    <li><b>适用场景</b>：分类Data或离散Data</li>
+    <li><b>适用场景</b>：分类数据或离散数据</li>
 </ul>
 
 <h4>2.2 离散程度度量</h4>
@@ -546,22 +546,22 @@ print("Chart saved as visualization.png")
 <ul>
     <li><b>定义</b>：最大值与最小值之差</li>
     <li><b>公式</b>：Range = max(x) - min(x)</li>
-    <li><b>缺点</b>：只考虑两个极端值，忽略中间Data</li>
+    <li><b>缺点</b>：只考虑两个极端值，忽略中间数据</li>
 </ul>
 
 <h5>方差 (Variance)</h5>
 <ul>
-    <li><b>定义</b>：各Data与均值差的平方的平均值</li>
+    <li><b>定义</b>：各数据与均值差的平方的平均值</li>
     <li><b>公式</b>：σ² = Σ(xᵢ - μ)² / n</li>
-    <li><b>特点</b>：单位是Data单位的平方</li>
+    <li><b>特点</b>：单位是数据单位的平方</li>
 </ul>
 
 <h5>标准差 (Standard Deviation)</h5>
 <ul>
     <li><b>定义</b>：方差的平方根</li>
     <li><b>公式</b>：σ = √(σ²)</li>
-    <li><b>特点</b>：单位与Data单位相同，更易理解</li>
-    <li><b>解释</b>：约68%的Data在均值±1σ范围内</li>
+    <li><b>特点</b>：单位与数据单位相同，更易理解</li>
+    <li><b>解释</b>：约68%的数据在均值±1σ范围内</li>
 </ul>
 
 <h5>四分位距 (IQR)</h5>
@@ -575,7 +575,7 @@ print("Chart saved as visualization.png")
 
 <h5>偏度 (Skewness)</h5>
 <ul>
-    <li><b>定义</b>：衡量Data分布的不对称程度</li>
+    <li><b>定义</b>：衡量数据分布的不对称程度</li>
     <li><b>左偏 (负偏)</b>：均值 < 中位数，长尾在左侧</li>
     <li><b>右偏 (正偏)</b>：均值 > 中位数，长尾在右侧</li>
     <li><b>对称</b>：偏度接近0</li>
@@ -583,9 +583,9 @@ print("Chart saved as visualization.png")
 
 <h5>峰度 (Kurtosis)</h5>
 <ul>
-    <li><b>定义</b>：衡量Data分布的峰态</li>
-    <li><b>尖峰</b>：峰度 > 0，Data集中在均值附近</li>
-    <li><b>平峰</b>：峰度 < 0，Data分布较为分散</li>
+    <li><b>定义</b>：衡量数据分布的峰态</li>
+    <li><b>尖峰</b>：峰度 > 0，数据集中在均值附近</li>
+    <li><b>平峰</b>：峰度 < 0，数据分布较为分散</li>
     <li><b>正态分布</b>：峰度 = 0</li>
 </ul>
 
@@ -603,7 +603,7 @@ print("Chart saved as visualization.png")
 <ul>
     <li><b>特点</b>：独立重复试验，只有两种结果</li>
     <li><b>参数</b>：试验次数(n)，成功概率(p)</li>
-    <li><b>应用</b>：抛硬币、Product检验等</li>
+    <li><b>应用</b>：抛硬币、产品检验等</li>
 </ul>
 
 <h4>3.3 泊松分布 (Poisson Distribution)</h4>
@@ -639,7 +639,7 @@ print("Chart saved as visualization.png")
 <ul>
     <li><b>原假设 (H₀)</b>：待检验的假设</li>
     <li><b>备择假设 (H₁)</b>：与原假设对立的假设</li>
-    <li><b>P值</b>：在原假设成立时，观察到当前Data或更极端Data的概率</li>
+    <li><b>P值</b>：在原假设成立时，观察到当前数据或更极端数据的概率</li>
     <li><b>决策</b>：P值 < α（通常0.05）则拒绝原假设</li>
 </ul>
 
@@ -681,10 +681,10 @@ print("Chart saved as visualization.png")
 </ul>
         `,
         exercises: [
-            "生成一组随机Data",
+            "生成一组随机数据",
             "计算各项描述性统计指标",
-            "计算两组Data的相关系数",
-            "绘制Data的直方图",
+            "计算两组数据的相关系数",
+            "绘制数据的直方图",
             "计算置信区间"
         ],
         quiz: [
@@ -707,17 +707,17 @@ print("Chart saved as visualization.png")
         exam: {
             singleChoice: [
                 {
-                    question: "描述Data集中趋势的指标不包括？",
+                    question: "描述数据集中趋势的指标不包括？",
                     options: ["均值", "中位数", "标准差", "众数"],
                     answer: 2
                 },
                 {
-                    question: "当Data存在极端值时，最好使用哪个指标表示集中趋势？",
+                    question: "当数据存在极端值时，最好使用哪个指标表示集中趋势？",
                     options: ["均值", "中位数", "众数", "标准差"],
                     answer: 1
                 },
                 {
-                    question: "正态分布中，约多少Data在均值±1标准差范围内？",
+                    question: "正态分布中，约多少数据在均值±1标准差范围内？",
                     options: ["50%", "68%", "95%", "99.7%"],
                     answer: 1
                 }
@@ -744,7 +744,7 @@ print("Chart saved as visualization.png")
                     answer: false
                 },
                 {
-                    question: "中心极限定理只适用于正态分布Data",
+                    question: "中心极限定理只适用于正态分布数据",
                     answer: false
                 }
             ],
@@ -758,7 +758,7 @@ print("Chart saved as visualization.png")
         solutionCode: `import numpy as np
 import pandas as pd
 
-# 生成示例Data
+# 生成示例数据
 np.random.seed(42)
 data1 = np.random.normal(100, 15, 1000)
 data2 = np.random.normal(80, 10, 1000)
@@ -797,40 +797,40 @@ print(df.describe())
     },
     {
         id: 4,
-        title: "PandasData处理",
+        title: "Pandas数据处理",
         level: "入门",
         description: "掌握 Pandas 的核心操作",
         theory: `
 <h3>一、Pandas概述</h3>
-<p>Pandas是PythonData分析的核心库，提供高性能、易用的Data结构和Data分析工具。</p>
+<p>Pandas是Python数据分析的核心库，提供高性能、易用的数据结构和数据分析工具。</p>
 
 <h4>1.1 Pandas的特点</h4>
 <ul>
-    <li><b>强大的Data结构</b>：DataFrame和Series</li>
-    <li><b>Data处理能力</b>：清洗、转换、聚合</li>
-    <li><b>Data读取</b>：支持多种格式（CSV、Excel、SQL等）</li>
+    <li><b>强大的数据结构</b>：DataFrame和Series</li>
+    <li><b>数据处理能力</b>：清洗、转换、聚合</li>
+    <li><b>数据读取</b>：支持多种格式（CSV、Excel、SQL等）</li>
     <li><b>高性能</b>：基于NumPy，处理效率高</li>
 </ul>
 
-<h3>二、核心Data结构</h3>
+<h3>二、核心数据结构</h3>
 
 <h4>2.1 Series</h4>
 <ul>
     <li><b>定义</b>：一维带标签的数组</li>
-    <li><b>特点</b>：可以存储任意Data类型</li>
+    <li><b>特点</b>：可以存储任意数据类型</li>
     <li><b>创建</b>：pd.Series(data, index=labels)</li>
     <li><b>索引</b>：可以通过标签或位置访问</li>
 </ul>
 
 <h4>2.2 DataFrame</h4>
 <ul>
-    <li><b>定义</b>：二维表格Data结构</li>
+    <li><b>定义</b>：二维表格数据结构</li>
     <li><b>特点</b>：行和列都有标签</li>
     <li><b>创建</b>：pd.DataFrame(data, index, columns)</li>
     <li><b>组成</b>：多个Series组成</li>
 </ul>
 
-<h3>三、Data读取与写入</h3>
+<h3>三、数据读取与写入</h3>
 
 <h4>3.1 读取CSV文件</h4>
 <ul>
@@ -853,15 +853,15 @@ print(df.describe())
     <li><code>df.to_csv('output.csv', index=False)</code> - 不写入索引</li>
 </ul>
 
-<h3>四、Data查看与探索</h3>
+<h3>四、数据查看与探索</h3>
 
 <h4>4.1 基本信息</h4>
 <ul>
     <li><code>df.head()</code> - 查看前几行（默认5行）</li>
     <li><code>df.tail()</code> - 查看后几行</li>
-    <li><code>df.shape</code> - Data形状（行数,列数）</li>
-    <li><code>df.info()</code> - Data类型和非空值信息</li>
-    <li><code>df.dtypes</code> - 各列Data类型</li>
+    <li><code>df.shape</code> - 数据形状（行数,列数）</li>
+    <li><code>df.info()</code> - 数据类型和非空值信息</li>
+    <li><code>df.dtypes</code> - 各列数据类型</li>
     <li><code>df.columns</code> - 列名</li>
     <li><code>df.index</code> - 索引</li>
 </ul>
@@ -874,7 +874,7 @@ print(df.describe())
     <li><code>df.sum()</code> - 各列求和</li>
 </ul>
 
-<h3>五、Data选择与筛选</h3>
+<h3>五、数据选择与筛选</h3>
 
 <h4>5.1 选择列</h4>
 <ul>
@@ -897,7 +897,7 @@ print(df.describe())
     <li><code>df[df['列'].isin(['A', 'B', 'C'])]</code> - 包含在列表中</li>
 </ul>
 
-<h3>六、Data处理</h3>
+<h3>六、数据处理</h3>
 
 <h4>6.1 缺失值处理</h4>
 <ul>
@@ -907,7 +907,7 @@ print(df.describe())
     <li><code>df.fillna(value)</code> - 填充缺失值</li>
 </ul>
 
-<h4>6.2 Data类型转换</h4>
+<h4>6.2 数据类型转换</h4>
 <ul>
     <li><code>df.astype('int')</code> - 转换为整数</li>
     <li><code>pd.to_datetime(df['date'])</code> - 转换为日期</li>
@@ -925,7 +925,7 @@ print(df.describe())
     <li><code>df.drop(['列1', '列2'], axis=1)</code> - 删除多列</li>
 </ul>
 
-<h3>七、Data分组与聚合</h3>
+<h3>七、数据分组与聚合</h3>
 
 <h4>7.1 分组操作</h4>
 <ul>
@@ -941,7 +941,7 @@ print(df.describe())
     <li><code>df.groupby('列').agg({'列1': 'sum', '列2': 'mean'})</code> - 多函数聚合</li>
 </ul>
 
-<h3>八、Data合并</h3>
+<h3>八、数据合并</h3>
 
 <h4>8.1 连接操作</h4>
 <ul>
@@ -957,7 +957,7 @@ print(df.describe())
     <li><code>pd.concat([df1, df2], axis=1)</code> - 横向拼接</li>
 </ul>
 
-<h3>九、Data排序</h3>
+<h3>九、数据排序</h3>
 
 <h4>9.1 按列排序</h4>
 <ul>
@@ -968,7 +968,7 @@ print(df.describe())
 
 <h3>十、实战技巧</h3>
 
-<h4>10.1 处理大型Data集</h4>
+<h4>10.1 处理大型数据集</h4>
 <ul>
     <li><code>pd.read_csv('file.csv', chunksize=10000)</code> - 分块读取</li>
     <li><code>df.memory_usage()</code> - 检查内存使用</li>
@@ -977,16 +977,16 @@ print(df.describe())
 <h4>10.2 性能优化</h4>
 <ul>
     <li>使用向量化操作代替循环</li>
-    <li>选择合适的Data类型（如category类型）</li>
+    <li>选择合适的数据类型（如category类型）</li>
     <li>使用query()方法进行复杂筛选</li>
 </ul>
         `,
         exercises: [
             "创建一个 DataFrame",
             "选择特定的行和列",
-            "按条件筛选Data",
+            "按条件筛选数据",
             "进行分组聚合操作",
-            "对Data进行排序"
+            "对数据进行排序"
         ],
         quiz: [
             {
@@ -1008,7 +1008,7 @@ print(df.describe())
         exam: {
             singleChoice: [
                 {
-                    question: "Pandas中最常用的二维Data结构是？",
+                    question: "Pandas中最常用的二维数据结构是？",
                     options: ["Series", "Array", "DataFrame", "Matrix"],
                     answer: 2
                 },
@@ -1030,14 +1030,14 @@ print(df.describe())
                     answer: [0, 1, 2, 3]
                 },
                 {
-                    question: "以下哪些是有效的Data筛选方法？（多选）",
+                    question: "以下哪些是有效的数据筛选方法？（多选）",
                     options: ["df[df['col'] > 10]", "df.loc[0:5]", "df.iloc[0]", "df.query('col > 10')"],
                     answer: [0, 1, 2, 3]
                 }
             ],
             trueFalse: [
                 {
-                    question: "Series是一维Data结构",
+                    question: "Series是一维数据结构",
                     answer: true
                 },
                 {
@@ -1050,22 +1050,22 @@ print(df.describe())
                 }
             ],
             codeQuestion: {
-                question: "编写代码：创建一个销售DataFrame，包含Product、Region、Sales、Price列，计算Revenue，按Product分组统计总Sales和总Revenue，并按Revenue降序排序",
-                initialCode: "# 请在此处编写代码\nimport pandas as pd\nimport numpy as np\n\n# 创建销售DataFrame\n\n\n# 计算Revenue\n\n\n# 按Product分组统计\n\n\n# 按Revenue降序排序",
-                solutionCode: "import pandas as pd\nimport numpy as np\n\n# 创建销售DataFrame\nnp.random.seed(42)\ndata = {\n    'Product': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'A', 'B', 'C'],\n    'Region': ['East', 'West', 'East', 'South', 'West', 'North', 'South', 'East', 'West', 'North'],\n    'Sales': np.random.randint(100, 500, 10),\n    'Price': np.random.uniform(10, 100, 10).round(2)\n}\ndf = pd.DataFrame(data)\n\n# 计算Revenue\ndf['Revenue'] = df['Sales'] * df['Price']\n\n# 按Product分组统计\nresult = df.groupby('Product').agg({\n    'Sales': 'sum',\n    'Revenue': 'sum'\n}).round(2)\n\n# 按Revenue降序排序\nresult = result.sort_values('Revenue', ascending=False)\n\nprint(\"Grouping Statistics:\")\nprint(result)"
+                question: "编写代码：创建一个销售DataFrame，包含产品、区域、销量、单价列，计算销售额，按产品分组统计总销量和总销售额，并按销售额降序排序",
+                initialCode: "# 请在此处编写代码\nimport pandas as pd\nimport numpy as np\n\n# 创建销售DataFrame\n\n\n# 计算销售额\n\n\n# 按产品分组统计\n\n\n# 按销售额降序排序",
+                solutionCode: "import pandas as pd\nimport numpy as np\n\n# 创建销售DataFrame\nnp.random.seed(42)\ndata = {\n    'Product': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'A', 'B', 'C'],\n    'Region': ['East', 'West', 'East', 'South', 'West', 'North', 'South', 'East', 'West', 'North'],\n    'Sales': np.random.randint(100, 500, 10),\n    'Price': np.random.uniform(10, 100, 10).round(2)\n}\ndf = pd.DataFrame(data)\n\n# 计算销售额\ndf['Revenue'] = df['Sales'] * df['Price']\n\n# 按产品分组统计\nresult = df.groupby('Product').agg({\n    'Sales': 'sum',\n    'Revenue': 'sum'\n}).round(2)\n\n# 按销售额降序排序\nresult = result.sort_values('Revenue', ascending=False)\n\nprint(\"Grouping Statistics:\")\nprint(result)"
             }
         },
         initialCode: "",
         solutionCode: `import pandas as pd
 import numpy as np
 
-# 创建销售Data
+# 创建销售数据
 np.random.seed(42)
 data = {
-    'Product': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'A', 'B', 'C'],
-    'Region': ['东', '西', '东', '南', '西', '北', '南', '东', '西', '北'],
-    'Sales': np.random.randint(100, 500, 10),
-    'Price': np.random.uniform(10, 100, 10).round(2)
+    '产品': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'A', 'B', 'C'],
+    '区域': ['东', '西', '东', '南', '西', '北', '南', '东', '西', '北'],
+    '销量': np.random.randint(100, 500, 10),
+    '单价': np.random.uniform(10, 100, 10).round(2)
 }
 
 df = pd.DataFrame(data)
@@ -1079,7 +1079,7 @@ print(f"Shape: {df.shape}")
 print(f"Columns: {df.columns.tolist()}")
 print()
 
-# 2. Data选择
+# 2. 数据选择
 print("【Select Product and Sales Columns】")
 print(df[['Product', 'Sales']].head())
 print()
@@ -1090,7 +1090,7 @@ filter_df = df[(df['Product'] == 'A') & (df['Sales'] > 200)]
 print(filter_df)
 print()
 
-# 4. 计算Revenue
+# 4. 计算销售额
 df['Revenue'] = df['Sales'] * df['Price']
 print("【Add Revenue Column】")
 print(df[['Product', 'Sales', 'Price', 'Revenue']])
@@ -1120,7 +1120,7 @@ print(df.sort_values('Revenue', ascending=False).head())
 
 <h4>1.1 热力图 (Heatmap)</h4>
 <ul>
-    <li><b>用途</b>：展示矩阵Data的颜色编码</li>
+    <li><b>用途</b>：展示矩阵数据的颜色编码</li>
     <li><b>函数</b>：<code>plt.imshow()</code> 或 Seaborn 的 <code>sns.heatmap()</code></li>
     <li><b>应用场景</b>：相关矩阵、混淆矩阵、热力分布图</li>
     <li><b>关键参数</b>：cmap（颜色映射）、vmin/vmax（颜色范围）、annot（标注数值）</li>
@@ -1128,25 +1128,25 @@ print(df.sort_values('Revenue', ascending=False).head())
 
 <h4>1.2 等高线图 (Contour Plot)</h4>
 <ul>
-    <li><b>用途</b>：展示三维Data的等高线</li>
+    <li><b>用途</b>：展示三维数据的等高线</li>
     <li><b>函数</b>：<code>plt.contour()</code>（轮廓线）、<code>plt.contourf()</code>（填充）</li>
     <li><b>应用场景</b>：地形高度、温度分布、密度图</li>
 </ul>
 
 <h4>1.3 小提琴图 (Violin Plot)</h4>
 <ul>
-    <li><b>用途</b>：展示Data分布的形状</li>
+    <li><b>用途</b>：展示数据分布的形状</li>
     <li><b>函数</b>：<code>plt.violinplot()</code> 或 <code>sns.violinplot()</code></li>
     <li><b>特点</b>：结合箱线图和核密度估计</li>
-    <li><b>应用场景</b>：比较多组Data的分布</li>
+    <li><b>应用场景</b>：比较多组数据的分布</li>
 </ul>
 
 <h4>1.4 误差棒图 (Error Bar)</h4>
 <ul>
-    <li><b>用途</b>：展示Data的不确定性</li>
+    <li><b>用途</b>：展示数据的不确定性</li>
     <li><b>函数</b>：<code>plt.errorbar()</code></li>
     <li><b>参数</b>：yerr（误差值）、capsize（误差帽大小）、fmt（线条格式）</li>
-    <li><b>应用场景</b>：科学实验Data、统计置信区间</li>
+    <li><b>应用场景</b>：科学实验数据、统计置信区间</li>
 </ul>
 
 <h3>二、子图布局</h3>
@@ -1166,9 +1166,9 @@ print(df.sort_values('Revenue', ascending=False).head())
 
 <h4>2.3 子图共享轴</h4>
 <ul>
-    <li><code>plt.subplots(sharex=True)</code> - 共享X-axis</li>
-    <li><code>plt.subplots(sharey=True)</code> - 共享Y-axis</li>
-    <li><code>plt.subplots(sharex='col')</code> - 按列共享X-axis</li>
+    <li><code>plt.subplots(sharex=True)</code> - 共享X轴</li>
+    <li><code>plt.subplots(sharey=True)</code> - 共享Y轴</li>
+    <li><code>plt.subplots(sharex='col')</code> - 按列共享X轴</li>
 </ul>
 
 <h3>三、颜色和样式</h3>
@@ -1229,20 +1229,20 @@ print(df.sort_values('Revenue', ascending=False).head())
     <li><code>plt.legend(ncol=2)</code> - 多列显示</li>
 </ul>
 
-<h4>5.2 参考线和Region</h4>
+<h4>5.2 参考线和区域</h4>
 <ul>
     <li><code>plt.axhline(y, color='r')</code> - 水平参考线</li>
     <li><code>plt.axvline(x, color='r')</code> - 垂直参考线</li>
-    <li><code>plt.axhspan(ymin, ymax, alpha=0.2)</code> - 水平阴影Region</li>
-    <li><code>plt.axvspan(xmin, xmax, alpha=0.2)</code> - 垂直阴影Region</li>
+    <li><code>plt.axhspan(ymin, ymax, alpha=0.2)</code> - 水平阴影区域</li>
+    <li><code>plt.axvspan(xmin, xmax, alpha=0.2)</code> - 垂直阴影区域</li>
 </ul>
 
 <h3>六、坐标轴设置</h3>
 
 <h4>6.1 设置范围</h4>
 <ul>
-    <li><code>plt.xlim(min, max)</code> - 设置X-axis范围</li>
-    <li><code>plt.ylim(min, max)</code> - 设置Y-axis范围</li>
+    <li><code>plt.xlim(min, max)</code> - 设置X轴范围</li>
+    <li><code>plt.ylim(min, max)</code> - 设置Y轴范围</li>
 </ul>
 
 <h4>6.2 设置刻度</h4>
@@ -1252,10 +1252,10 @@ print(df.sort_values('Revenue', ascending=False).head())
     <li><code>plt.tick_params(axis='both', labelsize=12)</code> - 设置刻度参数</li>
 </ul>
 
-<h4>6.3 双Y-axis</h4>
+<h4>6.3 双Y轴</h4>
 <ul>
-    <li><code>ax2 = ax1.twinx()</code> - 创建双Y-axis</li>
-    <li><b>应用场景</b>：同时展示两个不同尺度的Data</li>
+    <li><code>ax2 = ax1.twinx()</code> - 创建双Y轴</li>
+    <li><b>应用场景</b>：同时展示两个不同尺度的数据</li>
 </ul>
 
 <h3>七、3D绘图</h3>
@@ -1368,7 +1368,7 @@ print(df.sort_values('Revenue', ascending=False).head())
         solutionCode: `import matplotlib.pyplot as plt
 import numpy as np
 
-# 创建Data
+# 创建数据
 x = np.linspace(0, 10, 100)
 y1 = np.sin(x)
 y2 = np.cos(x)
@@ -1415,7 +1415,7 @@ print("Chart saved as advanced_visualization.png")
         description: "学习统计假设检验方法",
         theory: `
 <h3>一、假设检验概述</h3>
-<p>假设检验是推断性统计的核心方法，用于判断样本Data是否支持对总体的某种假设。</p>
+<p>假设检验是推断性统计的核心方法，用于判断样本数据是否支持对总体的某种假设。</p>
 
 <h4>1.1 基本概念</h4>
 <ul>
@@ -1453,21 +1453,21 @@ print("Chart saved as advanced_visualization.png")
 <h4>3.1 单样本t检验</h4>
 <ul>
     <li><b>用途</b>：检验样本均值是否等于已知总体均值</li>
-    <li><b>前提</b>：Data近似正态分布</li>
+    <li><b>前提</b>：数据近似正态分布</li>
     <li><b>SciPy函数</b>：<code>scipy.stats.ttest_1samp(data, popmean)</code></li>
 </ul>
 
 <h4>3.2 两独立样本t检验</h4>
 <ul>
     <li><b>用途</b>：比较两个独立组的均值是否有显著差异</li>
-    <li><b>前提</b>：两组Data均近似正态分布，方差相等或不等</li>
+    <li><b>前提</b>：两组数据均近似正态分布，方差相等或不等</li>
     <li><b>SciPy函数</b>：<code>scipy.stats.ttest_ind(group1, group2)</code></li>
 </ul>
 
 <h4>3.3 配对样本t检验</h4>
 <ul>
     <li><b>用途</b>：比较同一组样本在两个时间点或条件下的差异</li>
-    <li><b>前提</b>：配对Data的差值近似正态分布</li>
+    <li><b>前提</b>：配对数据的差值近似正态分布</li>
     <li><b>SciPy函数</b>：<code>scipy.stats.ttest_rel(before, after)</code></li>
 </ul>
 
@@ -1504,9 +1504,9 @@ print("Chart saved as advanced_visualization.png")
 
 <h4>5.1 适用场景</h4>
 <ul>
-    <li><b>Data不满足正态分布</b></li>
+    <li><b>数据不满足正态分布</b></li>
     <li><b>样本量较小</b></li>
-    <li><b>有序分类Data</b></li>
+    <li><b>有序分类数据</b></li>
 </ul>
 
 <h4>5.2 常用非参数检验</h4>
@@ -1518,7 +1518,7 @@ print("Chart saved as advanced_visualization.png")
         `,
         exercises: [
             "进行单样本t检验",
-            "比较两组Data的均值差异",
+            "比较两组数据的均值差异",
             "执行卡方独立性检验",
             "进行单因素方差分析",
             "选择合适的检验方法并解释结果"
@@ -1566,7 +1566,7 @@ print("Chart saved as advanced_visualization.png")
                 },
                 {
                     question: "非参数检验适用于哪些情况？（多选）",
-                    options: ["Data不满足正态分布", "样本量较小", "有序分类Data", "连续型Data"],
+                    options: ["数据不满足正态分布", "样本量较小", "有序分类数据", "连续型数据"],
                     answer: [0, 1, 2]
                 }
             ],
@@ -1580,14 +1580,14 @@ print("Chart saved as advanced_visualization.png")
                     answer: true
                 },
                 {
-                    question: "ANOVA可以用于比较两组Data的均值差异",
+                    question: "ANOVA可以用于比较两组数据的均值差异",
                     answer: false
                 }
             ],
             codeQuestion: {
-                question: "编写代码：生成两组正态分布Data，进行独立样本t检验，计算效应量Cohen's d，并输出检验结果",
-                initialCode: "# 请在此处编写代码\nimport numpy as np\nfrom scipy import stats\n\n# 生成两组Data\nnp.random.seed(42)\ngroup1 = np.random.normal(100, 15, 50)  # 均值100，标准差15\ngroup2 = np.random.normal(105, 15, 50)  # 均值105，标准差15\n\n# 进行独立样本t检验\n\n\n# 计算Cohen's d效应量\n\n\n# 输出结果",
-                solutionCode: "import numpy as np\nfrom scipy import stats\n\n# 生成两组Data\nnp.random.seed(42)\ngroup1 = np.random.normal(100, 15, 50)\ngroup2 = np.random.normal(105, 15, 50)\n\n# 进行独立样本t检验\nt_stat, p_value = stats.ttest_ind(group1, group2)\n\n# 计算Cohen's d效应量\nmean_diff = np.mean(group1) - np.mean(group2)\npooled_std = np.sqrt(((len(group1)-1)*np.std(group1, ddof=1)**2 + \n                       (len(group2)-1)*np.std(group2, ddof=1)**2) / \n                      (len(group1)+len(group2)-2))\ncohens_d = mean_diff / pooled_std\n\n# 输出结果\nprint(\"=\"*50)\nprint(\"Independent t-test Results\")\nprint(\"=\"*50)\nprint(f\"组1Mean: {np.mean(group1):.2f}\")\nprint(f\"组2Mean: {np.mean(group2):.2f}\")\nprint(f\"Mean Difference: {mean_diff:.2f}\")\nprint(f\"\\nt-statistic: {t_stat:.4f}\")\nprint(f\"P-value: {p_value:.4f}\")\nprint(f\"\\nCohen's d: {cohens_d:.4f}\")\n\nif p_value < 0.05:\n    print(\"\\nConclusion: At alpha=0.05, the difference is significant\")\nelse:\n    print(\"\\nConclusion: At alpha=0.05, the difference is not significant\")"
+                question: "编写代码：生成两组正态分布数据，进行独立样本t检验，计算效应量Cohen's d，并输出检验结果",
+                initialCode: "# 请在此处编写代码\nimport numpy as np\nfrom scipy import stats\n\n# 生成两组数据\nnp.random.seed(42)\ngroup1 = np.random.normal(100, 15, 50)  # 均值100，标准差15\ngroup2 = np.random.normal(105, 15, 50)  # 均值105，标准差15\n\n# 进行独立样本t检验\n\n\n# 计算Cohen's d效应量\n\n\n# 输出结果",
+                solutionCode: "import numpy as np\nfrom scipy import stats\n\n# 生成两组数据\nnp.random.seed(42)\ngroup1 = np.random.normal(100, 15, 50)\ngroup2 = np.random.normal(105, 15, 50)\n\n# 进行独立样本t检验\nt_stat, p_value = stats.ttest_ind(group1, group2)\n\n# 计算Cohen's d效应量\nmean_diff = np.mean(group1) - np.mean(group2)\npooled_std = np.sqrt(((len(group1)-1)*np.std(group1, ddof=1)**2 + \n                       (len(group2)-1)*np.std(group2, ddof=1)**2) / \n                      (len(group1)+len(group2)-2))\ncohens_d = mean_diff / pooled_std\n\n# 输出结果\nprint(\"=\"*50)\nprint(\"独立样本t检验结果\")\nprint(\"=\"*50)\nprint(f\"组1均值: {np.mean(group1):.2f}\")\nprint(f\"组2均值: {np.mean(group2):.2f}\")\nprint(f\"均值差异: {mean_diff:.2f}\")\nprint(f\"\\nt统计量: {t_stat:.4f}\")\nprint(f\"P值: {p_value:.4f}\")\nprint(f\"\\nCohen's d: {cohens_d:.4f}\")\n\nif p_value < 0.05:\n    print(\"\\n结论: 在α=0.05水平上，两组差异显著\")\nelse:\n    print(\"\\n结论: 在α=0.05水平上，两组差异不显著\")"
             }
         },
         initialCode: "",
@@ -1595,7 +1595,7 @@ print("Chart saved as advanced_visualization.png")
 from scipy import stats
 
 print("="*60)
-print("Hypothesis Testing Practice")
+print("假设检验实战")
 print("="*60)
 
 # 示例1：单样本t检验
@@ -1604,34 +1604,31 @@ sample_data = np.random.normal(100, 15, 100)
 population_mean = 100
 
 t_stat, p_value = stats.ttest_1samp(sample_data, population_mean)
-print("\\n
-【One-sample t-test】")
-print(f"样本Mean: {np.mean(sample_data):.2f}")
-print(f"总体Mean: {population_mean}")
-print(f"t-statistic: {t_stat:.4f}")
-print(f"P-value: {p_value:.4f}")
+print("\\n【单样本t检验】")
+print(f"样本均值: {np.mean(sample_data):.2f}")
+print(f"总体均值: {population_mean}")
+print(f"t统计量: {t_stat:.4f}")
+print(f"P值: {p_value:.4f}")
 
 # 示例2：两独立样本t检验
 group1 = np.random.normal(170, 10, 50)
 group2 = np.random.normal(175, 10, 50)
 
 t_stat2, p_value2 = stats.ttest_ind(group1, group2)
-print("\\n
-【Two-sample t-test】")
-print(f"组1Mean: {np.mean(group1):.2f}")
-print(f"组2Mean: {np.mean(group2):.2f}")
-print(f"t-statistic: {t_stat2:.4f}")
-print(f"P-value: {p_value2:.4f}")
+print("\\n【两独立样本t检验】")
+print(f"组1均值: {np.mean(group1):.2f}")
+print(f"组2均值: {np.mean(group2):.2f}")
+print(f"t统计量: {t_stat2:.4f}")
+print(f"P值: {p_value2:.4f}")
 
 # 示例3：卡方检验
 observed = np.array([[30, 10], [15, 45]])
 chi2, p_chi, dof, expected = stats.chi2_contingency(observed)
-print("\\n
-【Chi-square Test】")
+print("\\n【卡方检验】")
 print(f"观察频数:\\n{observed}")
-print(f"Chi-square Statistic: {chi2:.4f}")
-print(f"P-value: {p_chi:.4f}")
-print(f"Degrees of Freedom: {dof}")
+print(f"卡方统计量: {chi2:.4f}")
+print(f"P值: {p_chi:.4f}")
+print(f"自由度: {dof}")
 `
     },
     {
@@ -1781,8 +1778,8 @@ print(f"Degrees of Freedom: {dof}")
                 }
             ],
             codeQuestion: {
-                question: "编写代码：创建多元回归Data，使用sklearn进行回归建模，评估模型性能，并绘制预测值与真实值的对比图",
-                initialCode: "# 请在此处编写代码\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import r2_score, mean_squared_error\n\n# 创建Data\nnp.random.seed(42)\nn = 100\nX = np.random.randn(n, 3)  # 3个特征\ny = 2 + 3*X[:, 0] + 1.5*X[:, 1] - 2*X[:, 2] + np.random.randn(n)*0.5\n\n# 划分训练集和测试集\n\n\n# 创建并训练模型\n\n\n# 预测和评估\n\n\n# 绘制对比图",
+                question: "编写代码：创建多元回归数据，使用sklearn进行回归建模，评估模型性能，并绘制预测值与真实值的对比图",
+                initialCode: "# 请在此处编写代码\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import r2_score, mean_squared_error\n\n# 创建数据\nnp.random.seed(42)\nn = 100\nX = np.random.randn(n, 3)  # 3个特征\ny = 2 + 3*X[:, 0] + 1.5*X[:, 1] - 2*X[:, 2] + np.random.randn(n)*0.5\n\n# 划分训练集和测试集\n\n\n# 创建并训练模型\n\n\n# 预测和评估\n\n\n# 绘制对比图",
                 solutionCode: "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import r2_score, mean_squared_error\n\nnp.random.seed(42)\nn = 100\nX = np.random.randn(n, 3)\ny = 2 + 3*X[:, 0] + 1.5*X[:, 1] - 2*X[:, 2] + np.random.randn(n)*0.5\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\n\ny_pred = model.predict(X_test)\n\nprint(\"=\"*50)\nprint(\"Multiple Linear Regression Results\")\nprint(\"=\"*50)\nprint(f\"Intercept: {model.intercept_:.4f}\")\nprint(f\"Coefficients: {model.coef_}\")\nprint(f\"\\nR² (Train): {model.score(X_train, y_train):.4f}\")\nprint(f\"R² (Test): {r2_score(y_test, y_pred):.4f}\")\nprint(f\"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred)):.4f}\")\n\nplt.figure(figsize=(10, 5))\nplt.scatter(y_test, y_pred, alpha=0.7)\nplt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)\nplt.xlabel('True Values')\nplt.ylabel('Predictions')\nplt.title('Predicted vs True')\nplt.savefig('regression_result.png', dpi=150, bbox_inches='tight')\nprint(\"\\nChart saved as regression_result.png\")"
             }
         },
@@ -1793,10 +1790,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 
 print("="*60)
-print("Regression Analysis Practice")
+print("回归分析实战")
 print("="*60)
 
-# 生成示例Data
+# 生成示例数据
 np.random.seed(42)
 n = 100
 x = np.linspace(0, 10, n)
@@ -1816,17 +1813,16 @@ y_pred = model.predict(X)
 r2 = r2_score(y, y_pred)
 rmse = np.sqrt(mean_squared_error(y, y_pred))
 
-print(f"\\n
-【Simple Linear Regression】")
-print(f"Intercept: {model.intercept_:.4f}")
-print(f"Slope: {model.coef_[0]:.4f}")
+print(f"\\n【简单线性回归】")
+print(f"截距: {model.intercept_:.4f}")
+print(f"斜率: {model.coef_[0]:.4f}")
 print(f"R²: {r2:.4f}")
 print(f"RMSE: {rmse:.4f}")
 
 # 可视化
 plt.figure(figsize=(12, 5))
 plt.subplot(1, 2, 1)
-plt.scatter(x, y, alpha=0.6, label='Data点')
+plt.scatter(x, y, alpha=0.6, label='数据点')
 plt.plot(x, y_pred, 'r-', linewidth=2, label='回归线')
 plt.xlabel('X')
 plt.ylabel('Y')
@@ -1843,17 +1839,17 @@ plt.title('残差图')
 
 plt.tight_layout()
 plt.savefig('regression_analysis.png', dpi=150)
-print("\\nChart saved as regression_analysis.png")
+print("\\n图表已保存为 regression_analysis.png")
 `
     },
     {
         id: 8,
         title: "时间序列分析",
         level: "进阶",
-        description: "学习时间序列Data处理和预测",
+        description: "学习时间序列数据处理和预测",
         theory: `
 <h3>一、时间序列概述</h3>
-<p>时间序列是按时间顺序排列的Data序列，广泛应用于金融、气象、销售等领域。</p>
+<p>时间序列是按时间顺序排列的数据序列，广泛应用于金融、气象、销售等领域。</p>
 
 <h4>1.1 时间序列的组成</h4>
 <ul>
@@ -1869,7 +1865,7 @@ print("\\nChart saved as regression_analysis.png")
     <li><b>非平稳序列</b>：存在趋势或季节性</li>
 </ul>
 
-<h3>二、时间序列Data处理</h3>
+<h3>二、时间序列数据处理</h3>
 
 <h4>2.1 Pandas时间类型</h4>
 <ul>
@@ -1889,7 +1885,7 @@ print("\\nChart saved as regression_analysis.png")
 
 <h4>3.1 滑动平均</h4>
 <ul>
-    <li><b>作用</b>：平滑Data，消除短期波动</li>
+    <li><b>作用</b>：平滑数据，消除短期波动</li>
     <li><code>df.rolling(window=7).mean()</code> - 7期滑动平均</li>
 </ul>
 
@@ -1945,7 +1941,7 @@ print("\\nChart saved as regression_analysis.png")
             },
             {
                 question: "滑动平均的作用是？",
-                options: ["预测未来值", "平滑Data", "分解序列", "检验平稳性"],
+                options: ["预测未来值", "平滑数据", "分解序列", "检验平稳性"],
                 answer: 1
             },
             {
@@ -1994,13 +1990,13 @@ print("\\nChart saved as regression_analysis.png")
                     answer: true
                 },
                 {
-                    question: "滑动窗口越大，Data越平滑",
+                    question: "滑动窗口越大，数据越平滑",
                     answer: true
                 }
             ],
             codeQuestion: {
-                question: "编写代码：生成一个包含趋势和季节性的时间序列，进行滑动平均平滑，绘制原始Data和平滑后的对比图",
-                initialCode: "# 请在此处编写代码\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# 生成时间序列Data\nnp.random.seed(42)\nn = 365\ndates = pd.date_range('2024-01-01', periods=n, freq='D')\ntrend = np.linspace(50, 100, n)\nseasonality = 10 * np.sin(np.linspace(0, 4*np.pi, n))\nnoise = np.random.randn(n) * 5\ndata = trend + seasonality + noise\n\ndf = pd.DataFrame({'date': dates, 'value': data})\ndf.set_index('date', inplace=True)\n\n# 计算滑动平均\n\n\n# 绘制对比图",
+                question: "编写代码：生成一个包含趋势和季节性的时间序列，进行滑动平均平滑，绘制原始数据和平滑后的对比图",
+                initialCode: "# 请在此处编写代码\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# 生成时间序列数据\nnp.random.seed(42)\nn = 365\ndates = pd.date_range('2024-01-01', periods=n, freq='D')\ntrend = np.linspace(50, 100, n)\nseasonality = 10 * np.sin(np.linspace(0, 4*np.pi, n))\nnoise = np.random.randn(n) * 5\ndata = trend + seasonality + noise\n\ndf = pd.DataFrame({'date': dates, 'value': data})\ndf.set_index('date', inplace=True)\n\n# 计算滑动平均\n\n\n# 绘制对比图",
                 solutionCode: "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nnp.random.seed(42)\nn = 365\ndates = pd.date_range('2024-01-01', periods=n, freq='D')\ntrend = np.linspace(50, 100, n)\nseasonality = 10 * np.sin(np.linspace(0, 4*np.pi, n))\nnoise = np.random.randn(n) * 5\ndata = trend + seasonality + noise\n\ndf = pd.DataFrame({'date': dates, 'value': data})\ndf.set_index('date', inplace=True)\n\n# 计算滑动平均\ndf['MA7'] = df['value'].rolling(window=7).mean()\ndf['MA30'] = df['value'].rolling(window=30).mean()\n\n# 绘制对比图\nplt.figure(figsize=(14, 6))\nplt.plot(df.index, df['value'], alpha=0.5, label='Raw Data')\nplt.plot(df.index, df['MA7'], label='7-day MA', linewidth=2)\nplt.plot(df.index, df['MA30'], label='30-day MA', linewidth=2)\nplt.xlabel('Date')\nplt.ylabel('Value')\nplt.title('Time Series & Moving Average')\nplt.legend()\nplt.grid(True, alpha=0.3)\nplt.tight_layout()\nplt.savefig('time_series_ma.png', dpi=150, bbox_inches='tight')\nprint(\"Chart saved as time_series_ma.png\")"
             }
         },
@@ -2010,10 +2006,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 print("="*60)
-print("Time Series Analysis Practice")
+print("时间序列分析实战")
 print("="*60)
 
-# 生成示例Data
+# 生成示例数据
 np.random.seed(42)
 n = 365
 dates = pd.date_range('2024-01-01', periods=n, freq='D')
@@ -2028,7 +2024,7 @@ data = trend + seasonality + noise
 df = pd.DataFrame({'date': dates, 'value': data})
 df.set_index('date', inplace=True)
 
-print("\\n【Data概览】")
+print("\\n【数据概览】")
 print(df.describe())
 
 # 滑动统计量
@@ -2038,15 +2034,14 @@ df['rolling_std'] = df['value'].rolling(window=30).std()
 
 # 按月汇总
 monthly = df.resample('M').mean()
-print("\\n
-【Monthly Summary】")
+print("\\n【月度汇总】")
 print(monthly)
 
 # 可视化
 fig, axes = plt.subplots(3, 1, figsize=(14, 12))
 
-# 原始Data和平滑
-axes[0].plot(df.index, df['value'], alpha=0.5, label='原始Data')
+# 原始数据和平滑
+axes[0].plot(df.index, df['value'], alpha=0.5, label='原始数据')
 axes[0].plot(df.index, df['MA7'], label='7日滑动平均', linewidth=2)
 axes[0].plot(df.index, df['MA30'], label='30日滑动平均', linewidth=2)
 axes[0].set_title('时间序列与滑动平均')
@@ -2065,7 +2060,7 @@ axes[2].set_ylabel('标准差')
 
 plt.tight_layout()
 plt.savefig('time_series_analysis.png', dpi=150)
-print("\\nChart saved as time_series_analysis.png")
+print("\\n图表已保存为 time_series_analysis.png")
 `
     },
     {
@@ -2075,7 +2070,7 @@ print("\\nChart saved as time_series_analysis.png")
         description: "学习关联规则挖掘和市场篮子分析",
         theory: `
 <h3>一、关联规则概述</h3>
-<p>关联规则挖掘发现Data中项之间的有趣关联，广泛应用于零售分析、用户行为研究等领域。</p>
+<p>关联规则挖掘发现数据中项之间的有趣关联，广泛应用于零售分析、用户行为研究等领域。</p>
 
 <h4>1.1 基本概念</h4>
 <ul>
@@ -2140,7 +2135,7 @@ print("\\nChart saved as time_series_analysis.png")
 
 <h3>五、mlxtend库的使用</h3>
 
-<h4>5.1 Data预处理</h4>
+<h4>5.1 数据预处理</h4>
 <ul>
     <li><code>TransactionEncoder</code>：将列表转换为One-Hot编码</li>
     <li><code>apriori()</code>：挖掘频繁项集</li>
@@ -2155,7 +2150,7 @@ print("\\nChart saved as time_series_analysis.png")
 </ul>
         `,
         exercises: [
-            "将交易Data转换为One-Hot编码",
+            "将交易数据转换为One-Hot编码",
             "使用Apriori算法挖掘频繁项集",
             "生成关联规则并筛选",
             "分析商品关联性",
@@ -2223,8 +2218,8 @@ print("\\nChart saved as time_series_analysis.png")
                 }
             ],
             codeQuestion: {
-                question: "编写代码：创建交易Data集，使用Apriori算法挖掘频繁项集，生成关联规则，并筛选高提升度的规则",
-                initialCode: "# 请在此处编写代码\nimport pandas as pd\nfrom collections import defaultdict\nimport itertools\n\n# 模拟交易Data\ntransactions = [\n    ['Milk', 'Bread', 'Eggs'],\n    ['Milk', 'Diapers', 'Beer'],\n    ['Bread', 'Diapers', 'Beer'],\n    ['Milk', 'Bread', 'Diapers'],\n    ['Milk', 'Bread', 'Eggs', 'Diapers'],\n    ['Bread', 'Eggs'],\n    ['Milk', 'Eggs'],\n]\n\n# 分析项集计数\n\n\n# 计算支持度\n\n\n# 找出频繁项集",
+                question: "编写代码：创建交易数据集，使用Apriori算法挖掘频繁项集，生成关联规则，并筛选高提升度的规则",
+                initialCode: "# 请在此处编写代码\nimport pandas as pd\nfrom collections import defaultdict\nimport itertools\n\n# 模拟交易数据\ntransactions = [\n    ['Milk', 'Bread', 'Eggs'],\n    ['Milk', 'Diapers', 'Beer'],\n    ['Bread', 'Diapers', 'Beer'],\n    ['Milk', 'Bread', 'Diapers'],\n    ['Milk', 'Bread', 'Eggs', 'Diapers'],\n    ['Bread', 'Eggs'],\n    ['Milk', 'Eggs'],\n]\n\n# 分析项集计数\n\n\n# 计算支持度\n\n\n# 找出频繁项集",
                 solutionCode: "import pandas as pd\nfrom collections import defaultdict\nimport itertools\n\ntransactions = [\n    ['Milk', 'Bread', 'Eggs'],\n    ['Milk', 'Diapers', 'Beer'],\n    ['Bread', 'Diapers', 'Beer'],\n    ['Milk', 'Bread', 'Diapers'],\n    ['Milk', 'Bread', 'Eggs', 'Diapers'],\n    ['Bread', 'Eggs'],\n    ['Milk', 'Eggs'],\n]\n\n# 统计单个项的支持度\nitem_counts = defaultdict(int)\nfor trans in transactions:\n    for item in trans:\n        item_counts[item] += 1\n\n# 计算支持度\nsupport = {}\nn_transactions = len(transactions)\nfor item, count in item_counts.items():\n    support[frozenset([item])] = count / n_transactions\n\n# 统计两两组合\npair_counts = defaultdict(int)\nfor trans in transactions:\n    for pair in itertools.combinations(trans, 2):\n        pair_counts[frozenset(pair)] += 1\n\nfor pair, count in pair_counts.items():\n    support[pair] = count / n_transactions\n\n# 打印结果\nprint(\"=\"*60)\nprint(\"Frequent Itemsets (Support > 0.3)\")\nprint(\"=\"*60)\nfor itemset, supp in sorted(support.items(), key=lambda x: x[1], reverse=True):\n    if supp >= 0.3:\n        print(f\"{set(itemset)}: {supp:.2f}\")\n\nprint(\"\\n\" + \"=\"*60)\nprint(\"Simple Association Rules\")\nprint(\"=\"*60)\nfor pair, supp in pair_counts.items():\n    if supp / n_transactions >= 0.3:\n        items = list(pair)\n        for i in range(2):\n            antecedent = {items[i]}\n            consequent = {items[1-i]}\n            conf = (pair_counts[pair] / n_transactions) / (item_counts[items[i]] / n_transactions)\n            if conf > 0.5:\n                print(f\"{antecedent} -> {consequent}: conf={conf:.2f}, supp={pair_counts[pair]/n_transactions:.2f}\")"
             }
         },
@@ -2238,7 +2233,7 @@ print("="*60)
 print("Market Basket Analysis Practice")
 print("="*60)
 
-# 模拟超市交易Data
+# 模拟超市交易数据
 transactions = [
     ['Milk', 'Bread', 'Eggs'],
     ['Milk', 'Diapers', 'Beer', 'Bread'],
@@ -2333,7 +2328,7 @@ if rules_data:
         description: "掌握K-Means和层次聚类等算法",
         theory: `
 <h3>一、聚类分析概述</h3>
-<p>聚类是无监督学习方法，将Data集中的样本划分为若干个簇，使同簇内样本相似度高，不同簇间相似度低。</p>
+<p>聚类是无监督学习方法，将数据集中的样本划分为若干个簇，使同簇内样本相似度高，不同簇间相似度低。</p>
 
 <h4>1.1 聚类与分类的区别</h4>
 <ul>
@@ -2344,7 +2339,7 @@ if rules_data:
 <h4>1.2 聚类的应用</h4>
 <ul>
     <li><b>客户细分</b>：识别不同类型的客户群体</li>
-    <li><b>图像分割</b>：将图像分为不同Region</li>
+    <li><b>图像分割</b>：将图像分为不同区域</li>
     <li><b>异常检测</b>：识别与大多数不同的异常点</li>
     <li><b>文档分类</b>：将相似文档归为一类</li>
 </ul>
@@ -2366,7 +2361,7 @@ if rules_data:
 <h4>2.3 余弦相似度</h4>
 <ul>
     <li><b>公式</b>：cos(θ) = (A·B)/(|A||B|)</li>
-    <li><b>特点</b>：适用于文本Data</li>
+    <li><b>特点</b>：适用于文本数据</li>
 </ul>
 
 <h3>三、K-Means聚类</h3>
@@ -2387,7 +2382,7 @@ if rules_data:
 
 <h4>3.3 优缺点</h4>
 <ul>
-    <li><b>优点</b>：简单高效，适用于大Data集</li>
+    <li><b>优点</b>：简单高效，适用于大数据集</li>
     <li><b>缺点</b>：对初始值和异常值敏感，需预设K值</li>
 </ul>
 
@@ -2427,7 +2422,7 @@ if rules_data:
         exercises: [
             "使用K-Means进行客户聚类",
             "绘制肘部法则图确定最优K值",
-            "使用层次聚类分析Data",
+            "使用层次聚类分析数据",
             "绘制树状图",
             "评估聚类结果"
         ],
@@ -2462,7 +2457,7 @@ if rules_data:
                 },
                 {
                     question: "K-Means对什么比较敏感？",
-                    options: ["Data量大小", "初始质心选择和异常值", "Data维度", "计算速度"],
+                    options: ["数据量大小", "初始质心选择和异常值", "数据维度", "计算速度"],
                     answer: 1
                 }
             ],
@@ -2493,8 +2488,8 @@ if rules_data:
                 }
             ],
             codeQuestion: {
-                question: "编写代码：生成二维聚类Data，使用肘部法则确定最优K值，进行K-Means聚类，绘制聚类结果图和肘部法则图",
-                initialCode: "# 请在此处编写代码\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.cluster import KMeans\nfrom sklearn.datasets import make_blobs\n\n# 生成聚类Data\nnp.random.seed(42)\nX, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=0)\n\n# 使用肘部法则确定最优K\n\n\n# 进行K-Means聚类\n\n\n# 绘制结果图",
+                question: "编写代码：生成二维聚类数据，使用肘部法则确定最优K值，进行K-Means聚类，绘制聚类结果图和肘部法则图",
+                initialCode: "# 请在此处编写代码\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.cluster import KMeans\nfrom sklearn.datasets import make_blobs\n\n# 生成聚类数据\nnp.random.seed(42)\nX, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=0)\n\n# 使用肘部法则确定最优K\n\n\n# 进行K-Means聚类\n\n\n# 绘制结果图",
                 solutionCode: "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.cluster import KMeans\nfrom sklearn.datasets import make_blobs\n\nnp.random.seed(42)\nX, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=0)\n\n# 肘部法则\ninertias = []\nK_range = range(1, 11)\nfor k in K_range:\n    km = KMeans(n_clusters=k, random_state=42, n_init=10)\n    km.fit(X)\n    inertias.append(km.inertia_)\n\n# K=4的K-Means聚类\nkmeans = KMeans(n_clusters=4, random_state=42, n_init=10)\ny_pred = kmeans.fit_predict(X)\n\n# 可视化\nfig, axes = plt.subplots(1, 2, figsize=(14, 5))\n\n# 肘部法则图\naxes[0].plot(K_range, inertias, 'bo-', linewidth=2)\naxes[0].axvline(x=4, color='r', linestyle='--', label='Optimal K=4')\naxes[0].set_xlabel('Number of Clusters (K)')\naxes[0].set_ylabel('SSE')\naxes[0].set_title('Elbow Method')\naxes[0].legend()\n\n# 聚类结果\ncolors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']\nfor i in range(4):\n    axes[1].scatter(X[y_pred==i, 0], X[y_pred==i, 1], c=colors[i], s=30, alpha=0.7)\naxes[1].scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], \n                 c='black', marker='X', s=200, label='Centroids')\naxes[1].set_title('K-Means Clustering Result (K=4)')\naxes[1].legend()\n\nplt.tight_layout()\nplt.savefig('clustering_result.png', dpi=150, bbox_inches='tight')\nprint(\"Chart saved as clustering_result.png\")"
             }
         },
@@ -2509,7 +2504,7 @@ print("="*60)
 print("Clustering Analysis Practice")
 print("="*60)
 
-# 生成Data
+# 生成数据
 np.random.seed(42)
 X, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=0)
 
@@ -2547,7 +2542,7 @@ axes[0, 0].set_ylabel('SSE')
 axes[0, 0].set_title('Elbow Method')
 axes[0, 0].grid(True, alpha=0.3)
 
-# 原始Data
+# 原始数据
 axes[0, 1].scatter(X[:, 0], X[:, 1], c=y_true, cmap='viridis', s=30, alpha=0.7)
 axes[0, 1].set_title('Original Data')
 
