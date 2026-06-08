@@ -100,6 +100,9 @@ class PythonRunner {
         let loadedCount = 0;
         const totalCore = this.corePackages.length;
 
+        // 初始化时立即更新库状态显示
+        this.updateLibraryStatus();
+
         try {
             // 首先只加载核心库，立即可用
             for (const pkg of this.corePackages) {

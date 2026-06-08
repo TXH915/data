@@ -176,7 +176,7 @@ body {
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
-    white-space: nowrap;
+    gap: 0;
 }
 
 .panel {
@@ -185,6 +185,7 @@ body {
     background: var(--surface-color);
     border-right: 1px solid var(--border-color);
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .panel:last-child {
@@ -223,6 +224,7 @@ body {
 
 .theory-panel {
     flex: 1;
+    min-width: 350px;
 }
 
 .center-panel {
@@ -366,6 +368,35 @@ body {
     font-size: 0.85rem;
     overflow-x: auto;
     white-space: pre;
+}
+
+.output-line {
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    padding: 0.1rem 0;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+.output-line.stdout {
+    color: var(--text-primary);
+}
+
+.output-line.stderr {
+    color: var(--danger-color);
+}
+
+.output-line.success {
+    color: var(--success-color);
+}
+
+.output-line.error {
+    color: var(--danger-color);
+}
+
+.output-line.info {
+    color: var(--warning-color);
 }
 
 .modal {
