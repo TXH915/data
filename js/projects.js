@@ -456,7 +456,35 @@ print(df.to_string())
             codeQuestion: {
                 question: "编写代码：创建一个包含三条曲线的折线图，每条曲线使用不同颜色和标记，并添加标题、坐标轴标签和图例",
                 initialCode: "# 请在此处编写代码\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建Data\n\n\n# 绘制三条曲线\n\n\n# 添加标题和标签\n\n\n# 添加图例\n\n\n# 保存图表",
-                solutionCode: "import matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建Data\nx = np.linspace(0, 10, 100)\ny1 = np.sin(x)\ny2 = np.cos(x)\ny3 = np.tan(x) * 0.1\n\n# 绘制三条曲线\nplt.figure(figsize=(10, 6))\nplt.plot(x, y1, label='sin(x)', color='blue', marker='o', markersize=3)\nplt.plot(x, y2, label='cos(x)', color='red', marker='s', markersize=3)\nplt.plot(x, y3, label='tan(x)*0.1', color='green', marker='^', markersize=3)\n\n# 添加标题和标签\nplt.title('Trigonometric Function Curves', fontsize=14)\nplt.xlabel('X-axis', fontsize=12)\nplt.ylabel('Y-axis', fontsize=12)\n\n# 添加图例\nplt.legend(fontsize=12)\n\n# 添加网格\nplt.grid(True, alpha=0.3)\n\n# 保存图表\nplt.savefig('trig_plot.png', dpi=150, bbox_inches='tight')\nprint(\"Chart saved as trig_plot.png\")"
+                solutionCode: `import matplotlib.pyplot as plt
+import numpy as np
+
+# 创建Data
+x = np.linspace(0, 10, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+y3 = np.tan(x) * 0.1
+
+# 绘制三条曲线
+plt.figure(figsize=(10, 6))
+plt.plot(x, y1, label='sin(x)', color='blue', marker='o', markersize=3)
+plt.plot(x, y2, label='cos(x)', color='red', marker='s', markersize=3)
+plt.plot(x, y3, label='tan(x)*0.1', color='green', marker='^', markersize=3)
+
+# 添加标题和标签
+plt.title('Trigonometric Function Curves', fontsize=14)
+plt.xlabel('X-axis', fontsize=12)
+plt.ylabel('Y-axis', fontsize=12)
+
+# 添加图例
+plt.legend(fontsize=12)
+
+# 添加网格
+plt.grid(True, alpha=0.3)
+
+# 保存图表
+plt.savefig('trig_plot.png', dpi=150, bbox_inches='tight')
+print("Chart saved as trig_plot.png")`
             }
         },
         initialCode: "",
@@ -1436,7 +1464,40 @@ print(df.sort_values('Revenue', ascending=False).head().to_string())
             codeQuestion: {
                 question: "编写代码：创建一个2x2的子图布局，包含折线图、柱状图、散点图和热力图，并保存为PNG文件",
                 initialCode: "# 请在此处编写代码\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建2x2子图\n\n\n# 子图1：折线图\n\n\n# 子图2：柱状图\n\n\n# 子图3：散点图\n\n\n# 子图4：热力图\n\n\n# 保存图表",
-                solutionCode: "import matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建2x2子图\nfig, axes = plt.subplots(2, 2, figsize=(12, 10))\n\n# 子图1：折线图\nx = np.linspace(0, 10, 50)\ny1 = np.sin(x)\naxes[0, 0].plot(x, y1, 'b-', linewidth=2)\naxes[0, 0].set_title('Line Chart', fontsize=12)\naxes[0, 0].grid(True, alpha=0.3)\n\n# 子图2：柱状图\ncategories = ['A', 'B', 'C', 'D', 'E']\nvalues = [23, 45, 12, 67, 34]\naxes[0, 1].bar(categories, values, color='coral')\naxes[0, 1].set_title('Bar Chart', fontsize=12)\n\n# 子图3：散点图\nx_scatter = np.random.randn(100)\ny_scatter = np.random.randn(100)\naxes[1, 0].scatter(x_scatter, y_scatter, alpha=0.6, c='purple')\naxes[1, 0].set_title('Scatter Plot', fontsize=12)\n\n# 子图4：热力图（使用matplotlib）\ndata = np.random.rand(10, 10)\nim = axes[1, 1].imshow(data, cmap='YlOrRd', aspect='auto')\naxes[1, 1].set_title('Heatmap', fontsize=12)\nplt.colorbar(im, ax=axes[1, 1])\n\nplt.tight_layout()\nplt.savefig('advanced_charts.png', dpi=150, bbox_inches='tight')\nprint(\"Chart saved as advanced_charts.png\")"
+                solutionCode: `import matplotlib.pyplot as plt
+import numpy as np
+
+# 创建2x2子图
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# 子图1：折线图
+x = np.linspace(0, 10, 50)
+y1 = np.sin(x)
+axes[0, 0].plot(x, y1, 'b-', linewidth=2)
+axes[0, 0].set_title('Line Chart', fontsize=12)
+axes[0, 0].grid(True, alpha=0.3)
+
+# 子图2：柱状图
+categories = ['A', 'B', 'C', 'D', 'E']
+values = [23, 45, 12, 67, 34]
+axes[0, 1].bar(categories, values, color='coral')
+axes[0, 1].set_title('Bar Chart', fontsize=12)
+
+# 子图3：散点图
+x_scatter = np.random.randn(100)
+y_scatter = np.random.randn(100)
+axes[1, 0].scatter(x_scatter, y_scatter, alpha=0.6, c='purple')
+axes[1, 0].set_title('Scatter Plot', fontsize=12)
+
+# 子图4：热力图（使用matplotlib）
+data = np.random.rand(10, 10)
+im = axes[1, 1].imshow(data, cmap='YlOrRd', aspect='auto')
+axes[1, 1].set_title('Heatmap', fontsize=12)
+plt.colorbar(im, ax=axes[1, 1])
+
+plt.tight_layout()
+plt.savefig('advanced_charts.png', dpi=150, bbox_inches='tight')
+print("Chart saved as advanced_charts.png")`
             }
         },
         initialCode: "",
@@ -2151,7 +2212,38 @@ print("Chart saved as regression_analysis.png")
             codeQuestion: {
                 question: "编写代码：生成一个包含趋势和季节性的时间序列，进行滑动平均平滑，绘制原始Data和平滑后的对比图",
                 initialCode: "# 请在此处编写代码\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# 生成时间序列Data\nnp.random.seed(42)\nn = 365\ndates = pd.date_range('2024-01-01', periods=n, freq='D')\ntrend = np.linspace(50, 100, n)\nseasonality = 10 * np.sin(np.linspace(0, 4*np.pi, n))\nnoise = np.random.randn(n) * 5\ndata = trend + seasonality + noise\n\ndf = pd.DataFrame({'date': dates, 'value': data})\ndf.set_index('date', inplace=True)\n\n# 计算滑动平均\n\n\n# 绘制对比图",
-                solutionCode: "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nnp.random.seed(42)\nn = 365\ndates = pd.date_range('2024-01-01', periods=n, freq='D')\ntrend = np.linspace(50, 100, n)\nseasonality = 10 * np.sin(np.linspace(0, 4*np.pi, n))\nnoise = np.random.randn(n) * 5\ndata = trend + seasonality + noise\n\ndf = pd.DataFrame({'date': dates, 'value': data})\ndf.set_index('date', inplace=True)\n\n# 计算滑动平均\ndf['MA7'] = df['value'].rolling(window=7).mean()\ndf['MA30'] = df['value'].rolling(window=30).mean()\n\n# 绘制对比图\nplt.figure(figsize=(14, 6))\nplt.plot(df.index, df['value'], alpha=0.5, label='Raw Data')\nplt.plot(df.index, df['MA7'], label='7-day MA', linewidth=2)\nplt.plot(df.index, df['MA30'], label='30-day MA', linewidth=2)\nplt.xlabel('Date')\nplt.ylabel('Value')\nplt.title('Time Series & Moving Average')\nplt.legend()\nplt.grid(True, alpha=0.3)\nplt.tight_layout()\nplt.savefig('time_series_ma.png', dpi=150, bbox_inches='tight')\nprint(\"Chart saved as time_series_ma.png\")"
+                solutionCode: `import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+n = 365
+dates = pd.date_range('2024-01-01', periods=n, freq='D')
+trend = np.linspace(50, 100, n)
+seasonality = 10 * np.sin(np.linspace(0, 4*np.pi, n))
+noise = np.random.randn(n) * 5
+data = trend + seasonality + noise
+
+df = pd.DataFrame({'date': dates, 'value': data})
+df.set_index('date', inplace=True)
+
+# 计算滑动平均
+df['MA7'] = df['value'].rolling(window=7).mean()
+df['MA30'] = df['value'].rolling(window=30).mean()
+
+# 绘制对比图
+plt.figure(figsize=(14, 6))
+plt.plot(df.index, df['value'], alpha=0.5, label='Raw Data')
+plt.plot(df.index, df['MA7'], label='7-day MA', linewidth=2)
+plt.plot(df.index, df['MA30'], label='30-day MA', linewidth=2)
+plt.xlabel('Date')
+plt.ylabel('Value')
+plt.title('Time Series & Moving Average')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig('time_series_ma.png', dpi=150, bbox_inches='tight')
+print("Chart saved as time_series_ma.png")`
             }
         },
         initialCode: "",
@@ -2705,7 +2797,49 @@ if rules_data:
             codeQuestion: {
                 question: "编写代码：生成二维聚类Data，使用肘部法则确定最优K值，进行K-Means聚类，绘制聚类结果图和肘部法则图",
                 initialCode: "# 请在此处编写代码\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.cluster import KMeans\nfrom sklearn.datasets import make_blobs\n\n# 生成聚类Data\nnp.random.seed(42)\nX, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=0)\n\n# 使用肘部法则确定最优K\n\n\n# 进行K-Means聚类\n\n\n# 绘制结果图",
-                solutionCode: "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.cluster import KMeans\nfrom sklearn.datasets import make_blobs\n\nnp.random.seed(42)\nX, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=0)\n\n# 肘部法则\ninertias = []\nK_range = range(1, 11)\nfor k in K_range:\n    km = KMeans(n_clusters=k, random_state=42, n_init=10)\n    km.fit(X)\n    inertias.append(km.inertia_)\n\n# K=4的K-Means聚类\nkmeans = KMeans(n_clusters=4, random_state=42, n_init=10)\ny_pred = kmeans.fit_predict(X)\n\n# 可视化\nfig, axes = plt.subplots(1, 2, figsize=(14, 5))\n\n# 肘部法则图\naxes[0].plot(K_range, inertias, 'bo-', linewidth=2)\naxes[0].axvline(x=4, color='r', linestyle='--', label='Optimal K=4')\naxes[0].set_xlabel('Number of Clusters (K)')\naxes[0].set_ylabel('SSE')\naxes[0].set_title('Elbow Method')\naxes[0].legend()\n\n# 聚类结果\ncolors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']\nfor i in range(4):\n    axes[1].scatter(X[y_pred==i, 0], X[y_pred==i, 1], c=colors[i], s=30, alpha=0.7)\naxes[1].scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], \n                 c='black', marker='X', s=200, label='Centroids')\naxes[1].set_title('K-Means Clustering Result (K=4)')\naxes[1].legend()\n\nplt.tight_layout()\nplt.savefig('clustering_result.png', dpi=150, bbox_inches='tight')\nprint(\"Chart saved as clustering_result.png\")"
+                solutionCode: `import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.datasets import make_blobs
+
+np.random.seed(42)
+X, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=0)
+
+# 肘部法则
+inertias = []
+K_range = range(1, 11)
+for k in K_range:
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
+    km.fit(X)
+    inertias.append(km.inertia_)
+
+# K=4的K-Means聚类
+kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
+y_pred = kmeans.fit_predict(X)
+
+# 可视化
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# 肘部法则图
+axes[0].plot(K_range, inertias, 'bo-', linewidth=2)
+axes[0].axvline(x=4, color='r', linestyle='--', label='Optimal K=4')
+axes[0].set_xlabel('Number of Clusters (K)')
+axes[0].set_ylabel('SSE')
+axes[0].set_title('Elbow Method')
+axes[0].legend()
+
+# 聚类结果
+colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
+for i in range(4):
+    axes[1].scatter(X[y_pred==i, 0], X[y_pred==i, 1], c=colors[i], s=30, alpha=0.7)
+axes[1].scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], 
+                 c='black', marker='X', s=200, label='Centroids')
+axes[1].set_title('K-Means Clustering Result (K=4)')
+axes[1].legend()
+
+plt.tight_layout()
+plt.savefig('clustering_result.png', dpi=150, bbox_inches='tight')
+print("Chart saved as clustering_result.png")`
             }
         },
         initialCode: "",
