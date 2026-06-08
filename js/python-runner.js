@@ -5,14 +5,6 @@ class PythonRunner {
         this.packagesLoaded = false;
         this.allPackagesLoaded = false;
         this.initPromise = null;
-        this.currentProgress = 0;
-        this.loadingMessages = [
-            '正在初始化 Python 引擎...',
-            '正在加载核心库...',
-            '正在配置环境...',
-            '即将完成...'
-        ];
-        this.messageIndex = 0;
         
         this.corePackages = ['numpy', 'pandas', 'matplotlib'];
         this.optionalPackages = ['scipy', 'scikit-learn', 'seaborn', 'statsmodels', 'networkx', 'beautifulsoup4', 'lxml', 'pytz', 'python-dateutil', 'joblib', 'threadpoolctl'];
@@ -29,88 +21,39 @@ class PythonRunner {
 
     async init() {
         try {
-            document.getElementById('loadingOverlay').classList.add('active');
-            this.setProgress(0);
-            this.updateLoadingMessage('正在加载 Python 核心...', '初始化 Pyodide 引擎');
-
             // 配置Pyodide，使用合适的CDN
             this.pyodide = await loadPyodide({
                 indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/',
                 stdout: (text) => this.appendOutput(text, 'stdout'),
                 stderr: (text) => this.appendOutput(text, 'stderr'),
-                progress: (progress) => {
-                    this.setProgress(Math.min(30, progress * 30));
-                    this.updateLoadingDetail(`下载进度: ${Math.round(progress * 100)}%`);
-                }
             });
 
             this.initialized = true;
-            this.setProgress(35);
-            this.updateLoadingMessage('正在加载数据科学库...', '安装 numpy, pandas, matplotlib...');
+            console.log('Pyodide 初始化成功');
 
             // 预装核心数据科学库
             await this.loadPackages();
 
             this.packagesLoaded = true;
-            this.setProgress(95);
-            this.updateLoadingMessage('正在配置环境...', '设置 matplotlib 后端');
             console.log('Pyodide & Data Science packages initialized successfully');
-
-            await new Promise(resolve => setTimeout(resolve, 300));
-            this.setProgress(100);
-            this.updateLoadingMessage('初始化完成！', '准备就绪');
             
         } catch (error) {
             console.error('Failed to initialize Pyodide:', error);
             this.showOutput('⚠️ Python环境初始化失败。请刷新页面重试。\n\n错误信息: ' + error.message, 'error');
-        } finally {
-            setTimeout(() => {
-                document.getElementById('loadingOverlay').classList.remove('active');
-            }, 800);
         }
     }
 
-    setProgress(percent) {
-        this.currentProgress = Math.min(100, Math.max(0, percent));
-        const bar = document.getElementById('loadingBar');
-        if (bar) {
-            bar.style.width = `${this.currentProgress}%`;
-        }
-    }
 
-    updateLoadingMessage(msg, detail = '') {
-        const messageEl = document.getElementById('loadingMessage');
-        const detailEl = document.getElementById('loadingDetail');
-        if (messageEl) {
-            messageEl.textContent = msg;
-        }
-        if (detailEl && detail) {
-            detailEl.textContent = detail;
-        }
-    }
-
-    updateLoadingDetail(detail) {
-        const detailEl = document.getElementById('loadingDetail');
-        if (detailEl) {
-            detailEl.textContent = detail;
-        }
-    }
 
     async loadPackages() {
-        let loadedCount = 0;
-        const totalCore = this.corePackages.length;
-
         // 初始化时立即更新库状态显示
         this.updateLibraryStatus();
 
         try {
             // 首先只加载核心库，立即可用
             for (const pkg of this.corePackages) {
-                loadedCount++;
-                this.updateLoadingDetail(`正在安装: ${pkg}`);
                 await this.pyodide.loadPackage(pkg);
                 this.loadedPackages.push(pkg);
-                this.setProgress(35 + (loadedCount / totalCore) * 55);
                 this.updateLibraryStatus();
             }
             
@@ -129,7 +72,6 @@ class PythonRunner {
         }
 
         // 设置matplotlib后端
-        this.updateLoadingDetail('配置 matplotlib...');
         await this.pyodide.runPythonAsync(`
 import matplotlib
 matplotlib.use('Agg')
