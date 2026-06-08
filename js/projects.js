@@ -206,19 +206,19 @@ const projects = [
         solutionCode: `import pandas as pd
 import numpy as np
 
-# 创建示例Data
+# 创建示例数据
 data = {
     'Name': ['Alice', 'Bob', 'Charlie', 'David', None, 'Eve'],
     'Age': [25, np.nan, 30, 35, 28, 200],
     'Income': [5000, 6000, np.nan, 8000, 7000, 7500]
 }
 df = pd.DataFrame(data)
-print("Original Data:")
-print(df)
+print("原始数据:")
+print(df.to_string())
 print()
 
 # 查看缺失值
-print("Missing Values Statistics:")
+print("缺失值统计:")
 print(df.isnull().sum())
 print()
 
@@ -233,8 +233,8 @@ Q3 = df['Age'].quantile(0.75)
 IQR = Q3 - Q1
 df = df[(df['Age'] >= Q1 - 1.5*IQR) & (df['Age'] <= Q3 + 1.5*IQR)]
 
-print("Cleaned Data:")
-print(df)
+print("清洗后的数据:")
+print(df.to_string())
 `
     },
     {
@@ -1062,51 +1062,51 @@ import numpy as np
 np.random.seed(42)
 data = {
     'Product': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'A', 'B', 'C'],
-    'Region': ['东', '西', '东', '南', '西', '北', '南', '东', '西', '北'],
+    'Region': ['East', 'West', 'East', 'South', 'West', 'North', 'South', 'East', 'West', 'North'],
     'Sales': np.random.randint(100, 500, 10),
     'Price': np.random.uniform(10, 100, 10).round(2)
 }
 
 df = pd.DataFrame(data)
-print("Original Data:")
-print(df)
+print("原始数据:")
+print(df.to_string())
 print()
 
 # 1. 基本信息
-print("【Basic Information】")
-print(f"Shape: {df.shape}")
-print(f"Columns: {df.columns.tolist()}")
+print("【基本信息】")
+print(f"形状: {df.shape}")
+print(f"列名: {df.columns.tolist()}")
 print()
 
-# 2. Data选择
-print("【Select Product and Sales Columns】")
-print(df[['Product', 'Sales']].head())
+# 2. 数据选择
+print("【选择产品和销量列】")
+print(df[['Product', 'Sales']].head().to_string())
 print()
 
 # 3. 条件筛选
-print("【Filter Product A with Sales > 200】")
+print("【筛选产品A且销量>200】")
 filter_df = df[(df['Product'] == 'A') & (df['Sales'] > 200)]
-print(filter_df)
+print(filter_df.to_string())
 print()
 
-# 4. 计算Revenue
+# 4. 计算销售额
 df['Revenue'] = df['Sales'] * df['Price']
-print("【Add Revenue Column】")
-print(df[['Product', 'Sales', 'Price', 'Revenue']])
+print("【添加销售额列】")
+print(df[['Product', 'Sales', 'Price', 'Revenue']].to_string())
 print()
 
 # 5. 分组聚合
-print("【Group by Product】")
+print("【按产品分组统计】")
 product_stats = df.groupby('Product').agg({
     'Sales': ['sum', 'mean', 'count'],
     'Revenue': 'sum'
 }).round(2)
-print(product_stats)
+print(product_stats.to_string())
 print()
 
 # 6. 排序
-print("【Sort by Revenue Descending】")
-print(df.sort_values('Revenue', ascending=False).head())
+print("【按销售额降序排序】")
+print(df.sort_values('Revenue', ascending=False).head().to_string())
 `
     },
     {
@@ -1594,7 +1594,7 @@ print("Chart saved as advanced_visualization.png")
 from scipy import stats
 
 print("="*60)
-print("Hypothesis Testing Practice")
+print("假设检验实战")
 print("="*60)
 
 # 示例1：单样本t检验
@@ -1603,34 +1603,31 @@ sample_data = np.random.normal(100, 15, 100)
 population_mean = 100
 
 t_stat, p_value = stats.ttest_1samp(sample_data, population_mean)
-print("\\n
-【One-sample t-test】")
-print(f"样本Mean: {np.mean(sample_data):.2f}")
-print(f"总体Mean: {population_mean}")
-print(f"t-statistic: {t_stat:.4f}")
-print(f"P-value: {p_value:.4f}")
+print("\n【单样本t检验】")
+print(f"样本均值: {np.mean(sample_data):.2f}")
+print(f"总体均值: {population_mean}")
+print(f"t统计量: {t_stat:.4f}")
+print(f"P值: {p_value:.4f}")
 
 # 示例2：两独立样本t检验
 group1 = np.random.normal(170, 10, 50)
 group2 = np.random.normal(175, 10, 50)
 
 t_stat2, p_value2 = stats.ttest_ind(group1, group2)
-print("\\n
-【Two-sample t-test】")
-print(f"组1Mean: {np.mean(group1):.2f}")
-print(f"组2Mean: {np.mean(group2):.2f}")
-print(f"t-statistic: {t_stat2:.4f}")
-print(f"P-value: {p_value2:.4f}")
+print("\n【两独立样本t检验】")
+print(f"组1均值: {np.mean(group1):.2f}")
+print(f"组2均值: {np.mean(group2):.2f}")
+print(f"t统计量: {t_stat2:.4f}")
+print(f"P值: {p_value2:.4f}")
 
 # 示例3：卡方检验
 observed = np.array([[30, 10], [15, 45]])
 chi2, p_chi, dof, expected = stats.chi2_contingency(observed)
-print("\\n
-【Chi-square Test】")
-print(f"观察频数:\\n{observed}")
-print(f"Chi-square Statistic: {chi2:.4f}")
-print(f"P-value: {p_chi:.4f}")
-print(f"Degrees of Freedom: {dof}")
+print("\n【卡方检验】")
+print(f"观察频数:\n{observed}")
+print(f"卡方统计量: {chi2:.4f}")
+print(f"P值: {p_chi:.4f}")
+print(f"自由度: {dof}")
 `
     },
     {
@@ -1792,10 +1789,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 
 print("="*60)
-print("Regression Analysis Practice")
+print("回归分析实战")
 print("="*60)
 
-# 生成示例Data
+# 生成示例数据
 np.random.seed(42)
 n = 100
 x = np.linspace(0, 10, n)
@@ -1815,17 +1812,16 @@ y_pred = model.predict(X)
 r2 = r2_score(y, y_pred)
 rmse = np.sqrt(mean_squared_error(y, y_pred))
 
-print(f"\\n
-【Simple Linear Regression】")
-print(f"Intercept: {model.intercept_:.4f}")
-print(f"Slope: {model.coef_[0]:.4f}")
+print("\n【简单线性回归】")
+print(f"截距: {model.intercept_:.4f}")
+print(f"斜率: {model.coef_[0]:.4f}")
 print(f"R²: {r2:.4f}")
 print(f"RMSE: {rmse:.4f}")
 
 # 可视化
 plt.figure(figsize=(12, 5))
 plt.subplot(1, 2, 1)
-plt.scatter(x, y, alpha=0.6, label='Data点')
+plt.scatter(x, y, alpha=0.6, label='数据点')
 plt.plot(x, y_pred, 'r-', linewidth=2, label='回归线')
 plt.xlabel('X')
 plt.ylabel('Y')
