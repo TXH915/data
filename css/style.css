@@ -289,33 +289,38 @@ body {
     min-width: 800px;
 }
 
-/* 输出结果区域 - 支持水平和垂直滚动 */
+/* 输出结果区域 - 支持水平和垂直滚动（滚动条始终显示） */
 .output-scrollable {
-    overflow-x: auto;
-    overflow-y: auto;
+    overflow-x: scroll;
+    overflow-y: scroll;
     min-height: 200px;
     max-width: 100%;
     max-height: 100%;
     position: relative;
 }
 
+.output-scrollable .output-content-wrapper {
+    min-width: 800px;
+    width: max-content;
+}
+
 .output-scrollable::-webkit-scrollbar {
-    height: 8px;
-    width: 8px;
+    height: 10px;
+    width: 10px;
 }
 
 .output-scrollable::-webkit-scrollbar-track {
     background: var(--hover-color);
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
 .output-scrollable::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
+    background: #6366f1;
+    border-radius: 5px;
 }
 
 .output-scrollable::-webkit-scrollbar-thumb:hover {
-    background: #6366f1;
+    background: #818cf8;
 }
 
 /* 参考答案区域 - 水平滚动 */

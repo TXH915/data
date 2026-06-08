@@ -234,21 +234,32 @@ img_base64
         const outputContent = document.getElementById('outputContent');
         if (!outputContent) return;
         
+        let wrapper = outputContent.querySelector('.output-content-wrapper');
+        if (!wrapper) {
+            wrapper = document.createElement('div');
+            wrapper.className = 'output-content-wrapper';
+            outputContent.appendChild(wrapper);
+        }
+        
         const line = document.createElement('div');
         line.className = `output-line ${type}`;
         line.textContent = text;
-        outputContent.appendChild(line);
+        wrapper.appendChild(line);
         
         // 自动滚动到底部
-        const outputArea = document.getElementById('outputArea');
-        if (outputArea) {
-            outputArea.scrollTop = outputArea.scrollHeight;
-        }
+        outputContent.scrollTop = outputContent.scrollHeight;
     }
 
     appendImage(base64Data) {
         const outputContent = document.getElementById('outputContent');
         if (!outputContent) return;
+        
+        let wrapper = outputContent.querySelector('.output-content-wrapper');
+        if (!wrapper) {
+            wrapper = document.createElement('div');
+            wrapper.className = 'output-content-wrapper';
+            outputContent.appendChild(wrapper);
+        }
         
         const imgContainer = document.createElement('div');
         imgContainer.className = 'image-output';
@@ -258,13 +269,19 @@ img_base64
         img.alt = 'Matplotlib 输出';
         
         imgContainer.appendChild(img);
-        outputContent.appendChild(imgContainer);
+        wrapper.appendChild(imgContainer);
     }
 
     clearOutput() {
         const outputContent = document.getElementById('outputContent');
         if (outputContent) {
-            outputContent.innerHTML = '';
+            let wrapper = outputContent.querySelector('.output-content-wrapper');
+            if (!wrapper) {
+                wrapper = document.createElement('div');
+                wrapper.className = 'output-content-wrapper';
+                outputContent.appendChild(wrapper);
+            }
+            wrapper.innerHTML = '<div class="placeholder">运行代码后结果将显示在这里</div>';
         }
     }
 
@@ -272,20 +289,26 @@ img_base64
         const outputContent = document.getElementById('outputContent');
         if (!outputContent) return;
         
+        let wrapper = outputContent.querySelector('.output-content-wrapper');
+        if (!wrapper) {
+            wrapper = document.createElement('div');
+            wrapper.className = 'output-content-wrapper';
+            outputContent.appendChild(wrapper);
+        } else {
+            wrapper.innerHTML = '';
+        }
+        
         // 将文本按换行符分割，逐行显示
         const lines = text.split('\n');
         lines.forEach(lineText => {
             const line = document.createElement('div');
             line.className = `output-line ${type}`;
             line.textContent = lineText;
-            outputContent.appendChild(line);
+            wrapper.appendChild(line);
         });
         
         // 自动滚动到底部
-        const outputArea = document.getElementById('outputArea');
-        if (outputArea) {
-            outputArea.scrollTop = outputArea.scrollHeight;
-        }
+        outputContent.scrollTop = outputContent.scrollHeight;
     }
 }
 
