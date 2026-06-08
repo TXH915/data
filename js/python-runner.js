@@ -3,7 +3,7 @@ class PythonRunner {
         this.pyodide = null;
         this.initialized = false;
         this.packagesLoaded = false;
-        this.initPromise = null;
+        this.initPromise = this.init();
         this.currentProgress = 0;
         this.loadingMessages = [
             '正在初始化 Python 引擎...',
@@ -15,15 +15,6 @@ class PythonRunner {
     }
 
     async init() {
-        if (this.initPromise) {
-            return this.initPromise;
-        }
-        
-        this.initPromise = this._init();
-        return this.initPromise;
-    }
-
-    async _init() {
         try {
             document.getElementById('loadingOverlay').classList.add('active');
             this.setProgress(0);
@@ -97,14 +88,17 @@ class PythonRunner {
         const essentialPackages = [
             'numpy',
             'pandas',
-            'matplotlib'
+            'matplotlib',
+            'scipy',
+            'scikit-learn',
+            'seaborn'
         ];
 
         const totalPackages = essentialPackages.length;
         let loadedCount = 0;
 
         try {
-            // 只加载最核心的包，加快加载速度
+            // 加载所有必要的包，确保所有参考答案都能运行
             for (const pkg of essentialPackages) {
                 loadedCount++;
                 this.updateLoadingDetail(`正在安装: ${pkg}`);
@@ -114,9 +108,12 @@ class PythonRunner {
             
             console.log('Essential packages loaded successfully');
             
+            // 后台加载可选包（不阻塞）
+            this.loadOptionalPackages();
+            
         } catch (err) {
-            console.warn('Some packages failed to load, falling back to basics:', err);
-            await this.pyodide.loadPackage(['numpy', 'matplotlib']);
+            console.warn('Some packages failed to load:', err);
+            await this.pyodide.loadPackage(['numpy', 'pandas', 'matplotlib']);
         }
 
         // 设置matplotlib后端
@@ -126,9 +123,32 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import sys
 from io import StringIO
 `);
+    }
+
+    async loadOptionalPackages() {
+        const optionalPackages = [
+            'statsmodels',
+            'networkx',
+            'beautifulsoup4',
+            'lxml',
+            'pytz',
+            'python-dateutil',
+            'joblib',
+            'threadpoolctl'
+        ];
+        
+        for (const pkg of optionalPackages) {
+            try {
+                await this.pyodide.loadPackage(pkg);
+                console.log(`Loaded optional package: ${pkg}`);
+            } catch (err) {
+                console.warn(`Failed to load optional package ${pkg}:`, err);
+            }
+        }
     }
 
     async run(code) {
