@@ -3,6 +3,7 @@ class PythonRunner {
         this.pyodide = null;
         this.initialized = false;
         this.packagesLoaded = false;
+        this.allPackagesLoaded = false;
         this.initPromise = null;
         this.currentProgress = 0;
         this.loadingMessages = [
@@ -12,6 +13,10 @@ class PythonRunner {
             '即将完成...'
         ];
         this.messageIndex = 0;
+        
+        this.corePackages = ['numpy', 'pandas', 'matplotlib'];
+        this.optionalPackages = ['scipy', 'scikit-learn', 'seaborn', 'statsmodels', 'networkx', 'beautifulsoup4', 'lxml', 'pytz', 'python-dateutil', 'joblib', 'threadpoolctl'];
+        this.loadedPackages = [];
     }
 
     async ensureInitialized() {
@@ -92,35 +97,32 @@ class PythonRunner {
     }
 
     async loadPackages() {
-        const essentialPackages = [
-            'numpy',
-            'pandas',
-            'matplotlib',
-            'scipy',
-            'scikit-learn',
-            'seaborn'
-        ];
-
-        const totalPackages = essentialPackages.length;
         let loadedCount = 0;
+        const totalCore = this.corePackages.length;
 
         try {
-            // 加载所有必要的包，确保所有参考答案都能运行
-            for (const pkg of essentialPackages) {
+            // 首先只加载核心库，立即可用
+            for (const pkg of this.corePackages) {
                 loadedCount++;
                 this.updateLoadingDetail(`正在安装: ${pkg}`);
                 await this.pyodide.loadPackage(pkg);
-                this.setProgress(35 + (loadedCount / totalPackages) * 55);
+                this.loadedPackages.push(pkg);
+                this.setProgress(35 + (loadedCount / totalCore) * 55);
+                this.updateLibraryStatus();
             }
             
-            console.log('Essential packages loaded successfully');
+            console.log('Core packages loaded successfully');
+            
+            // 标记核心库加载完成
+            this.packagesLoaded = true;
             
             // 后台加载可选包（不阻塞）
-            this.loadOptionalPackages();
+            this.loadOptionalPackagesInBackground();
             
         } catch (err) {
             console.warn('Some packages failed to load:', err);
-            await this.pyodide.loadPackage(['numpy', 'pandas', 'matplotlib']);
+            await this.pyodide.loadPackage(this.corePackages);
+            this.loadedPackages = [...this.corePackages;
         }
 
         // 设置matplotlib后端
@@ -136,26 +138,60 @@ from io import StringIO
 `);
     }
 
-    async loadOptionalPackages() {
-        const optionalPackages = [
-            'statsmodels',
-            'networkx',
-            'beautifulsoup4',
-            'lxml',
-            'pytz',
-            'python-dateutil',
-            'joblib',
-            'threadpoolctl'
-        ];
-        
-        for (const pkg of optionalPackages) {
-            try {
-                await this.pyodide.loadPackage(pkg);
-                console.log(`Loaded optional package: ${pkg}`);
-            } catch (err) {
-                console.warn(`Failed to load optional package ${pkg}:`, err);
+    async loadOptionalPackagesInBackground() {
+        for (const pkg of this.optionalPackages) {
+            if (!this.loadedPackages.includes(pkg)) {
+                try {
+                    await this.pyodide.loadPackage(pkg);
+                    this.loadedPackages.push(pkg);
+                    console.log(`Loaded optional package: ${pkg}`);
+                    this.updateLibraryStatus();
+                } catch (err) {
+                    console.warn(`Failed to load optional package ${pkg}:`, err);
+                }
             }
         }
+        this.allPackagesLoaded = true;
+        this.updateLibraryStatus();
+        console.log('All optional packages loaded');
+    }
+
+    updateLibraryStatus() {
+        const libraryInfo = document.getElementById('libraryInfo');
+        if (!libraryInfo) {
+            let statusHTML = `
+                <div class="title">
+                    <span>📦</span>
+                    <span>预装数据科学库</span>
+                </div>
+                <div class="packages">
+                    ${[...this.corePackages, ...this.optionalPackages].map(pkg => {
+                        const isLoaded = this.loadedPackages.includes(pkg);
+                        return `<span class="pkg-tag ${isLoaded ? 'pkg-loaded' : 'pkg-loading'}">${pkg}${isLoaded ? ' ✓' : '...'}</span>`;
+                    }).join('')}
+                </div>
+                ${this.allPackagesLoaded ? '<div style="font-size:0.75rem; color:#22c55e; margin-top:0.5rem;">🎉 所有库已下载完成！</div>' : ''}
+            `;
+            libraryInfo.innerHTML = statusHTML;
+        }
+    }
+
+    async ensurePackageLoaded(packageName) {
+        if (this.loadedPackages.includes(packageName)) {
+            return true;
+        }
+        if (this.pyodide) {
+            try {
+                this.showOutput(`⏳ 正在加载 ${packageName} 库，请稍等...\n`, 'info');
+                await this.pyodide.loadPackage(packageName);
+                this.loadedPackages.push(packageName);
+                this.updateLibraryStatus();
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+        return false;
     }
 
     async run(code) {
@@ -169,13 +205,21 @@ from io import StringIO
         try {
             // 清空输出区域
             this.clearOutput();
+            
+            // 初始化库状态显示
+            this.updateLibraryStatus();
 
-            // 设置输出捕获
+            // 设置输出捕获，确保中文支持
             await this.pyodide.runPythonAsync(`
 import sys
 from io import StringIO
 import base64
 import matplotlib.pyplot as plt
+import codecs
+
+# 确保输出正确处理UTF-8
+sys.stdout.reconfigure(encoding='utf-8', errors='replace') if hasattr(sys.stdout, 'reconfigure') else None
+sys.stderr.reconfigure(encoding='utf-8', errors='replace') if hasattr(sys.stderr, 'reconfigure') else None
 
 # 重置stdout/stderr
 sys.stdout = StringIO()

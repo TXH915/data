@@ -601,6 +601,23 @@ body {
     padding: 0.15rem 0.5rem;
     border-radius: 4px;
     font-size: 0.75rem;
+    transition: all 0.3s;
+}
+
+.library-info .pkg-tag.pkg-loaded {
+    background: rgba(34, 197, 94, 0.2);
+    color: #86efac;
+}
+
+.library-info .pkg-tag.pkg-loading {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    animation: tagPulse 1.5s infinite;
+}
+
+@keyframes tagPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
 }
 
 .code-header-extra {

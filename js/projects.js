@@ -751,49 +751,48 @@ print("Chart saved as visualization.png")
             codeQuestion: {
                 question: "编写代码：生成1000个服从正态分布的随机数，计算均值、中位数、标准差、方差，并输出统计摘要",
                 initialCode: "# 请在此处编写代码\nimport numpy as np\nimport pandas as pd\n\n# 生成1000个服从正态分布的随机数\n\n\n# 计算统计指标\n\n\n# 输出统计摘要",
-                solutionCode: "import numpy as np\nimport pandas as pd\n\n# 生成1000个服从正态分布的随机数\nnp.random.seed(42)\ndata = np.random.normal(100, 15, 1000)\n\n# 计算统计指标\nmean_val = np.mean(data)\nmedian_val = np.median(data)\nstd_val = np.std(data)\nvar_val = np.var(data)\n\n# 输出统计摘要\nprint(\"Statistics Summary:\")\nprint(f\"Mean: {mean_val:.2f}\")\nprint(f\"Median: {median_val:.2f}\")\nprint(f\"Std Dev: {std_val:.2f}\")\nprint(f\"Variance: {var_val:.2f}\")\n\n# 使用Pandas生成完整统计摘要\ndf = pd.DataFrame({'Data': data})\nprint(\"\\nPandas Summary:\")\nprint(df.describe())"
+                solutionCode: "import numpy as np\nimport pandas as pd\n\n# 生成1000个服从正态分布的随机数\nnp.random.seed(42)\ndata = np.random.normal(100, 15, 1000)\n\n# 计算统计指标\nmean_val = np.mean(data)\nmedian_val = np.median(data)\nstd_val = np.std(data)\nvar_val = np.var(data)\n\n# 输出统计摘要\nprint(\"统计摘要:\")\nprint(f\"均值: {mean_val:.2f}\")\nprint(f\"中位数: {median_val:.2f}\")\nprint(f\"标准差: {std_val:.2f}\")\nprint(f\"方差: {var_val:.2f}\")\n\n# 使用Pandas生成完整统计摘要\ndf = pd.DataFrame({'数据': data})\nprint(\"\\nPandas统计摘要:\")\nprint(df.describe())"
             }
         },
         initialCode: "",
         solutionCode: `import numpy as np
 import pandas as pd
 
-# 生成示例Data
+# 生成示例数据
 np.random.seed(42)
 data1 = np.random.normal(100, 15, 1000)
 data2 = np.random.normal(80, 10, 1000)
 
 print("="*50)
-print("Descriptive Statistics")
+print("描述性统计分析")
 print("="*50)
 
 # 集中趋势
-print("\n【Central Tendency】")
-print(f"Data1 Mean: {np.mean(data1):.2f}")
-print(f"Data1 Median: {np.median(data1):.2f}")
+print("\n【集中趋势】")
+print(f"数据1 均值: {np.mean(data1):.2f}")
+print(f"数据1 中位数: {np.median(data1):.2f}")
 
 # 离散程度
-print("\n【Dispersion】")
-print(f"Data1 Std Dev: {np.std(data1):.2f}")
-print(f"Data1 Variance: {np.var(data1):.2f}")
-print(f"Data1 Range: {np.max(data1) - np.min(data1):.2f}")
+print("\n【离散程度】")
+print(f"数据1 标准差: {np.std(data1):.2f}")
+print(f"数据1 方差: {np.var(data1):.2f}")
+print(f"数据1 极差: {np.max(data1) - np.min(data1):.2f}")
 
 # 分位数
-print("\n【Quantiles】")
+print("\n【分位数】")
 print(f"Q1 (25%): {np.percentile(data1, 25):.2f}")
 print(f"Q2 (50%): {np.percentile(data1, 50):.2f}")
 print(f"Q3 (75%): {np.percentile(data1, 75):.2f}")
 
 # 相关分析
-print("\n【Correlation】")
+print("\n【相关分析】")
 corr_matrix = np.corrcoef(data1, data2)
-print(f"Pearson Correlation: {corr_matrix[0, 1]:.4f}")
+print(f"Pearson相关系数: {corr_matrix[0, 1]:.4f}")
 
 # Pandas describe
-print("\n【Pandas Complete Statistics】")
-df = pd.DataFrame({'Data1': data1, 'Data2': data2})
-print(df.describe())
-`
+print("\n【Pandas 完整统计】")
+df = pd.DataFrame({'数据1': data1, '数据2': data2})
+print(df.describe())`
     },
     {
         id: 4,
