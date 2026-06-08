@@ -260,14 +260,25 @@ class DataAnalysisApp {
             }, 100);
         }
 
-        // 提交按钮
+        // 提交按钮区域
+        const submitContainer = document.createElement('div');
+        submitContainer.style.marginTop = '2rem';
+        submitContainer.style.paddingTop = '1rem';
+        submitContainer.style.borderTop = '2px dashed #444';
+        submitContainer.style.textAlign = 'center';
+        
         const submitBtn = document.createElement('button');
         submitBtn.className = 'btn btn-primary';
-        submitBtn.style.marginTop = '1.5rem';
         submitBtn.style.width = '100%';
-        submitBtn.textContent = '提交试卷';
+        submitBtn.style.padding = '1rem 2rem';
+        submitBtn.style.fontSize = '1.1rem';
+        submitBtn.style.fontWeight = 'bold';
+        submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        submitBtn.textContent = '📋 提交试卷';
         submitBtn.addEventListener('click', () => this.submitExam(project));
-        examContent.appendChild(submitBtn);
+        
+        submitContainer.appendChild(submitBtn);
+        examContent.appendChild(submitContainer);
     }
 
     submitExam(project) {
