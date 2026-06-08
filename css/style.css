@@ -213,10 +213,9 @@ body {
     padding: 1.5rem;
 }
 
-/* 代码练习区域 - 水平滚动 */
+/* 代码练习区域 - 水平和垂直滚动 */
 .code-scrollable {
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: auto;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -229,8 +228,7 @@ body {
 }
 
 .code-scrollable .CodeMirror-scroll {
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
+    overflow: auto !important;
     min-width: 800px;
 }
 
