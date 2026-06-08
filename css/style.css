@@ -217,12 +217,21 @@ body {
 .code-scrollable {
     overflow-x: auto;
     overflow-y: hidden;
-    min-width: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
-.code-scrollable #codeEditor {
+.code-scrollable .CodeMirror {
+    height: 100%;
     min-width: 800px;
-    width: auto;
+    width: max-content !important;
+}
+
+.code-scrollable .CodeMirror-scroll {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    min-width: 800px;
 }
 
 /* 输出结果区域 - 水平滚动 */

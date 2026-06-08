@@ -9,13 +9,13 @@ class CodeEditor {
             indentWithTabs: false,
             autoCloseBrackets: true,
             matchBrackets: true,
-            lineWrapping: true,
+            lineWrapping: false,
             extraKeys: {
                 'Ctrl-Enter': () => this.runCode(),
                 'Shift-Enter': () => this.runCode()
             }
         });
-        this.editor.setSize('100%', '100%');
+        this.editor.setSize(null, '100%');
     }
 
     getValue() {
