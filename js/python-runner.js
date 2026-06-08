@@ -322,10 +322,14 @@ img_base64
         const outputContent = document.getElementById('outputContent');
         if (!outputContent) return;
         
-        const line = document.createElement('div');
-        line.className = `output-line ${type}`;
-        line.textContent = text;
-        outputContent.appendChild(line);
+        // 将文本按换行符分割，逐行显示
+        const lines = text.split('\n');
+        lines.forEach(lineText => {
+            const line = document.createElement('div');
+            line.className = `output-line ${type}`;
+            line.textContent = lineText;
+            outputContent.appendChild(line);
+        });
         
         // 自动滚动到底部
         const outputArea = document.getElementById('outputArea');
