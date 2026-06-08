@@ -810,29 +810,34 @@ print("描述性统计分析")
 print("="*50)
 
 # 集中趋势
-print("\n【集中趋势】")
+print("")
+print("【集中趋势】")
 print(f"数据1 均值: {np.mean(data1):.2f}")
 print(f"数据1 中位数: {np.median(data1):.2f}")
 
 # 离散程度
-print("\n【离散程度】")
+print("")
+print("【离散程度】")
 print(f"数据1 标准差: {np.std(data1):.2f}")
 print(f"数据1 方差: {np.var(data1):.2f}")
 print(f"数据1 极差: {np.max(data1) - np.min(data1):.2f}")
 
 # 分位数
-print("\n【分位数】")
+print("")
+print("【分位数】")
 print(f"Q1 (25%): {np.percentile(data1, 25):.2f}")
 print(f"Q2 (50%): {np.percentile(data1, 50):.2f}")
 print(f"Q3 (75%): {np.percentile(data1, 75):.2f}")
 
 # 相关分析
-print("\n【相关分析】")
+print("")
+print("【相关分析】")
 corr_matrix = np.corrcoef(data1, data2)
 print(f"Pearson相关系数: {corr_matrix[0, 1]:.4f}")
 
 # Pandas describe
-print("\n【Pandas 完整统计】")
+print("")
+print("【Pandas 完整统计】")
 df = pd.DataFrame({'数据1': data1, '数据2': data2})
 print(df.describe())`
     },
