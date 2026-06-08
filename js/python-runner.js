@@ -205,6 +205,11 @@ from io import StringIO
             return;
         }
 
+        // 如果还有可选库未下载，开始后台下载
+        if (!this.allPackagesLoaded && this.packagesLoaded) {
+            this.loadOptionalPackagesInBackground();
+        }
+
         try {
             // 清空输出区域
             this.clearOutput();
