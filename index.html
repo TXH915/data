@@ -42,11 +42,12 @@
                 </div>
 
                 <div class="panel center-panel">
-                    <div class="panel code-panel">
+                    <div class="panel code-panel" id="codePanel">
                         <div class="library-info" id="libraryInfo">
                             <div class="title">
                                 <span>📦</span>
                                 <span>预装数据科学库</span>
+                                <button class="btn btn-small collapse-btn" onclick="togglePanel('libraryInfo')">−</button>
                             </div>
                             <div class="packages">
                                 <span class="pkg-tag pkg-loading">numpy...</span>
@@ -63,6 +64,7 @@
                                 <div class="code-header-extra">
                                     <div class="status-indicator" id="statusIndicator"></div>
                                 </div>
+                                <button class="btn btn-small collapse-btn" onclick="togglePanel('codePanel')">−</button>
                                 <button class="btn btn-secondary" id="resetBtn">🔄 重置</button>
                                 <button class="btn btn-primary" id="runBtn">▶️ 运行</button>
                             </div>
@@ -72,10 +74,15 @@
                         </div>
                     </div>
 
-                    <div class="panel output-panel">
+                    <div class="resizer horizontal" id="resizer1"></div>
+
+                    <div class="panel output-panel" id="outputPanel">
                         <div class="panel-header">
                             <h3>📤 输出结果</h3>
-                            <button class="btn btn-small" id="clearOutputBtn">🗑️ 清空</button>
+                            <div>
+                                <button class="btn btn-small collapse-btn" onclick="togglePanel('outputPanel')">−</button>
+                                <button class="btn btn-small" id="clearOutputBtn">🗑️ 清空</button>
+                            </div>
                         </div>
                         <div class="panel-content scrollable output-scrollable" id="outputContent">
                             <div class="placeholder">运行代码后结果将显示在这里</div>

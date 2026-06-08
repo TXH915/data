@@ -538,8 +538,83 @@ achievementNotificationStyle.textContent = `
 document.head.appendChild(achievementNotificationStyle);
 
 let app;
+
+// 全局函数：折叠/展开面板
+function togglePanel(panelId) {
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+
+    const collapseBtn = panel.querySelector('.collapse-btn');
+    if (panel.classList.contains('collapsed')) {
+        panel.classList.remove('collapsed');
+        if (collapseBtn) collapseBtn.textContent = '−';
+    } else {
+        panel.classList.add('collapsed');
+        if (collapseBtn) collapseBtn.textContent = '+';
+    }
+}
+
+// 初始化拖动调整大小功能
+function initResizers() {
+    const resizers = document.querySelectorAll('.resizer');
+
+    resizers.forEach(resizer => {
+        let startY, startHeight1, startHeight2;
+        let isDragging = false;
+
+        const isHorizontal = resizer.classList.contains('horizontal');
+        const isVertical = resizer.classList.contains('vertical');
+
+        const prevPanel = resizer.previousElementSibling;
+        const nextPanel = resizer.nextElementSibling;
+
+        if (!prevPanel || !nextPanel) return;
+
+        const onMouseDown = (e) => {
+            isDragging = true;
+            if (isHorizontal) {
+                startY = e.clientY;
+                startHeight1 = prevPanel.offsetHeight;
+                startHeight2 = nextPanel.offsetHeight;
+            }
+
+            document.body.style.cursor = isHorizontal ? 'row-resize' : 'col-resize';
+            document.body.style.userSelect = 'none';
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        };
+
+        const onMouseMove = (e) => {
+            if (!isDragging) return;
+
+            if (isHorizontal) {
+                const dy = e.clientY - startY;
+                const newHeight1 = Math.max(100, startHeight1 + dy);
+                const newHeight2 = Math.max(100, startHeight2 - dy);
+
+                prevPanel.style.flex = '0 0 ' + newHeight1 + 'px';
+                prevPanel.style.height = newHeight1 + 'px';
+                nextPanel.style.flex = '0 0 ' + newHeight2 + 'px';
+                nextPanel.style.height = newHeight2 + 'px';
+            }
+        };
+
+        const onMouseUp = () => {
+            isDragging = false;
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        };
+
+        resizer.addEventListener('mousedown', onMouseDown);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // 页面立即显示，不阻塞加载
     app = new DataAnalysisApp();
+    initResizers();
     console.log('页面已加载完成！');
 });

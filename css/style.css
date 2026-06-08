@@ -114,7 +114,54 @@ body {
 .project-nav {
     flex: 1;
     overflow-y: auto;
+    padding: 0.5rem;
+}
+
+.project-item {
     padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #252540;
+    border: 2px solid #3d3d5c;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.project-item:nth-child(odd) {
+    background: #202038;
+}
+
+.project-item:nth-child(even) {
+    background: #2a2a48;
+}
+
+.project-item:hover {
+    background: #35355a;
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.project-item.active {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    color: white;
+    border-color: #818cf8;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+}
+
+.project-item h4 {
+    margin: 0.3rem 0;
+    font-size: 1rem;
+}
+
+.project-item p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.project-item.active p {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .nav-item {
@@ -421,6 +468,62 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    color: #6366f1;
+    justify-content: space-between;
+}
+
+.collapse-btn {
+    padding: 0.1rem 0.4rem;
+    font-size: 1rem;
+    line-height: 1;
+    min-width: 24px;
+    height: 24px;
+}
+
+.library-info.collapsed .packages {
+    display: none;
+}
+
+.code-panel.collapsed .panel-content,
+.code-panel.collapsed .library-info {
+    display: none;
+}
+
+.output-panel.collapsed .panel-content {
+    display: none;
+}
+
+.resizer {
+    background: #3d3d5c;
+    cursor: row-resize;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.resizer:hover {
+    background: #6366f1;
+}
+
+.resizer.horizontal {
+    height: 8px;
+    min-height: 8px;
+}
+
+.resizer.vertical {
+    width: 8px;
+    min-width: 8px;
+}
+
+.resizer::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
 }
 
 .library-info .packages {
@@ -431,22 +534,23 @@ body {
 
 .pkg-tag {
     padding: 0.25rem 0.75rem;
-    background: white;
+    background: #1e293b;
     border-radius: 12px;
     font-size: 0.8rem;
     border: 1px solid var(--border-color);
+    color: #818cf8;
 }
 
 .pkg-tag.loaded {
-    background: #dcfce7;
-    color: #166534;
-    border-color: #bbf7d0;
+    background: #064e3b;
+    color: #6ee7b7;
+    border-color: #059669;
 }
 
 .pkg-tag.loading {
-    background: #fef3c7;
-    color: #92400e;
-    border-color: #fde68a;
+    background: #78350f;
+    color: #fbbf24;
+    border-color: #f59e0b;
 }
 
 /* 输出区域 */
