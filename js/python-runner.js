@@ -4,52 +4,96 @@ class PythonRunner {
         this.initialized = false;
         this.packagesLoaded = false;
         this.initPromise = this.init();
+        this.currentProgress = 0;
+        this.loadingMessages = [
+            '正在初始化 Python 引擎...',
+            '正在加载核心库...',
+            '正在配置环境...',
+            '即将完成...'
+        ];
+        this.messageIndex = 0;
     }
 
     async init() {
         try {
             document.getElementById('loadingOverlay').classList.add('active');
-            this.updateLoadingMessage('正在加载Python核心...');
+            this.setProgress(0);
+            this.updateLoadingMessage('正在加载 Python 核心...', '初始化 Pyodide 引擎');
 
             // 配置Pyodide，使用合适的CDN
             this.pyodide = await loadPyodide({
                 indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.25.0/full/',
                 stdout: (text) => this.appendOutput(text, 'stdout'),
-                stderr: (text) => this.appendOutput(text, 'stderr')
+                stderr: (text) => this.appendOutput(text, 'stderr'),
+                progress: (progress) => {
+                    this.setProgress(Math.min(30, progress * 30));
+                    this.updateLoadingDetail(`下载进度: ${Math.round(progress * 100)}%`);
+                }
             });
 
             this.initialized = true;
-            this.updateLoadingMessage('正在加载数据科学库...');
+            this.setProgress(35);
+            this.updateLoadingMessage('正在加载数据科学库...', '安装 numpy, pandas, matplotlib...');
 
             // 预装所有常用的数据科学库
             await this.loadPackages();
 
             this.packagesLoaded = true;
+            this.setProgress(95);
+            this.updateLoadingMessage('正在配置环境...', '设置 matplotlib 后端');
             console.log('Pyodide & Data Science packages initialized successfully');
-            this.updateLoadingMessage('初始化完成！');
+
+            // 等待一下让用户看到完成状态
+            await new Promise(resolve => setTimeout(resolve, 300));
+            this.setProgress(100);
+            this.updateLoadingMessage('初始化完成！', '准备就绪');
+            
         } catch (error) {
             console.error('Failed to initialize Pyodide:', error);
             this.showOutput('⚠️ Python环境初始化失败。请刷新页面重试。\n\n错误信息: ' + error.message, 'error');
         } finally {
             setTimeout(() => {
                 document.getElementById('loadingOverlay').classList.remove('active');
-            }, 500);
+            }, 800);
         }
     }
 
-    updateLoadingMessage(msg) {
-        const overlay = document.getElementById('loadingOverlay');
-        const p = overlay.querySelector('p');
-        if (p) p.textContent = msg;
+    setProgress(percent) {
+        this.currentProgress = Math.min(100, Math.max(0, percent));
+        const bar = document.getElementById('loadingBar');
+        if (bar) {
+            bar.style.width = `${this.currentProgress}%`;
+        }
+    }
+
+    updateLoadingMessage(msg, detail = '') {
+        const messageEl = document.getElementById('loadingMessage');
+        const detailEl = document.getElementById('loadingDetail');
+        if (messageEl) {
+            messageEl.textContent = msg;
+        }
+        if (detailEl && detail) {
+            detailEl.textContent = detail;
+        }
+    }
+
+    updateLoadingDetail(detail) {
+        const detailEl = document.getElementById('loadingDetail');
+        if (detailEl) {
+            detailEl.textContent = detail;
+        }
     }
 
     async loadPackages() {
-        const packages = [
+        const essentialPackages = [
             'numpy',
             'pandas',
             'matplotlib',
             'scipy',
-            'scikit-learn',
+            'scikit-learn'
+        ];
+
+        const optionalPackages = [
             'seaborn',
             'statsmodels',
             'networkx',
@@ -66,15 +110,36 @@ class PythonRunner {
             'threadpoolctl'
         ];
 
+        const totalPackages = essentialPackages.length;
+        let loadedCount = 0;
+
         try {
-            await this.pyodide.loadPackage(packages);
-            console.log('All packages loaded successfully');
+            // 优先加载核心包
+            for (const pkg of essentialPackages) {
+                loadedCount++;
+                this.updateLoadingDetail(`正在安装: ${pkg}`);
+                await this.pyodide.loadPackage(pkg);
+                this.setProgress(35 + (loadedCount / totalPackages) * 50);
+            }
+            
+            console.log('Essential packages loaded successfully');
+            
+            // 尝试加载可选包（不阻塞）
+            for (const pkg of optionalPackages) {
+                try {
+                    await this.pyodide.loadPackage(pkg);
+                } catch (err) {
+                    console.warn(`Failed to load optional package ${pkg}:`, err);
+                }
+            }
+            
         } catch (err) {
             console.warn('Some packages failed to load, falling back to essentials:', err);
             await this.pyodide.loadPackage(['numpy', 'pandas', 'matplotlib']);
         }
 
         // 设置matplotlib后端
+        this.updateLoadingDetail('配置 matplotlib...');
         await this.pyodide.runPythonAsync(`
 import matplotlib
 matplotlib.use('Agg')

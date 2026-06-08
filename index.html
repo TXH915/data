@@ -128,8 +128,27 @@
     </div>
 
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-        <p>正在加载 Python 环境...</p>
+        <div class="loading-container">
+            <h2 class="loading-title">📊 Python数据分析学习平台</h2>
+            
+            <div class="spinner-wrapper">
+                <div class="spinner"></div>
+                <div class="spinner-inner"></div>
+            </div>
+            
+            <div class="loading-progress">
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+            
+            <div class="loading-message" id="loadingMessage">正在加载 Python 环境...</div>
+            <div class="loading-detail" id="loadingDetail">初始化中...</div>
+            
+            <div class="loading-tips">
+                <p><span class="tip-icon">⚡</span>首次加载需要下载约 50MB 数据</p>
+                <p><span class="tip-icon">📡</span>建议使用稳定的网络连接</p>
+                <p><span class="tip-icon">⏳</span>加载时间约 30-60 秒</p>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>

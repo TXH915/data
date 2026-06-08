@@ -442,29 +442,120 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(15, 23, 42, 0.95);
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
     z-index: 2000;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .loading-overlay.active {
     display: flex;
 }
 
+.loading-container {
+    text-align: center;
+    max-width: 500px;
+    padding: 2rem;
+}
+
+.loading-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 2rem;
+}
+
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
 .spinner {
-    width: 50px;
-    height: 50px;
-    border: 4px solid var(--border-color);
-    border-top-color: var(--primary-color);
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(71, 85, 105, 0.3);
+    border-top-color: #2563eb;
+    border-right-color: #8b5cf6;
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: spin 1.2s linear infinite;
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
 }
 
 @keyframes spin {
     to { transform: rotate(360deg); }
+}
+
+.spinner-wrapper {
+    position: relative;
+}
+
+.spinner-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(167, 139, 250, 0.4);
+    border-radius: 50%;
+}
+
+.loading-progress {
+    width: 100%;
+    height: 6px;
+    background: rgba(71, 85, 105, 0.3);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.loading-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #2563eb, #8b5cf6);
+    border-radius: 3px;
+    transition: width 0.3s ease-out;
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.loading-message {
+    font-size: 1rem;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+}
+
+.loading-detail {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-family: 'Fira Code', monospace;
+}
+
+.loading-tips {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(71, 85, 105, 0.3);
+}
+
+.loading-tips p {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0.5rem 0;
+}
+
+.loading-tips .tip-icon {
+    color: #f59e0b;
+    margin-right: 0.5rem;
 }
 
 .gutter {
