@@ -116,7 +116,6 @@ print(df)
     <li><code>plt.plot()</code> 或其他绘图函数</li>
     <li><code>plt.title()</code> 添加标题</li>
     <li><code>plt.xlabel()</code> 和 <code>plt.ylabel()</code> 添加轴标签</li>
-    <li><code>plt.show()</code> 显示图表</li>
 </ul>
         `,
         exercises: [
@@ -129,11 +128,6 @@ print(df)
             {
                 question: "Matplotlib 中绘制折线图的函数是？",
                 options: ["line()", "plot()", "draw()", "chart()"],
-                answer: 1
-            },
-            {
-                question: "用于显示图表的函数是？",
-                options: ["display()", "show()", "print()", "view()"],
                 answer: 1
             },
             {
@@ -152,7 +146,6 @@ y1 = np.sin(x)
 y2 = np.cos(x)
 
 # 折线图
-print("绘制折线图...")
 plt.figure(figsize=(12, 8))
 
 plt.subplot(2, 2, 1)
@@ -188,8 +181,7 @@ plt.hist(data, bins=30, color='skyblue', edgecolor='black')
 plt.title('正态分布直方图')
 
 plt.tight_layout()
-plt.savefig('visualization.png')
-print("图表已保存为 visualization.png")
+print("图表已生成！")
 `
     },
     {
@@ -243,7 +235,6 @@ print("图表已保存为 visualization.png")
         initialCode: "",
         solutionCode: `import numpy as np
 import pandas as pd
-from scipy import stats
 
 # 生成示例数据
 np.random.seed(42)
@@ -258,7 +249,6 @@ print("="*50)
 print("\\n【集中趋势】")
 print(f"数据1 均值: {np.mean(data1):.2f}")
 print(f"数据1 中位数: {np.median(data1):.2f}")
-print(f"数据1 众数: {stats.mode(data1, keepdims=True)[0][0]:.2f}")
 
 # 离散程度
 print("\\n【离散程度】")
@@ -272,22 +262,10 @@ print(f"Q1 (25%): {np.percentile(data1, 25):.2f}")
 print(f"Q2 (50%): {np.percentile(data1, 50):.2f}")
 print(f"Q3 (75%): {np.percentile(data1, 75):.2f}")
 
-# 分布形态
-print("\\n【分布形态】")
-print(f"偏度: {stats.skew(data1):.4f}")
-print(f"峰度: {stats.kurtosis(data1):.4f}")
-
 # 相关分析
 print("\\n【相关分析】")
-corr, p_value = stats.pearsonr(data1, data2)
-print(f"Pearson相关系数: {corr:.4f}")
-print(f"P值: {p_value:.4f}")
-
-# t检验
-print("\\n【t检验】")
-t_stat, t_p = stats.ttest_ind(data1, data2)
-print(f"t统计量: {t_stat:.4f}")
-print(f"P值: {t_p:.4f}")
+corr_matrix = np.corrcoef(data1, data2)
+print(f"Pearson相关系数: {corr_matrix[0, 1]:.4f}")
 
 # Pandas describe
 print("\\n【Pandas 完整统计】")
@@ -347,8 +325,8 @@ print(df.describe())
 import numpy as np
 
 # 创建销售数据
+np.random.seed(42)
 data = {
-    '日期': pd.date_range('2024-01-01', periods=10),
     '产品': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'A', 'B', 'C'],
     '区域': ['东', '西', '东', '南', '西', '北', '南', '东', '西', '北'],
     '销量': np.random.randint(100, 500, 10),
@@ -395,13 +373,6 @@ print()
 # 6. 排序
 print("【按销售额降序排序】")
 print(df.sort_values('销售额', ascending=False).head())
-print()
-
-# 7. 透视表
-print("【透视表：区域vs产品】")
-pivot = pd.pivot_table(df, values='销售额', index='区域', columns='产品', 
-                      aggfunc='sum', fill_value=0)
-print(pivot)
 `
     },
     {
@@ -417,7 +388,6 @@ print(pivot)
 <ul>
     <li><code>plt.subplot()</code> - 子图网格</li>
     <li><code>plt.subplots()</code> - 创建子图对象</li>
-    <li><code>gridspec</code> - 复杂布局</li>
 </ul>
 
 <h4>样式美化</h4>
@@ -425,7 +395,6 @@ print(pivot)
     <li>颜色设置：color, cmap</li>
     <li>线条样式：linestyle, linewidth</li>
     <li>标记样式：marker, markersize</li>
-    <li>样式表：<code>plt.style.use()</code></li>
 </ul>
 
 <h4>图表类型</h4>
@@ -461,10 +430,8 @@ print(pivot)
         initialCode: "",
         solutionCode: `import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 
 # 设置样式
-plt.style.use('seaborn-v0_8-darkgrid')
 np.random.seed(42)
 
 # 创建数据
@@ -473,72 +440,54 @@ months = ['1月', '2月', '3月', '4月', '5月', '6月']
 sales_data = np.random.randint(100, 500, (6, 4))
 corr_matrix = np.corrcoef(sales_data.T)
 
-fig = plt.figure(figsize=(15, 10))
+plt.figure(figsize=(15, 10))
 
 # 1. 热力图
-ax1 = plt.subplot(2, 2, 1)
-im = ax1.imshow(corr_matrix, cmap='RdBu_r', vmin=-1, vmax=1)
-ax1.set_xticks(range(4))
-ax1.set_yticks(range(4))
-ax1.set_xticklabels(categories)
-ax1.set_yticklabels(categories)
-ax1.set_title('产品相关性热力图')
-plt.colorbar(im, ax=ax1)
-
-# 添加数值标签
-for i in range(4):
-    for j in range(4):
-        ax1.text(j, i, f'{corr_matrix[i,j]:.2f}', 
-                ha='center', va='center', color='white')
+plt.subplot(2, 2, 1)
+im = plt.imshow(corr_matrix, cmap='RdBu_r', vmin=-1, vmax=1)
+plt.xticks(range(4), categories)
+plt.yticks(range(4), categories)
+plt.title('产品相关性热力图')
+plt.colorbar(im, fraction=0.046, pad=0.04)
 
 # 2. 箱线图
-ax2 = plt.subplot(2, 2, 2)
+plt.subplot(2, 2, 2)
 data_box = [np.random.normal(100, 15, 100) + i*10 for i in range(4)]
-bp = ax2.boxplot(data_box, patch_artist=True, labels=categories)
-ax2.set_title('各产品销量分布')
-ax2.set_ylabel('销量')
+bp = plt.boxplot(data_box, patch_artist=True, labels=categories)
+plt.title('各产品销量分布')
+plt.ylabel('销量')
 # 设置颜色
 colors = ['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3']
 for patch, color in zip(bp['boxes'], colors):
     patch.set_facecolor(color)
     patch.set_alpha(0.7)
 
-# 3. 面积图
-ax3 = plt.subplot(2, 2, 3)
+# 3. 折线图
+plt.subplot(2, 2, 3)
 x = np.arange(6)
 for i in range(4):
-    ax3.plot(x, sales_data[:, i], marker='o', label=categories[i], linewidth=2)
-ax3.fill_between(x, sales_data[:, 0], alpha=0.3)
-ax3.set_xticks(x)
-ax3.set_xticklabels(months)
-ax3.set_title('月度销量趋势')
-ax3.legend()
-ax3.grid(True, alpha=0.3)
+    plt.plot(x, sales_data[:, i], marker='o', label=categories[i], linewidth=2)
+plt.xticks(x, months)
+plt.title('月度销量趋势')
+plt.legend()
+plt.grid(True, alpha=0.3)
 
 # 4. 双Y轴图
-ax4 = plt.subplot(2, 2, 4)
+plt.subplot(2, 2, 4)
 x = np.arange(6)
 y1 = sales_data[:, 0]
 y2 = y1 * 1.5 + np.random.randn(6)*20
 
-l1, = ax4.plot(x, y1, 'b-', linewidth=2, label='销量')
-ax4.set_xlabel('月份')
-ax4.set_ylabel('销量', color='b')
-ax4.tick_params(axis='y', labelcolor='b')
-ax4.set_xticks(x)
-ax4.set_xticklabels(months)
+plt.plot(x, y1, 'b-', linewidth=2, label='销量')
+plt.ylabel('销量', color='b')
+plt.tick_params(axis='y', labelcolor='b')
+plt.xticks(x, months)
 
-ax4_twin = ax4.twinx()
-l2, = ax4_twin.plot(x, y2, 'r--', linewidth=2, label='利润')
-ax4_twin.set_ylabel('利润', color='r')
-ax4_twin.tick_params(axis='y', labelcolor='r')
-
-ax4.legend([l1, l2], ['销量', '利润'], loc='upper left')
-ax4.set_title('销量与利润对比')
+plt.title('销量与利润对比')
+plt.legend(loc='upper left')
 
 plt.tight_layout()
-plt.savefig('advanced_plots.png')
-print("高级图表已保存为 advanced_plots.png")
+print("高级图表已生成！")
 `
     },
     {
@@ -595,8 +544,7 @@ print("高级图表已保存为 advanced_plots.png")
             }
         ],
         initialCode: "",
-        solutionCode: `import pandas as pd
-import numpy as np
+        solutionCode: `import numpy as np
 from collections import defaultdict
 from itertools import combinations
 
@@ -630,79 +578,76 @@ for trans in transactions:
     for item in trans:
         item_counts[item] += 1
 
-items_df = pd.DataFrame({
-    '商品': list(item_counts.keys()),
-    '出现次数': list(item_counts.values()),
-    '支持度': [count/len(transactions) for count in item_counts.values()]
-}).sort_values('支持度', ascending=False)
+print("商品出现次数:")
+for item, cnt in item_counts.items():
+    support = cnt / len(transactions)
+    print(f"  {item}: {cnt}次 (支持度: {support:.2%})")
 
-print(items_df.round(3))
-
-# 2. Apriori算法实现
+# 2. 计算两两组合
 min_support = 0.3
 min_confidence = 0.6
 
 print(f"\\n【最小支持度: {min_support}, 最小置信度: {min_confidence}】")
 
-# 获取所有单个商品
+# 生成频繁项集和关联规则
 all_items = sorted(list(item_counts.keys()))
-
-# 生成频繁项集
-frequent_itemsets = []
-
-# 1-项集
-L1 = []
-for item in all_items:
-    support = item_counts[item] / len(transactions)
-    if support >= min_support:
-        L1.append((frozenset([item]), support))
-frequent_itemsets.extend(L1)
-print(f"\\n1-项集: {len(L1)}个")
-
-# 2-项集
-C2 = list(combinations(all_items, 2))
-L2 = []
-for itemset in C2:
-    count = 0
-    for trans in transactions:
-        if set(itemset).issubset(trans):
-            count += 1
-    support = count / len(transactions)
-    if support >= min_support:
-        L2.append((frozenset(itemset), support))
-frequent_itemsets.extend(L2)
-print(f"2-项集: {len(L2)}个")
-
-# 3. 生成关联规则
-print("\\n【关联规则】")
 rules = []
-for itemset, support in L2:
-    items = list(itemset)
-    # A -> B
-    for i in range(2):
-        A = frozenset([items[i]])
-        B = frozenset([items[1-i]])
-        # 计算置信度
-        conf = support / dict(L1)[A]
-        # 计算提升度
-        lift = conf / (dict(L1)[B])
-        if conf >= min_confidence:
-            rules.append({
-                '前件': set(A),
-                '后件': set(B),
-                '支持度': support,
-                '置信度': conf,
-                '提升度': lift
-            })
 
-rules_df = pd.DataFrame(rules).sort_values('提升度', ascending=False)
-print(rules_df.round(3))
+# 检查所有两两组合
+for i in range(len(all_items)):
+    for j in range(i+1, len(all_items)):
+        a = all_items[i]
+        b = all_items[j]
+        
+        # 计算支持度
+        count_ab = 0
+        count_a = 0
+        for trans in transactions:
+            if a in trans:
+                count_a += 1
+                if b in trans:
+                    count_ab += 1
+        
+        support_ab = count_ab / len(transactions)
+        
+        if support_ab >= min_support:
+            # A -> B
+            conf_ab = count_ab / count_a if count_a > 0 else 0
+            lift_ab = conf_ab / (item_counts[b] / len(transactions))
+            if conf_ab >= min_confidence:
+                rules.append({
+                    '前': a,
+                    '后': b,
+                    '支持度': support_ab,
+                    '置信度': conf_ab,
+                    '提升度': lift_ab
+                })
+            
+            # B -> A
+            count_b = item_counts[b]
+            conf_ba = count_ab / count_b if count_b > 0 else 0
+            lift_ba = conf_ba / (item_counts[a] / len(transactions))
+            if conf_ba >= min_confidence:
+                rules.append({
+                    '前': b,
+                    '后': a,
+                    '支持度': support_ab,
+                    '置信度': conf_ba,
+                    '提升度': lift_ba
+                })
 
-# 4. 业务建议
+# 排序显示
+rules_sorted = sorted(rules, key=lambda x: x['提升度'], reverse=True)
+print("\\n【关联规则】")
+for r in rules_sorted:
+    print(f"{r['前']} -> {r['后']}:")
+    print(f"  支持度={r['支持度']:.2%}, 置信度={r['置信度']:.2%}, 提升度={r['提升度']:.2f}")
+
+# 业务建议
 print("\\n【业务建议】")
-for _, rule in rules_df.iterrows():
-    print(f"● 购买 {rule['前件']} 的顾客，建议推荐 {rule['后件']}")
-    print(f"  (置信度: {rule['置信度']:.1%}, 提升度: {rule['提升度']:.2f})")
+for r in rules_sorted[:3]:
+    print(f"● 购买 {r['前']} 的顾客，建议推荐 {r['后']}")
+    print(f"  (置信度: {r['置信度']:.1%}, 提升度: {r['提升度']:.2f})")
 `
     },
     {
@@ -727,7 +672,6 @@ for _, rule in rules_df.iterrows():
     <li>移动平均法</li>
     <li>指数平滑法</li>
     <li>ARIMA 模型</li>
-    <li>Prophet（Facebook）</li>
 </ul>
 
 <h4>评估指标</h4>
@@ -761,8 +705,8 @@ for _, rule in rules_df.iterrows():
             }
         ],
         initialCode: "",
-        solutionCode: `import pandas as pd
-import numpy as np
+        solutionCode: `import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 print("="*50)
@@ -771,7 +715,6 @@ print("="*50)
 
 # 1. 创建时间序列数据
 np.random.seed(42)
-dates = pd.date_range(start='2023-01-01', periods=365, freq='D')
 time = np.arange(365)
 
 # 生成带趋势、季节和噪声的数据
@@ -780,48 +723,57 @@ seasonality = 30 * np.sin(2 * np.pi * time / 30)
 noise = np.random.randn(365) * 10
 data = trend + seasonality + noise
 
-ts = pd.Series(data, index=dates)
-
-print(f"\\n数据范围: {dates[0]} 至 {dates[-1]}")
-print(f"数据点数: {len(ts)}")
-print(f"\\n统计信息:")
-print(ts.describe())
+print(f"\\n数据点数: {len(data)}")
+print(f"前10个值: {data[:10].round(2)}")
 
 # 2. 移动平均
 print("\\n【移动平均分析】")
-ma7 = ts.rolling(window=7).mean()
-ma30 = ts.rolling(window=30).mean()
 
-print(f"7日移动平均（最后5个值）:")
-print(ma7.tail().round(2))
+# 简单移动平均
+def moving_average(arr, window):
+    weights = np.repeat(1.0, window) / window
+    ma = np.convolve(arr, weights, mode='same')
+    return ma
 
-# 3. 时间序列分解（简化版）
-print("\\n【时间序列分解】")
-# 计算趋势（30日移动平均）
-trend_est = ma30
-# 去趋势
-detrended = ts - trend_est
-# 季节性（按月平均）
-seasonal_est = detrended.groupby(detrended.index.day).transform('mean')
-# 残差
-residual = ts - trend_est - seasonal_est
+ma7 = moving_average(data, 7)
+ma30 = moving_average(data, 30)
 
-print("分解完成: 趋势 + 季节性 + 残差")
+print(f"7日移动平均 (最后5个值): {ma7[-5:].round(2)}")
 
-# 4. 简单预测（Naive方法）
+# 可视化
+plt.figure(figsize=(14, 8))
+
+plt.subplot(2, 1, 1)
+plt.plot(time, data, label='原始数据', alpha=0.5)
+plt.plot(time, ma7, label='7日移动平均', linewidth=2)
+plt.plot(time, ma30, label='30日移动平均', linewidth=2)
+plt.title('时间序列与移动平均')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+plt.subplot(2, 1, 2)
+plt.plot(time, ma30, label='趋势 (30日MA)', color='red', linewidth=2)
+plt.title('趋势成分')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+print("\\n图表已生成！")
+
+# 简单预测
 print("\\n【简单预测】")
-train_size = int(len(ts) * 0.8)
-train, test = ts[:train_size], ts[train_size:]
+train_size = int(len(data) * 0.8)
+train, test = data[:train_size], data[train_size:]
 
 # 朴素预测：最后一个值
-naive_pred = pd.Series([train.iloc[-1]] * len(test), index=test.index)
+naive_pred = np.full_like(test, train[-1])
 
 # 平均预测
-mean_pred = pd.Series([train.mean()] * len(test), index=test.index)
+mean_pred = np.full_like(test, train.mean())
 
 # 漂移预测
-drift = (train.iloc[-1] - train.iloc[0]) / (len(train) - 1)
-drift_pred = pd.Series([train.iloc[-1] + drift * (i+1) for i in range(len(test))], index=test.index)
+drift = (train[-1] - train[0]) / (len(train) - 1)
+drift_pred = np.array([train[-1] + drift * (i+1) for i in range(len(test))])
 
 # 评估指标
 def mae(y_true, y_pred):
@@ -834,32 +786,6 @@ print("\\n预测评估:")
 print(f"朴素预测  MAE: {mae(test, naive_pred):.2f}, RMSE: {rmse(test, naive_pred):.2f}")
 print(f"平均预测  MAE: {mae(test, mean_pred):.2f}, RMSE: {rmse(test, mean_pred):.2f}")
 print(f"漂移预测  MAE: {mae(test, drift_pred):.2f}, RMSE: {rmse(test, drift_pred):.2f}")
-
-# 5. 可视化
-plt.figure(figsize=(14, 10))
-
-plt.subplot(3, 1, 1)
-plt.plot(ts.index, ts, label='原始数据', alpha=0.5)
-plt.plot(ts.index, ma7, label='7日移动平均', linewidth=2)
-plt.plot(ts.index, ma30, label='30日移动平均', linewidth=2)
-plt.title('时间序列与移动平均')
-plt.legend()
-plt.grid(True, alpha=0.3)
-
-plt.subplot(3, 1, 2)
-plt.plot(ts.index, trend_est, label='趋势', color='red')
-plt.title('趋势成分')
-plt.legend()
-
-plt.subplot(3, 1, 3)
-plt.plot(ts.index, residual, label='残差', color='purple', alpha=0.7)
-plt.axhline(y=0, color='black', linestyle='--', linewidth=0.5)
-plt.title('残差成分')
-plt.legend()
-
-plt.tight_layout()
-plt.savefig('timeseries.png')
-print("\\n图表已保存为 timeseries.png")
 `
     },
     {
@@ -885,12 +811,6 @@ print("\\n图表已保存为 timeseries.png")
     <li><b>TF-IDF</b>：词频-逆文档频率</li>
     <li><b>词嵌入(Word Embedding)</b>：Word2Vec, GloVe</li>
 </ul>
-
-<h4>常用库</h4>
-<ul>
-    <li>中文：jieba, HanLP</li>
-    <li>英文：NLTK, spaCy</li>
-</ul>
         `,
         exercises: [
             "创建示例文本数据",
@@ -908,11 +828,6 @@ print("\\n图表已保存为 timeseries.png")
                 question: "TF-IDF 中的 IDF 代表什么？",
                 options: ["词频", "逆文档频率", "重要性", "权重"],
                 answer: 1
-            },
-            {
-                question: "以下哪个是中文分词库？",
-                options: ["NLTK", "spaCy", "jieba", "gensim"],
-                answer: 2
             }
         ],
         initialCode: "",
@@ -926,11 +841,11 @@ print("="*50)
 
 # 1. 示例文本数据
 documents = [
-    "Python是一种优秀的编程语言，Python简单易学",
+    "Python是一种优秀的编程语言",
     "数据分析使用Python和Pandas进行数据处理",
-    "机器学习是人工智能的重要分支，使用Python",
-    "数据可视化使用Matplotlib和Seaborn",
-    "深度学习使用TensorFlow和PyTorch框架",
+    "机器学习是人工智能的重要分支",
+    "数据可视化使用Matplotlib绘制图表",
+    "深度学习使用神经网络进行学习",
     "Python在数据科学领域应用广泛"
 ]
 
@@ -938,37 +853,35 @@ print("\\n【文档列表】")
 for i, doc in enumerate(documents, 1):
     print(f"{i}. {doc}")
 
-# 2. 简单分词（中文按字/英文按词，演示用）
+# 2. 简单分词（中文按单字符，英文按词）
 def simple_tokenize(text):
-    # 简单实现：非汉字按单字，英文按词
-    chars = []
-    english_word = ''
+    # 提取中文、英文、数字
+    tokens = []
+    eng_word = ''
     for char in text:
         if '\\u4e00' <= char <= '\\u9fff':
-            if english_word:
-                chars.append(english_word)
-                english_word = ''
-            chars.append(char)
+            if eng_word:
+                tokens.append(eng_word)
+                eng_word = ''
+            tokens.append(char)
         elif char.isalnum():
-            english_word += char
+            eng_word += char
         else:
-            if english_word:
-                chars.append(english_word)
-                english_word = ''
-    if english_word:
-        chars.append(english_word)
-    return chars
+            if eng_word:
+                tokens.append(eng_word)
+                eng_word = ''
+    if eng_word:
+        tokens.append(eng_word)
+    return tokens
 
-# 停用词（简单示例）
-stopwords = set(['是', '的', '在', '和', '使', '用', '进', '行', '一', '种', '优', '秀'])
-
-print("\\n【词频统计】")
 # 3. 词频统计
+print("\\n【词频统计】")
 all_words = []
 doc_words = []
 for doc in documents:
     tokens = simple_tokenize(doc)
-    filtered = [w for w in tokens if w not in stopwords and len(w) > 1]
+    # 过滤单个字
+    filtered = [w for w in tokens if len(w) > 1]
     doc_words.append(filtered)
     all_words.extend(filtered)
 
@@ -989,6 +902,8 @@ for words in doc_words:
 
 # 计算每个文档的TF-IDF
 for doc_idx, words in enumerate(doc_words):
+    if len(words) == 0:
+        continue
     tf = Counter(words)
     tf_idf = {}
     for word, count in tf.items():
@@ -1001,31 +916,20 @@ for doc_idx, words in enumerate(doc_words):
     for word, score in top_words:
         print(f"  {word}: {score:.4f}")
 
-# 5. 简单关键词提取
-print("\\n【关键词提取结果】")
-key_words = [word for word, count in word_counts.most_common(5) if len(word) > 1]
-print(f"核心关键词: {', '.join(key_words)}")
-
-# 6. 共现分析
-print("\\n【共现分析（出现在同一文档中）】")
+# 5. 共现分析
+print("\\n【共现分析】")
 cooccur = defaultdict(int)
 for words in doc_words:
-    pairs = list(zip(words, words[1:]))
-    for a, b in pairs:
-        if a < b:
+    for i in range(len(words)):
+        for j in range(i+1, len(words)):
+            a, b = words[i], words[j]
+            if a > b:
+                a, b = b, a
             cooccur[(a, b)] += 1
-        else:
-            cooccur[(b, a)] += 1
 
 print("共现TOP5:")
 for (a, b), count in sorted(cooccur.items(), key=lambda x: x[1], reverse=True)[:5]:
     print(f"  {a} <-> {b}: {count}次")
-
-# 7. 可视化数据准备
-print("\\n【可视化数据】")
-print("词频统计可用于生成词云")
-for word, count in word_counts.most_common(8):
-    print(f"{'█' * count} {word}({count})")
 `
     },
     {
@@ -1078,7 +982,7 @@ for word, count in word_counts.most_common(8):
                 answer: 0
             },
             {
-                question: "以下哪种不是异常值处理方法？",
+                question: "以下哪个不是异常值处理方法？",
                 options: ["删除", "填充", "放大", "保留"],
                 answer: 2
             }
@@ -1136,36 +1040,7 @@ print(f"Z-score阈值: ±{threshold}")
 print(f"检测到异常值: {len(z_outliers)}个")
 print(f"异常值: {sorted(z_outliers)}")
 
-# 5. 修正Z-score（更稳健）
-print("\\n【修正Z-score方法】")
-median = np.median(data)
-mad = np.median(np.abs(data - median))
-modified_z = 0.6745 * (data - median) / (mad if mad != 0 else 1)
-
-modified_threshold = 3.5
-modified_outliers = data[np.abs(modified_z) > modified_threshold]
-print(f"中位数: {median:.2f}, MAD: {mad:.2f}")
-print(f"检测到异常值: {len(modified_outliers)}个")
-print(f"异常值: {sorted(modified_outliers)}")
-
-# 6. 方法比较
-print("\\n【方法比较】")
-methods = {
-    '真实异常值': set(outliers),
-    'IQR': set(iqr_outliers),
-    'Z-score': set(z_outliers),
-    '修正Z-score': set(modified_outliers)
-}
-
-for name, found in methods.items():
-    if name == '真实异常值':
-        continue
-    precision = len(found & methods['真实异常值']) / len(found) if len(found) > 0 else 0
-    recall = len(found & methods['真实异常值']) / len(methods['真实异常值'])
-    print(f"{name}:")
-    print(f"  检测数: {len(found)}, 准确率: {precision:.2%}, 召回率: {recall:.2%}")
-
-# 7. 可视化
+# 可视化
 plt.figure(figsize=(12, 8))
 
 # 箱线图
@@ -1177,7 +1052,7 @@ plt.ylabel('数值')
 
 # 直方图
 plt.subplot(2, 2, 2)
-plt.hist(data, bins=50, alpha=0.7, color='skyblue', edgecolor='black')
+plt.hist(data, bins=30, alpha=0.7, color='skyblue', edgecolor='black')
 plt.axvline(lower_bound, color='red', linestyle='--', label='IQR边界')
 plt.axvline(upper_bound, color='red', linestyle='--')
 plt.title('直方图')
@@ -1194,8 +1069,7 @@ plt.ylabel('Z-score')
 # 散点图
 plt.subplot(2, 2, 4)
 x = range(len(data))
-y = data
-plt.scatter(x, y, alpha=0.5, label='正常数据')
+plt.scatter(x, data, alpha=0.5, label='正常数据')
 outlier_x = [i for i, val in enumerate(data) if val in iqr_outliers]
 outlier_y = [val for val in data if val in iqr_outliers]
 plt.scatter(outlier_x, outlier_y, color='red', s=100, label='检测异常值')
@@ -1203,8 +1077,7 @@ plt.title('数据散点图')
 plt.legend()
 
 plt.tight_layout()
-plt.savefig('outliers.png')
-print("\\n图表已保存为 outliers.png")
+print("\\n图表已生成！")
 `
     },
     {
@@ -1265,7 +1138,6 @@ print("\\n图表已保存为 outliers.png")
         ],
         initialCode: "",
         solutionCode: `import numpy as np
-import math
 from collections import Counter
 
 print("="*50)
@@ -1293,7 +1165,7 @@ print(f"类别0: {n_class0}个样本")
 print(f"类别1: {n_class1}个样本")
 print(f"\\n前5个样本:")
 for i in range(5):
-    print(f"  样本{i}: X={X[i]}, y={y[i]}")
+    print(f"  样本{i}: X={X[i].round(2)}, y={y[i]}")
 
 # 2. 划分训练集和测试集
 print("\\n【数据集划分】")
@@ -1319,7 +1191,7 @@ class KNNClassifier:
         self.y_train = y
     
     def euclidean_distance(self, x1, x2):
-        return math.sqrt(sum((x1 - x2) ** 2))
+        return np.sqrt(np.sum((x1 - x2)**2))
     
     def predict_one(self, x):
         # 计算距离
@@ -1337,7 +1209,7 @@ class KNNClassifier:
         return Counter(labels).most_common(1)[0][0]
     
     def predict(self, X):
-        return [self.predict_one(x) for x in X]
+        return np.array([self.predict_one(x) for x in X])
 
 # 4. 训练和预测
 print("\\n【KNN训练与预测】")
@@ -1361,9 +1233,11 @@ def calculate_metrics(y_true, y_pred):
     recall = tp / (tp + fn) if (tp + fn) > 0 else 0
     f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
     
-    return {'TP': tp, 'TN': tn, 'FP': fp, 'FN': fn,
-            'Accuracy': accuracy, 'Precision': precision,
-            'Recall': recall, 'F1': f1}
+    return {
+        'TP': tp, 'TN': tn, 'FP': fp, 'FN': fn,
+        'Accuracy': accuracy, 'Precision': precision,
+        'Recall': recall, 'F1': f1
+    }
 
 metrics = calculate_metrics(y_test, y_pred)
 
@@ -1397,7 +1271,7 @@ print("\\n【示例预测】")
 new_samples = np.array([[0, 0], [3, 3], [1.5, 1.5]])
 new_preds = knn.predict(new_samples)
 for sample, pred in zip(new_samples, new_preds):
-    print(f"点{sample} -> 类别{int(pred)}")
+    print(f"点{sample.round(2)} -> 类别{int(pred)}")
 `
     }
 ];

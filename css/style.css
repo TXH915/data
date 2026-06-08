@@ -482,3 +482,56 @@ body {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEUAAAD///+l2Z/dAAAAXElEQVQIW2NgQAXGZHIAYSUXBeKYCILkBfNqgcAghqFkO4QWAxSNYgKqgCqghkNgwmwKxYCCzAqC0CsGIKsCwpwKwYgqwLAKtDcC0KwYgrwsBoCwYC8N8B6dGwD06Q9mBAAAAAElFTkSuQmCC');
     cursor: row-resize;
 }
+
+.library-info {
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #1e3a8a, #312e81);
+    color: #e0e7ff;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #475569;
+}
+
+.library-info .title {
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.library-info .packages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.library-info .pkg-tag {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+.code-header-extra {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+}
+
+.status-indicator.loading {
+    background: #f59e0b;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
