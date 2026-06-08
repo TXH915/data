@@ -196,12 +196,20 @@ figs = plt.get_fignums()
 len(figs) > 0
 `);
 
+            // 先显示文本输出
+            if (output.trim()) {
+                this.showOutput(output, 'success');
+            } else {
+                this.showOutput('✅ 代码运行成功（无输出）', 'success');
+            }
+
+            // 再显示图片
             if (hasFigures) {
                 const figureCount = this.pyodide.runPython(`
 import matplotlib.pyplot as plt
 len(plt.get_fignums())
 `);
-                output += `\n📊 生成了 ${figureCount} 个图形\n`;
+                this.appendOutput(`\n📊 生成了 ${figureCount} 个图形`, 'success');
 
                 for (let i = 0; i < figureCount; i++) {
                     const imgData = this.pyodide.runPython(`
@@ -220,11 +228,6 @@ img_base64
                 await this.pyodide.runPython('plt.close(\'all\')');
             }
 
-            if (!output.trim()) {
-                output = '✅ 代码运行成功（无输出）';
-            }
-
-            this.showOutput(output, 'success');
             achievementSystem.recordCodeRun();
 
         } catch (error) {
@@ -297,11 +300,9 @@ img_base64
             wrapper = document.createElement('div');
             wrapper.className = 'output-content-wrapper';
             outputContent.appendChild(wrapper);
-        } else {
-            wrapper.innerHTML = '';
         }
         
-        // 将文本按换行符分割，逐行显示
+        // 将文本按换行符分割，逐行显示（保留已有内容）
         const lines = text.split('\n');
         lines.forEach(lineText => {
             const line = document.createElement('div');
