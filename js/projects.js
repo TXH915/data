@@ -199,7 +199,25 @@ const projects = [
             codeQuestion: {
                 question: "编写代码：创建一个包含缺失值的DataFrame，统计各列缺失值数量，并Fill missing values with median",
                 initialCode: "# 请在此处编写代码\nimport pandas as pd\nimport numpy as np\n\n# 创建包含缺失值的DataFrame\n\n\n# 统计各列缺失值数量\n\n\n# Fill missing values with median",
-                solutionCode: "import pandas as pd\nimport numpy as np\n\n# 创建包含缺失值的DataFrame\ndata = {\n    'A': [1, 2, np.nan, 4, 5],\n    'B': [np.nan, 2, 3, np.nan, 5],\n    'C': [1, 2, 3, 4, 5]\n}\ndf = pd.DataFrame(data)\n\n# 统计各列缺失值数量\nprint(\"Missing Values Statistics:\")\nprint(df.isnull().sum())\n\n# Fill missing values with median\ndf_filled = df.fillna(df.median())\nprint(\"\\nFilled Data:\")\nprint(df_filled)"
+                solutionCode: `import pandas as pd
+import numpy as np
+
+# 创建包含缺失值的DataFrame
+data = {
+    'A': [1, 2, np.nan, 4, 5],
+    'B': [np.nan, 2, 3, np.nan, 5],
+    'C': [1, 2, 3, 4, 5]
+}
+df = pd.DataFrame(data)
+
+# 统计各列缺失值数量
+print("Missing Values Statistics:")
+print(df.isnull().sum())
+
+# Fill missing values with median
+df_filled = df.fillna(df.median())
+print("\\nFilled Data:")
+print(df_filled.to_string())`
             }
         },
         initialCode: "",
@@ -751,7 +769,30 @@ print("Chart saved as visualization.png")
             codeQuestion: {
                 question: "编写代码：生成1000个服从正态分布的随机数，计算均值、中位数、标准差、方差，并输出统计摘要",
                 initialCode: "# 请在此处编写代码\nimport numpy as np\nimport pandas as pd\n\n# 生成1000个服从正态分布的随机数\n\n\n# 计算统计指标\n\n\n# 输出统计摘要",
-                solutionCode: "import numpy as np\nimport pandas as pd\n\n# 生成1000个服从正态分布的随机数\nnp.random.seed(42)\ndata = np.random.normal(100, 15, 1000)\n\n# 计算统计指标\nmean_val = np.mean(data)\nmedian_val = np.median(data)\nstd_val = np.std(data)\nvar_val = np.var(data)\n\n# 输出统计摘要\nprint(\"统计摘要:\")\nprint(f\"均值: {mean_val:.2f}\")\nprint(f\"中位数: {median_val:.2f}\")\nprint(f\"标准差: {std_val:.2f}\")\nprint(f\"方差: {var_val:.2f}\")\n\n# 使用Pandas生成完整统计摘要\ndf = pd.DataFrame({'数据': data})\nprint(\"\\nPandas统计摘要:\")\nprint(df.describe())"
+                solutionCode: `import numpy as np
+import pandas as pd
+
+# 生成1000个服从正态分布的随机数
+np.random.seed(42)
+data = np.random.normal(100, 15, 1000)
+
+# 计算统计指标
+mean_val = np.mean(data)
+median_val = np.median(data)
+std_val = np.std(data)
+var_val = np.var(data)
+
+# 输出统计摘要
+print("统计摘要:")
+print(f"均值: {mean_val:.2f}")
+print(f"中位数: {median_val:.2f}")
+print(f"标准差: {std_val:.2f}")
+print(f"方差: {var_val:.2f}")
+
+# 使用Pandas生成完整统计摘要
+df = pd.DataFrame({'数据': data})
+print("\\nPandas统计摘要:")
+print(df.describe())`
             }
         },
         initialCode: "",
@@ -1051,7 +1092,33 @@ print(df.describe())`
             codeQuestion: {
                 question: "编写代码：创建一个销售DataFrame，包含Product、Region、Sales、Price列，计算Revenue，按Product分组统计总Sales和总Revenue，并按Revenue降序排序",
                 initialCode: "# 请在此处编写代码\nimport pandas as pd\nimport numpy as np\n\n# 创建销售DataFrame\n\n\n# 计算Revenue\n\n\n# 按Product分组统计\n\n\n# 按Revenue降序排序",
-                solutionCode: "import pandas as pd\nimport numpy as np\n\n# 创建销售DataFrame\nnp.random.seed(42)\ndata = {\n    'Product': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'A', 'B', 'C'],\n    'Region': ['East', 'West', 'East', 'South', 'West', 'North', 'South', 'East', 'West', 'North'],\n    'Sales': np.random.randint(100, 500, 10),\n    'Price': np.random.uniform(10, 100, 10).round(2)\n}\ndf = pd.DataFrame(data)\n\n# 计算Revenue\ndf['Revenue'] = df['Sales'] * df['Price']\n\n# 按Product分组统计\nresult = df.groupby('Product').agg({\n    'Sales': 'sum',\n    'Revenue': 'sum'\n}).round(2)\n\n# 按Revenue降序排序\nresult = result.sort_values('Revenue', ascending=False)\n\nprint(\"Grouping Statistics:\")\nprint(result)"
+                solutionCode: `import pandas as pd
+import numpy as np
+
+# 创建销售DataFrame
+np.random.seed(42)
+data = {
+    'Product': ['A', 'B', 'A', 'C', 'B', 'A', 'C', 'A', 'B', 'C'],
+    'Region': ['East', 'West', 'East', 'South', 'West', 'North', 'South', 'East', 'West', 'North'],
+    'Sales': np.random.randint(100, 500, 10),
+    'Price': np.random.uniform(10, 100, 10).round(2)
+}
+df = pd.DataFrame(data)
+
+# 计算Revenue
+df['Revenue'] = df['Sales'] * df['Price']
+
+# 按Product分组统计
+result = df.groupby('Product').agg({
+    'Sales': 'sum',
+    'Revenue': 'sum'
+}).round(2)
+
+# 按Revenue降序排序
+result = result.sort_values('Revenue', ascending=False)
+
+print("Grouping Statistics:")
+print(result.to_string())`
             }
         },
         initialCode: "",
@@ -1586,7 +1653,39 @@ print("Chart saved as advanced_visualization.png")
             codeQuestion: {
                 question: "编写代码：生成两组正态分布Data，进行独立样本t检验，计算效应量Cohen's d，并输出检验结果",
                 initialCode: "# 请在此处编写代码\nimport numpy as np\nfrom scipy import stats\n\n# 生成两组Data\nnp.random.seed(42)\ngroup1 = np.random.normal(100, 15, 50)  # 均值100，标准差15\ngroup2 = np.random.normal(105, 15, 50)  # 均值105，标准差15\n\n# 进行独立样本t检验\n\n\n# 计算Cohen's d效应量\n\n\n# 输出结果",
-                solutionCode: "import numpy as np\nfrom scipy import stats\n\n# 生成两组Data\nnp.random.seed(42)\ngroup1 = np.random.normal(100, 15, 50)\ngroup2 = np.random.normal(105, 15, 50)\n\n# 进行独立样本t检验\nt_stat, p_value = stats.ttest_ind(group1, group2)\n\n# 计算Cohen's d效应量\nmean_diff = np.mean(group1) - np.mean(group2)\npooled_std = np.sqrt(((len(group1)-1)*np.std(group1, ddof=1)**2 + \n                       (len(group2)-1)*np.std(group2, ddof=1)**2) / \n                      (len(group1)+len(group2)-2))\ncohens_d = mean_diff / pooled_std\n\n# 输出结果\nprint(\"=\"*50)\nprint(\"Independent t-test Results\")\nprint(\"=\"*50)\nprint(f\"组1Mean: {np.mean(group1):.2f}\")\nprint(f\"组2Mean: {np.mean(group2):.2f}\")\nprint(f\"Mean Difference: {mean_diff:.2f}\")\nprint(f\"\\nt-statistic: {t_stat:.4f}\")\nprint(f\"P-value: {p_value:.4f}\")\nprint(f\"\\nCohen's d: {cohens_d:.4f}\")\n\nif p_value < 0.05:\n    print(\"\\nConclusion: At alpha=0.05, the difference is significant\")\nelse:\n    print(\"\\nConclusion: At alpha=0.05, the difference is not significant\")"
+                solutionCode: `import numpy as np
+from scipy import stats
+
+# 生成两组Data
+np.random.seed(42)
+group1 = np.random.normal(100, 15, 50)
+group2 = np.random.normal(105, 15, 50)
+
+# 进行独立样本t检验
+t_stat, p_value = stats.ttest_ind(group1, group2)
+
+# 计算Cohen's d效应量
+mean_diff = np.mean(group1) - np.mean(group2)
+pooled_std = np.sqrt(((len(group1)-1)*np.std(group1, ddof=1)**2 + 
+                       (len(group2)-1)*np.std(group2, ddof=1)**2) / 
+                      (len(group1)+len(group2)-2))
+cohens_d = mean_diff / pooled_std
+
+# 输出结果
+print("="*50)
+print("Independent t-test Results")
+print("="*50)
+print(f"组1 Mean: {np.mean(group1):.2f}")
+print(f"组2 Mean: {np.mean(group2):.2f}")
+print(f"Mean Difference: {mean_diff:.2f}")
+print(f"\\nt-statistic: {t_stat:.4f}")
+print(f"P-value: {p_value:.4f}")
+print(f"\\nCohen's d: {cohens_d:.4f}")
+
+if p_value < 0.05:
+    print("\\nConclusion: At alpha=0.05, the difference is significant")
+else:
+    print("\\nConclusion: At alpha=0.05, the difference is not significant")`
             }
         },
         initialCode: "",

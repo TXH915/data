@@ -52,7 +52,7 @@ class DataAnalysisApp {
                           style="display: inline-block; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; margin-bottom: 0.3rem;">
                         ${level}
                     </span>
-                    <h4 style="margin: 0.3rem 0;">${isCompleted ? '✅ ' : ''}${project.title}</h4>
+                    <h4 style="margin: 0.3rem 0;">${isCompleted ? '✅ ' : ''}项目${project.id} - ${project.title}</h4>
                     <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);">${project.description}</p>
                 `;
                 item.addEventListener('click', () => this.loadProject(project.id));
