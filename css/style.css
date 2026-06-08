@@ -289,13 +289,33 @@ body {
     min-width: 800px;
 }
 
-/* 输出结果区域 - 自由调整大小 */
+/* 输出结果区域 - 支持水平和垂直滚动 */
 .output-scrollable {
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
     min-height: 200px;
     max-width: 100%;
     max-height: 100%;
     position: relative;
+}
+
+.output-scrollable::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.output-scrollable::-webkit-scrollbar-track {
+    background: var(--hover-color);
+    border-radius: 4px;
+}
+
+.output-scrollable::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.output-scrollable::-webkit-scrollbar-thumb:hover {
+    background: #6366f1;
 }
 
 /* 参考答案区域 - 水平滚动 */
@@ -319,29 +339,34 @@ body {
 
 .theory-panel {
     flex: 1;
-    min-width: 250px;
+    min-width: 0;
+    width: auto;
 }
 
 .center-panel {
     flex: 1.2;
     display: flex;
     flex-direction: column;
-    min-width: 300px;
+    min-width: 0;
+    width: auto;
 }
 
 .right-panel {
     flex: 0.9;
     display: flex;
     flex-direction: column;
-    min-width: 250px;
+    min-width: 0;
+    width: auto;
 }
 
 .code-panel, .output-panel, .solution-panel, .quiz-panel, .exam-panel {
     border-right: none;
     border-bottom: 2px solid var(--border-color);
     flex: 1;
-    min-height: 150px;
+    min-height: 48px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .code-panel {

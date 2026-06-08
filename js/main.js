@@ -595,8 +595,8 @@ function initResizers() {
 
             if (isHorizontal) {
                 const dy = e.clientY - startY;
-                const newHeight1 = Math.max(100, startHeight1 + dy);
-                const newHeight2 = Math.max(100, startHeight2 - dy);
+                const newHeight1 = Math.max(0, startHeight1 + dy);
+                const newHeight2 = Math.max(0, startHeight2 - dy);
 
                 prevPanel.style.flex = '0 0 ' + newHeight1 + 'px';
                 prevPanel.style.height = newHeight1 + 'px';
@@ -604,8 +604,8 @@ function initResizers() {
                 nextPanel.style.height = newHeight2 + 'px';
             } else if (isVertical) {
                 const dx = e.clientX - startX;
-                const newWidth1 = Math.max(150, startWidth1 + dx);
-                const newWidth2 = Math.max(150, startWidth2 - dx);
+                const newWidth1 = Math.max(0, startWidth1 + dx);
+                const newWidth2 = Math.max(0, startWidth2 - dx);
 
                 prevPanel.style.flex = '0 0 ' + newWidth1 + 'px';
                 prevPanel.style.width = newWidth1 + 'px';
