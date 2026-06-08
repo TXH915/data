@@ -1360,19 +1360,13 @@ print(df.sort_values('销售额', ascending=False).head())
             ],
             codeQuestion: {
                 question: "编写代码：创建一个2x2的子图布局，包含折线图、柱状图、散点图和热力图，并保存为PNG文件",
-                initialCode: "# 请在此处编写代码\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport seaborn as sns\n\n# 创建2x2子图\n\n\n# 子图1：折线图\n\n\n# 子图2：柱状图\n\n\n# 子图3：散点图\n\n\n# 子图4：热力图\n\n\n# 保存图表",
-                solutionCode: "import matplotlib.pyplot as plt\nimport numpy as np\nimport seaborn as sns\n\n# 创建2x2子图\nfig, axes = plt.subplots(2, 2, figsize=(12, 10))\n\n# 子图1：折线图\nx = np.linspace(0, 10, 50)\ny1 = np.sin(x)\naxes[0, 0].plot(x, y1, 'b-', linewidth=2)\naxes[0, 0].set_title('折线图', fontsize=12)\naxes[0, 0].grid(True, alpha=0.3)\n\n# 子图2：柱状图\ncategories = ['A', 'B', 'C', 'D', 'E']\nvalues = [23, 45, 12, 67, 34]\naxes[0, 1].bar(categories, values, color='coral')\naxes[0, 1].set_title('柱状图', fontsize=12)\n\n# 子图3：散点图\nx_scatter = np.random.randn(100)\ny_scatter = np.random.randn(100)\naxes[1, 0].scatter(x_scatter, y_scatter, alpha=0.6, c='purple')\naxes[1, 0].set_title('散点图', fontsize=12)\n\n# 子图4：热力图\ndata = np.random.rand(10, 10)\nsns.heatmap(data, ax=axes[1, 1], cmap='YlOrRd')\naxes[1, 1].set_title('热力图', fontsize=12)\n\nplt.tight_layout()\nplt.savefig('advanced_charts.png', dpi=150, bbox_inches='tight')\nprint(\"图表已保存为 advanced_charts.png\")"
+                initialCode: "# 请在此处编写代码\nimport matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建2x2子图\n\n\n# 子图1：折线图\n\n\n# 子图2：柱状图\n\n\n# 子图3：散点图\n\n\n# 子图4：热力图\n\n\n# 保存图表",
+                solutionCode: "import matplotlib.pyplot as plt\nimport numpy as np\n\n# 创建2x2子图\nfig, axes = plt.subplots(2, 2, figsize=(12, 10))\n\n# 子图1：折线图\nx = np.linspace(0, 10, 50)\ny1 = np.sin(x)\naxes[0, 0].plot(x, y1, 'b-', linewidth=2)\naxes[0, 0].set_title('Line Chart', fontsize=12)\naxes[0, 0].grid(True, alpha=0.3)\n\n# 子图2：柱状图\ncategories = ['A', 'B', 'C', 'D', 'E']\nvalues = [23, 45, 12, 67, 34]\naxes[0, 1].bar(categories, values, color='coral')\naxes[0, 1].set_title('Bar Chart', fontsize=12)\n\n# 子图3：散点图\nx_scatter = np.random.randn(100)\ny_scatter = np.random.randn(100)\naxes[1, 0].scatter(x_scatter, y_scatter, alpha=0.6, c='purple')\naxes[1, 0].set_title('Scatter Plot', fontsize=12)\n\n# 子图4：热力图（使用matplotlib）\ndata = np.random.rand(10, 10)\nim = axes[1, 1].imshow(data, cmap='YlOrRd', aspect='auto')\naxes[1, 1].set_title('Heatmap', fontsize=12)\nplt.colorbar(im, ax=axes[1, 1])\n\nplt.tight_layout()\nplt.savefig('advanced_charts.png', dpi=150, bbox_inches='tight')\nprint(\"Chart saved as advanced_charts.png\")"
             }
         },
         initialCode: "",
         solutionCode: `import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
-
-# 设置样式
-plt.style.use('seaborn')
-plt.rcParams['font.sans-serif'] = ['SimHei']
-plt.rcParams['axes.unicode_minus'] = False
 
 # 创建数据
 x = np.linspace(0, 10, 100)
@@ -1385,7 +1379,7 @@ fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 # 子图1：多条曲线
 axes[0, 0].plot(x, y1, label='sin(x)', color='blue')
 axes[0, 0].plot(x, y2, label='cos(x)', color='red')
-axes[0, 0].set_title('多条曲线', fontsize=14)
+axes[0, 0].set_title('Multiple Curves', fontsize=14)
 axes[0, 0].legend()
 axes[0, 0].grid(True, alpha=0.3)
 
@@ -1394,23 +1388,24 @@ categories = ['A', 'B', 'C', 'D', 'E']
 values = [23, 45, 12, 67, 34]
 colors = plt.cm.Set3(np.linspace(0, 1, len(categories)))
 axes[0, 1].bar(categories, values, color=colors, edgecolor='black')
-axes[0, 1].set_title('柱状图', fontsize=14)
-axes[0, 1].set_ylabel('数值')
+axes[0, 1].set_title('Bar Chart', fontsize=14)
+axes[0, 1].set_ylabel('Value')
 
 # 子图3：饼图
 sizes = [15, 30, 45, 10]
-labels = ['分类A', '分类B', '分类C', '分类D']
+labels = ['Category A', 'Category B', 'Category C', 'Category D']
 axes[1, 0].pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
-axes[1, 0].set_title('饼图', fontsize=14)
+axes[1, 0].set_title('Pie Chart', fontsize=14)
 
-# 子图4：热力图
+# 子图4：热力图（使用matplotlib代替seaborn）
 data = np.random.rand(10, 10)
-sns.heatmap(data, ax=axes[1, 1], cmap='viridis', annot=True, fmt='.2f')
-axes[1, 1].set_title('热力图', fontsize=14)
+im = axes[1, 1].imshow(data, cmap='viridis', aspect='auto')
+axes[1, 1].set_title('Heatmap', fontsize=14)
+plt.colorbar(im, ax=axes[1, 1])
 
 plt.tight_layout()
 plt.savefig('advanced_visualization.png', dpi=150, bbox_inches='tight')
-print("图表已保存为 advanced_visualization.png")
+print("Chart saved as advanced_visualization.png")
 `
     },
     {
@@ -1785,7 +1780,7 @@ print(f"自由度: {dof}")
             codeQuestion: {
                 question: "编写代码：创建多元回归数据，使用sklearn进行回归建模，评估模型性能，并绘制预测值与真实值的对比图",
                 initialCode: "# 请在此处编写代码\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import r2_score, mean_squared_error\n\n# 创建数据\nnp.random.seed(42)\nn = 100\nX = np.random.randn(n, 3)  # 3个特征\ny = 2 + 3*X[:, 0] + 1.5*X[:, 1] - 2*X[:, 2] + np.random.randn(n)*0.5\n\n# 划分训练集和测试集\n\n\n# 创建并训练模型\n\n\n# 预测和评估\n\n\n# 绘制对比图",
-                solutionCode: "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import r2_score, mean_squared_error\n\nnp.random.seed(42)\nn = 100\nX = np.random.randn(n, 3)\ny = 2 + 3*X[:, 0] + 1.5*X[:, 1] - 2*X[:, 2] + np.random.randn(n)*0.5\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\n\ny_pred = model.predict(X_test)\n\nprint(\"=\"*50)\nprint(\"多元线性回归结果\")\nprint(\"=\"*50)\nprint(f\"截距: {model.intercept_:.4f}\")\nprint(f\"系数: {model.coef_}\")\nprint(f\"\\nR² (训练集): {model.score(X_train, y_train):.4f}\")\nprint(f\"R² (测试集): {r2_score(y_test, y_pred):.4f}\")\nprint(f\"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred)):.4f}\")\n\nplt.figure(figsize=(10, 5))\nplt.scatter(y_test, y_pred, alpha=0.7)\nplt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)\nplt.xlabel('真实值')\nplt.ylabel('预测值')\nplt.title('预测值 vs 真实值')\nplt.savefig('regression_result.png', dpi=150, bbox_inches='tight')\nprint(\"\\n图表已保存为 regression_result.png\")"
+                solutionCode: "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import r2_score, mean_squared_error\n\nnp.random.seed(42)\nn = 100\nX = np.random.randn(n, 3)\ny = 2 + 3*X[:, 0] + 1.5*X[:, 1] - 2*X[:, 2] + np.random.randn(n)*0.5\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\n\ny_pred = model.predict(X_test)\n\nprint(\"=\"*50)\nprint(\"Multiple Linear Regression Results\")\nprint(\"=\"*50)\nprint(f\"Intercept: {model.intercept_:.4f}\")\nprint(f\"Coefficients: {model.coef_}\")\nprint(f\"\\nR² (Train): {model.score(X_train, y_train):.4f}\")\nprint(f\"R² (Test): {r2_score(y_test, y_pred):.4f}\")\nprint(f\"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred)):.4f}\")\n\nplt.figure(figsize=(10, 5))\nplt.scatter(y_test, y_pred, alpha=0.7)\nplt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)\nplt.xlabel('True Values')\nplt.ylabel('Predictions')\nplt.title('Predicted vs True')\nplt.savefig('regression_result.png', dpi=150, bbox_inches='tight')\nprint(\"\\nChart saved as regression_result.png\")"
             }
         },
         initialCode: "",
@@ -2002,7 +1997,7 @@ print("\\n图表已保存为 regression_analysis.png")
             codeQuestion: {
                 question: "编写代码：生成一个包含趋势和季节性的时间序列，进行滑动平均平滑，绘制原始数据和平滑后的对比图",
                 initialCode: "# 请在此处编写代码\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# 生成时间序列数据\nnp.random.seed(42)\nn = 365\ndates = pd.date_range('2024-01-01', periods=n, freq='D')\ntrend = np.linspace(50, 100, n)\nseasonality = 10 * np.sin(np.linspace(0, 4*np.pi, n))\nnoise = np.random.randn(n) * 5\ndata = trend + seasonality + noise\n\ndf = pd.DataFrame({'date': dates, 'value': data})\ndf.set_index('date', inplace=True)\n\n# 计算滑动平均\n\n\n# 绘制对比图",
-                solutionCode: "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nnp.random.seed(42)\nn = 365\ndates = pd.date_range('2024-01-01', periods=n, freq='D')\ntrend = np.linspace(50, 100, n)\nseasonality = 10 * np.sin(np.linspace(0, 4*np.pi, n))\nnoise = np.random.randn(n) * 5\ndata = trend + seasonality + noise\n\ndf = pd.DataFrame({'date': dates, 'value': data})\ndf.set_index('date', inplace=True)\n\n# 计算滑动平均\ndf['MA7'] = df['value'].rolling(window=7).mean()\ndf['MA30'] = df['value'].rolling(window=30).mean()\n\n# 绘制对比图\nplt.figure(figsize=(14, 6))\nplt.plot(df.index, df['value'], alpha=0.5, label='原始数据')\nplt.plot(df.index, df['MA7'], label='7日滑动平均', linewidth=2)\nplt.plot(df.index, df['MA30'], label='30日滑动平均', linewidth=2)\nplt.xlabel('日期')\nplt.ylabel('值')\nplt.title('时间序列与滑动平均')\nplt.legend()\nplt.grid(True, alpha=0.3)\nplt.tight_layout()\nplt.savefig('time_series_ma.png', dpi=150, bbox_inches='tight')\nprint(\"图表已保存为 time_series_ma.png\")"
+                solutionCode: "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nnp.random.seed(42)\nn = 365\ndates = pd.date_range('2024-01-01', periods=n, freq='D')\ntrend = np.linspace(50, 100, n)\nseasonality = 10 * np.sin(np.linspace(0, 4*np.pi, n))\nnoise = np.random.randn(n) * 5\ndata = trend + seasonality + noise\n\ndf = pd.DataFrame({'date': dates, 'value': data})\ndf.set_index('date', inplace=True)\n\n# 计算滑动平均\ndf['MA7'] = df['value'].rolling(window=7).mean()\ndf['MA30'] = df['value'].rolling(window=30).mean()\n\n# 绘制对比图\nplt.figure(figsize=(14, 6))\nplt.plot(df.index, df['value'], alpha=0.5, label='Raw Data')\nplt.plot(df.index, df['MA7'], label='7-day MA', linewidth=2)\nplt.plot(df.index, df['MA30'], label='30-day MA', linewidth=2)\nplt.xlabel('Date')\nplt.ylabel('Value')\nplt.title('Time Series & Moving Average')\nplt.legend()\nplt.grid(True, alpha=0.3)\nplt.tight_layout()\nplt.savefig('time_series_ma.png', dpi=150, bbox_inches='tight')\nprint(\"Chart saved as time_series_ma.png\")"
             }
         },
         initialCode: "",
@@ -2224,73 +2219,106 @@ print("\\n图表已保存为 time_series_analysis.png")
             ],
             codeQuestion: {
                 question: "编写代码：创建交易数据集，使用Apriori算法挖掘频繁项集，生成关联规则，并筛选高提升度的规则",
-                initialCode: "# 请在此处编写代码\nimport pandas as pd\nfrom mlxtend.preprocessing import TransactionEncoder\nfrom mlxtend.frequent_patterns import apriori, association_rules\n\n# 模拟交易数据\ntransactions = [\n    ['牛奶', '面包', '鸡蛋'],\n    ['牛奶', '尿布', '啤酒'],\n    ['面包', '尿布', '啤酒'],\n    ['牛奶', '面包', '尿布'],\n    ['牛奶', '面包', '鸡蛋', '尿布'],\n    ['面包', '鸡蛋'],\n    ['牛奶', '鸡蛋'],\n]\n\n# 转换为One-Hot编码\n\n\n# 挖掘频繁项集\n\n\n# 生成关联规则\n\n\n# 筛选高提升度规则",
-                solutionCode: "import pandas as pd\nfrom mlxtend.preprocessing import TransactionEncoder\nfrom mlxtend.frequent_patterns import apriori, association_rules\n\ntransactions = [\n    ['牛奶', '面包', '鸡蛋'],\n    ['牛奶', '尿布', '啤酒'],\n    ['面包', '尿布', '啤酒'],\n    ['牛奶', '面包', '尿布'],\n    ['牛奶', '面包', '鸡蛋', '尿布'],\n    ['面包', '鸡蛋'],\n    ['牛奶', '鸡蛋'],\n]\n\nte = TransactionEncoder()\nte_ary = te.fit(transactions).transform(transactions)\ndf = pd.DataFrame(te_ary, columns=te.columns_)\n\nfrequent_itemsets = apriori(df, min_support=0.3, use_colnames=True)\nrules = association_rules(frequent_itemsets, metric='lift', min_threshold=1.0)\n\nprint(\"=\"*60)\nprint(\"频繁项集\")\nprint(\"=\"*60)\nprint(frequent_itemsets.sort_values('support', ascending=False))\n\nprint(\"\\n\" + \"=\"*60)\nprint(\"关联规则（按提升度排序）\")\nprint(\"=\"*60)\nprint(rules.sort_values('lift', ascending=False)[['antecedents', 'consequents', 'support', 'confidence', 'lift']])"
+                initialCode: "# 请在此处编写代码\nimport pandas as pd\nfrom collections import defaultdict\nimport itertools\n\n# 模拟交易数据\ntransactions = [\n    ['Milk', 'Bread', 'Eggs'],\n    ['Milk', 'Diapers', 'Beer'],\n    ['Bread', 'Diapers', 'Beer'],\n    ['Milk', 'Bread', 'Diapers'],\n    ['Milk', 'Bread', 'Eggs', 'Diapers'],\n    ['Bread', 'Eggs'],\n    ['Milk', 'Eggs'],\n]\n\n# 分析项集计数\n\n\n# 计算支持度\n\n\n# 找出频繁项集",
+                solutionCode: "import pandas as pd\nfrom collections import defaultdict\nimport itertools\n\ntransactions = [\n    ['Milk', 'Bread', 'Eggs'],\n    ['Milk', 'Diapers', 'Beer'],\n    ['Bread', 'Diapers', 'Beer'],\n    ['Milk', 'Bread', 'Diapers'],\n    ['Milk', 'Bread', 'Eggs', 'Diapers'],\n    ['Bread', 'Eggs'],\n    ['Milk', 'Eggs'],\n]\n\n# 统计单个项的支持度\nitem_counts = defaultdict(int)\nfor trans in transactions:\n    for item in trans:\n        item_counts[item] += 1\n\n# 计算支持度\nsupport = {}\nn_transactions = len(transactions)\nfor item, count in item_counts.items():\n    support[frozenset([item])] = count / n_transactions\n\n# 统计两两组合\npair_counts = defaultdict(int)\nfor trans in transactions:\n    for pair in itertools.combinations(trans, 2):\n        pair_counts[frozenset(pair)] += 1\n\nfor pair, count in pair_counts.items():\n    support[pair] = count / n_transactions\n\n# 打印结果\nprint(\"=\"*60)\nprint(\"Frequent Itemsets (Support > 0.3)\")\nprint(\"=\"*60)\nfor itemset, supp in sorted(support.items(), key=lambda x: x[1], reverse=True):\n    if supp >= 0.3:\n        print(f\"{set(itemset)}: {supp:.2f}\")\n\nprint(\"\\n\" + \"=\"*60)\nprint(\"Simple Association Rules\")\nprint(\"=\"*60)\nfor pair, supp in pair_counts.items():\n    if supp / n_transactions >= 0.3:\n        items = list(pair)\n        for i in range(2):\n            antecedent = {items[i]}\n            consequent = {items[1-i]}\n            conf = (pair_counts[pair] / n_transactions) / (item_counts[items[i]] / n_transactions)\n            if conf > 0.5:\n                print(f\"{antecedent} -> {consequent}: conf={conf:.2f}, supp={pair_counts[pair]/n_transactions:.2f}\")"
             }
         },
         initialCode: "",
         solutionCode: `import pandas as pd
-from mlxtend.preprocessing import TransactionEncoder
-from mlxtend.frequent_patterns import apriori, association_rules
+from collections import defaultdict
+import itertools
 import matplotlib.pyplot as plt
 
 print("="*60)
-print("购物篮分析实战")
+print("Market Basket Analysis Practice")
 print("="*60)
 
 # 模拟超市交易数据
 transactions = [
-    ['牛奶', '面包', '鸡蛋'],
-    ['牛奶', '尿布', '啤酒', '面包'],
-    ['面包', '尿布', '啤酒'],
-    ['牛奶', '面包', '尿布'],
-    ['牛奶', '面包', '鸡蛋', '尿布'],
-    ['面包', '鸡蛋'],
-    ['牛奶', '鸡蛋'],
-    ['尿布', '啤酒', '鸡蛋'],
-    ['牛奶', '尿布', '鸡蛋'],
-    ['面包', '尿布', '鸡蛋'],
+    ['Milk', 'Bread', 'Eggs'],
+    ['Milk', 'Diapers', 'Beer', 'Bread'],
+    ['Bread', 'Diapers', 'Beer'],
+    ['Milk', 'Bread', 'Diapers'],
+    ['Milk', 'Bread', 'Eggs', 'Diapers'],
+    ['Bread', 'Eggs'],
+    ['Milk', 'Eggs'],
+    ['Diapers', 'Beer', 'Eggs'],
+    ['Milk', 'Diapers', 'Eggs'],
+    ['Bread', 'Diapers', 'Eggs'],
 ]
 
-# 数据预处理
-te = TransactionEncoder()
-te_ary = te.fit(transactions).transform(transactions)
-df = pd.DataFrame(te_ary, columns=te.columns_)
+# 统计单个项的支持度
+item_counts = defaultdict(int)
+for trans in transactions:
+    for item in trans:
+        item_counts[item] += 1
 
-print("\\n【One-Hot编码数据】")
-print(df.head())
+# 计算支持度
+support = {}
+n_transactions = len(transactions)
+for item, count in item_counts.items():
+    support[frozenset([item])] = count / n_transactions
 
-# 挖掘频繁项集
-frequent_itemsets = apriori(df, min_support=0.2, use_colnames=True)
-print("\\n【频繁项集】")
-print(frequent_itemsets.sort_values('support', ascending=False))
+# 统计两两组合
+pair_counts = defaultdict(int)
+for trans in transactions:
+    for pair in itertools.combinations(trans, 2):
+        pair_counts[frozenset(pair)] += 1
 
-# 生成关联规则
-rules = association_rules(frequent_itemsets, metric='confidence', min_threshold=0.5)
-rules_sorted = rules.sort_values('lift', ascending=False)
+for pair, count in pair_counts.items():
+    support[pair] = count / n_transactions
 
-print("\\n【关联规则（提升度>1）】")
-print(rules_sorted[['antecedents', 'consequents', 'support', 'confidence', 'lift']])
+# 打印结果
+print("\n【Frequent Itemsets (Support > 0.3)】")
+for itemset, supp in sorted(support.items(), key=lambda x: x[1], reverse=True):
+    if supp >= 0.3:
+        print(f"{set(itemset)}: {supp:.2f}")
+
+# 简单规则生成
+print("\n【Simple Association Rules】")
+rules_data = []
+for pair, count in pair_counts.items():
+    if count / n_transactions >= 0.3:
+        items = list(pair)
+        for i in range(2):
+            antecedent = items[i]
+            consequent = items[1-i]
+            conf = (pair_counts[pair] / n_transactions) / (item_counts[antecedent] / n_transactions)
+            if conf > 0.5:
+                lift = conf / (item_counts[consequent] / n_transactions)
+                rules_data.append({
+                    'antecedent': {antecedent},
+                    'consequent': {consequent},
+                    'support': count / n_transactions,
+                    'confidence': conf,
+                    'lift': lift
+                })
+                print(f"{{{antecedent}}} -> {{{consequent}}}: conf={conf:.2f}, supp={count/n_transactions:.2f}, lift={lift:.2f}")
 
 # 可视化
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-# 支持度 vs 置信度
-axes[0].scatter(rules['support'], rules['confidence'], alpha=0.6, c='blue')
-axes[0].set_xlabel('支持度')
-axes[0].set_ylabel('置信度')
-axes[0].set_title('支持度 vs 置信度')
-
-# 支持度 vs 提升度
-axes[1].scatter(rules['support'], rules['lift'], alpha=0.6, c='green')
-axes[1].axhline(y=1, color='r', linestyle='--')
-axes[1].set_xlabel('支持度')
-axes[1].set_ylabel('提升度')
-axes[1].set_title('支持度 vs 提升度')
-
-plt.tight_layout()
-plt.savefig('association_rules.png', dpi=150)
-print("\\n图表已保存为 association_rules.png")
+if rules_data:
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    
+    supports = [r['support'] for r in rules_data]
+    confidences = [r['confidence'] for r in rules_data]
+    lifts = [r['lift'] for r in rules_data]
+    
+    # 支持度 vs 置信度
+    axes[0].scatter(supports, confidences, alpha=0.6, c='blue')
+    axes[0].set_xlabel('Support')
+    axes[0].set_ylabel('Confidence')
+    axes[0].set_title('Support vs Confidence')
+    
+    # 支持度 vs 提升度
+    axes[1].scatter(supports, lifts, alpha=0.6, c='green')
+    axes[1].axhline(y=1, color='r', linestyle='--')
+    axes[1].set_xlabel('Support')
+    axes[1].set_ylabel('Lift')
+    axes[1].set_title('Support vs Lift')
+    
+    plt.tight_layout()
+    plt.savefig('association_rules.png', dpi=150)
+    print("\nChart saved as association_rules.png")
 `
     },
     {
@@ -2462,7 +2490,7 @@ print("\\n图表已保存为 association_rules.png")
             codeQuestion: {
                 question: "编写代码：生成二维聚类数据，使用肘部法则确定最优K值，进行K-Means聚类，绘制聚类结果图和肘部法则图",
                 initialCode: "# 请在此处编写代码\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.cluster import KMeans\nfrom sklearn.datasets import make_blobs\n\n# 生成聚类数据\nnp.random.seed(42)\nX, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=0)\n\n# 使用肘部法则确定最优K\n\n\n# 进行K-Means聚类\n\n\n# 绘制结果图",
-                solutionCode: "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.cluster import KMeans\nfrom sklearn.datasets import make_blobs\n\nnp.random.seed(42)\nX, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=0)\n\n# 肘部法则\ninertias = []\nK_range = range(1, 11)\nfor k in K_range:\n    km = KMeans(n_clusters=k, random_state=42)\n    km.fit(X)\n    inertias.append(km.inertia_)\n\n# K=4的K-Means聚类\nkmeans = KMeans(n_clusters=4, random_state=42)\ny_pred = kmeans.fit_predict(X)\n\n# 可视化\nfig, axes = plt.subplots(1, 2, figsize=(14, 5))\n\n# 肘部法则图\naxes[0].plot(K_range, inertias, 'bo-', linewidth=2)\naxes[0].axvline(x=4, color='r', linestyle='--', label='最优K=4')\naxes[0].set_xlabel('K值')\naxes[0].set_ylabel('SSE（簇内平方和）')\naxes[0].set_title('肘部法则')\naxes[0].legend()\n\n# 聚类结果\ncolors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']\nfor i in range(4):\n    axes[1].scatter(X[y_pred==i, 0], X[y_pred==i, 1], c=colors[i], s=30, alpha=0.7)\naxes[1].scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], \n                 c='black', marker='X', s=200, label='聚类中心')\naxes[1].set_title('K-Means聚类结果 (K=4)')\naxes[1].legend()\n\nplt.tight_layout()\nplt.savefig('clustering_result.png', dpi=150, bbox_inches='tight')\nprint(\"图表已保存为 clustering_result.png\")"
+                solutionCode: "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.cluster import KMeans\nfrom sklearn.datasets import make_blobs\n\nnp.random.seed(42)\nX, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=0)\n\n# 肘部法则\ninertias = []\nK_range = range(1, 11)\nfor k in K_range:\n    km = KMeans(n_clusters=k, random_state=42, n_init=10)\n    km.fit(X)\n    inertias.append(km.inertia_)\n\n# K=4的K-Means聚类\nkmeans = KMeans(n_clusters=4, random_state=42, n_init=10)\ny_pred = kmeans.fit_predict(X)\n\n# 可视化\nfig, axes = plt.subplots(1, 2, figsize=(14, 5))\n\n# 肘部法则图\naxes[0].plot(K_range, inertias, 'bo-', linewidth=2)\naxes[0].axvline(x=4, color='r', linestyle='--', label='Optimal K=4')\naxes[0].set_xlabel('Number of Clusters (K)')\naxes[0].set_ylabel('SSE')\naxes[0].set_title('Elbow Method')\naxes[0].legend()\n\n# 聚类结果\ncolors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']\nfor i in range(4):\n    axes[1].scatter(X[y_pred==i, 0], X[y_pred==i, 1], c=colors[i], s=30, alpha=0.7)\naxes[1].scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], \n                 c='black', marker='X', s=200, label='Centroids')\naxes[1].set_title('K-Means Clustering Result (K=4)')\naxes[1].legend()\n\nplt.tight_layout()\nplt.savefig('clustering_result.png', dpi=150, bbox_inches='tight')\nprint(\"Chart saved as clustering_result.png\")"
             }
         },
         initialCode: "",
@@ -2473,7 +2501,7 @@ from sklearn.datasets import make_blobs
 from sklearn.metrics import silhouette_score
 
 print("="*60)
-print("聚类分析实战")
+print("Clustering Analysis Practice")
 print("="*60)
 
 # 生成数据
@@ -2481,7 +2509,7 @@ np.random.seed(42)
 X, y_true = make_blobs(n_samples=300, centers=4, cluster_std=0.6, random_state=0)
 
 # K-Means聚类
-kmeans = KMeans(n_clusters=4, random_state=42)
+kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
 y_kmeans = kmeans.fit_predict(X)
 
 # 层次聚类
@@ -2492,15 +2520,15 @@ y_hier = hierarchical.fit_predict(X)
 sil_kmeans = silhouette_score(X, y_kmeans)
 sil_hier = silhouette_score(X, y_hier)
 
-print(f"\\n【聚类评估】")
-print(f"K-Means轮廓系数: {sil_kmeans:.4f}")
-print(f"层次聚类轮廓系数: {sil_hier:.4f}")
+print(f"\\n【Clustering Evaluation】")
+print(f"K-Means Silhouette: {sil_kmeans:.4f}")
+print(f"Hierarchical Silhouette: {sil_hier:.4f}")
 
 # 肘部法则
 inertias = []
 K_range = range(1, 11)
 for k in K_range:
-    km = KMeans(n_clusters=k, random_state=42)
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
     km.fit(X)
     inertias.append(km.inertia_)
 
@@ -2509,32 +2537,32 @@ fig, axes = plt.subplots(2, 2, figsize=(14, 12))
 
 # 肘部法则
 axes[0, 0].plot(K_range, inertias, 'bo-', linewidth=2)
-axes[0, 0].set_xlabel('K值')
+axes[0, 0].set_xlabel('Number of Clusters (K)')
 axes[0, 0].set_ylabel('SSE')
-axes[0, 0].set_title('肘部法则')
+axes[0, 0].set_title('Elbow Method')
 axes[0, 0].grid(True, alpha=0.3)
 
 # 原始数据
 axes[0, 1].scatter(X[:, 0], X[:, 1], c=y_true, cmap='viridis', s=30, alpha=0.7)
-axes[0, 1].set_title('原始数据')
+axes[0, 1].set_title('Original Data')
 
 # K-Means结果
 colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
 for i in range(4):
     axes[1, 0].scatter(X[y_kmeans==i, 0], X[y_kmeans==i, 1], c=colors[i], s=30, alpha=0.7)
 axes[1, 0].scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], 
-                   c='black', marker='X', s=200, label='质心')
-axes[1, 0].set_title(f'K-Means聚类 (轮廓系数={sil_kmeans:.3f})')
+                   c='black', marker='X', s=200, label='Centroids')
+axes[1, 0].set_title(f'K-Means Clustering (Silhouette={sil_kmeans:.3f})')
 axes[1, 0].legend()
 
 # 层次聚类结果
 for i in range(4):
     axes[1, 1].scatter(X[y_hier==i, 0], X[y_hier==i, 1], c=colors[i], s=30, alpha=0.7)
-axes[1, 1].set_title(f'层次聚类 (轮廓系数={sil_hier:.3f})')
+axes[1, 1].set_title(f'Hierarchical Clustering (Silhouette={sil_hier:.3f})')
 
 plt.tight_layout()
 plt.savefig('clustering_analysis.png', dpi=150)
-print("\\n图表已保存为 clustering_analysis.png")
+print("\\nChart saved as clustering_analysis.png")
 `
     }
 ];
