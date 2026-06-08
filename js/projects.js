@@ -216,7 +216,8 @@ print(df.isnull().sum())
 
 # Fill missing values with median
 df_filled = df.fillna(df.median())
-print("\\nFilled Data:")
+print("")
+print("Filled Data:")
 print(df_filled.to_string())`
             }
         },
@@ -1684,55 +1685,64 @@ print("="*50)
 print(f"组1 Mean: {np.mean(group1):.2f}")
 print(f"组2 Mean: {np.mean(group2):.2f}")
 print(f"Mean Difference: {mean_diff:.2f}")
-print(f"\\nt-statistic: {t_stat:.4f}")
+print("")
+print(f"t-statistic: {t_stat:.4f}")
 print(f"P-value: {p_value:.4f}")
-print(f"\\nCohen's d: {cohens_d:.4f}")
+print("")
+print(f"Cohen's d: {cohens_d:.4f}")
 
 if p_value < 0.05:
-    print("\\nConclusion: At alpha=0.05, the difference is significant")
+    print("")
+    print("Conclusion: At alpha=0.05, the difference is significant")
 else:
-    print("\\nConclusion: At alpha=0.05, the difference is not significant")`
+    print("")
+    print("Conclusion: At alpha=0.05, the difference is not significant")`
             }
         },
         initialCode: "",
         solutionCode: `import numpy as np
-from scipy import stats
+import pandas as pd
 
-print("="*60)
-print("假设检验实战")
-print("="*60)
-
-# 示例1：单样本t检验
+# 生成示例数据
 np.random.seed(42)
-sample_data = np.random.normal(100, 15, 100)
-population_mean = 100
+data1 = np.random.normal(100, 15, 1000)
+data2 = np.random.normal(80, 10, 1000)
 
-t_stat, p_value = stats.ttest_1samp(sample_data, population_mean)
-print("\n【单样本t检验】")
-print(f"样本均值: {np.mean(sample_data):.2f}")
-print(f"总体均值: {population_mean}")
-print(f"t统计量: {t_stat:.4f}")
-print(f"P值: {p_value:.4f}")
+print("="*50)
+print("描述性统计分析")
+print("="*50)
 
-# 示例2：两独立样本t检验
-group1 = np.random.normal(170, 10, 50)
-group2 = np.random.normal(175, 10, 50)
+# 集中趋势
+print("")
+print("【集中趋势】")
+print(f"数据1 均值: {np.mean(data1):.2f}")
+print(f"数据1 中位数: {np.median(data1):.2f}")
 
-t_stat2, p_value2 = stats.ttest_ind(group1, group2)
-print("\n【两独立样本t检验】")
-print(f"组1均值: {np.mean(group1):.2f}")
-print(f"组2均值: {np.mean(group2):.2f}")
-print(f"t统计量: {t_stat2:.4f}")
-print(f"P值: {p_value2:.4f}")
+# 离散程度
+print("")
+print("【离散程度】")
+print(f"数据1 标准差: {np.std(data1):.2f}")
+print(f"数据1 方差: {np.var(data1):.2f}")
+print(f"数据1 极差: {np.max(data1) - np.min(data1):.2f}")
 
-# 示例3：卡方检验
-observed = np.array([[30, 10], [15, 45]])
-chi2, p_chi, dof, expected = stats.chi2_contingency(observed)
-print("\n【卡方检验】")
-print(f"观察频数:\n{observed}")
-print(f"卡方统计量: {chi2:.4f}")
-print(f"P值: {p_chi:.4f}")
-print(f"自由度: {dof}")
+# 分位数
+print("")
+print("【分位数】")
+print(f"Q1 (25%): {np.percentile(data1, 25):.2f}")
+print(f"Q2 (50%): {np.percentile(data1, 50):.2f}")
+print(f"Q3 (75%): {np.percentile(data1, 75):.2f}")
+
+# 相关分析
+print("")
+print("【相关分析】")
+corr_matrix = np.corrcoef(data1, data2)
+print(f"Pearson相关系数: {corr_matrix[0, 1]:.4f}")
+
+# Pandas describe
+print("")
+print("【Pandas 完整统计】")
+df = pd.DataFrame({'数据1': data1, '数据2': data2})
+print(df.describe())
 `
     },
     {
@@ -1884,7 +1894,43 @@ print(f"自由度: {dof}")
             codeQuestion: {
                 question: "编写代码：创建多元回归Data，使用sklearn进行回归建模，评估模型性能，并绘制预测值与真实值的对比图",
                 initialCode: "# 请在此处编写代码\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import r2_score, mean_squared_error\n\n# 创建Data\nnp.random.seed(42)\nn = 100\nX = np.random.randn(n, 3)  # 3个特征\ny = 2 + 3*X[:, 0] + 1.5*X[:, 1] - 2*X[:, 2] + np.random.randn(n)*0.5\n\n# 划分训练集和测试集\n\n\n# 创建并训练模型\n\n\n# 预测和评估\n\n\n# 绘制对比图",
-                solutionCode: "import numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import r2_score, mean_squared_error\n\nnp.random.seed(42)\nn = 100\nX = np.random.randn(n, 3)\ny = 2 + 3*X[:, 0] + 1.5*X[:, 1] - 2*X[:, 2] + np.random.randn(n)*0.5\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\n\ny_pred = model.predict(X_test)\n\nprint(\"=\"*50)\nprint(\"Multiple Linear Regression Results\")\nprint(\"=\"*50)\nprint(f\"Intercept: {model.intercept_:.4f}\")\nprint(f\"Coefficients: {model.coef_}\")\nprint(f\"\\nR² (Train): {model.score(X_train, y_train):.4f}\")\nprint(f\"R² (Test): {r2_score(y_test, y_pred):.4f}\")\nprint(f\"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred)):.4f}\")\n\nplt.figure(figsize=(10, 5))\nplt.scatter(y_test, y_pred, alpha=0.7)\nplt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)\nplt.xlabel('True Values')\nplt.ylabel('Predictions')\nplt.title('Predicted vs True')\nplt.savefig('regression_result.png', dpi=150, bbox_inches='tight')\nprint(\"\\nChart saved as regression_result.png\")"
+                solutionCode: `import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score, mean_squared_error
+
+np.random.seed(42)
+n = 100
+X = np.random.randn(n, 3)
+y = 2 + 3*X[:, 0] + 1.5*X[:, 1] - 2*X[:, 2] + np.random.randn(n)*0.5
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+print("="*50)
+print("Multiple Linear Regression Results")
+print("="*50)
+print(f"Intercept: {model.intercept_:.4f}")
+print(f"Coefficients: {model.coef_}")
+print("")
+print(f"R² (Train): {model.score(X_train, y_train):.4f}")
+print(f"R² (Test): {r2_score(y_test, y_pred):.4f}")
+print(f"RMSE: {np.sqrt(mean_squared_error(y_test, y_pred)):.4f}")
+
+plt.figure(figsize=(10, 5))
+plt.scatter(y_test, y_pred, alpha=0.7)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2)
+plt.xlabel('True Values')
+plt.ylabel('Predictions')
+plt.title('Predicted vs True')
+plt.savefig('regression_result.png', dpi=150, bbox_inches='tight')
+print("")
+print("Chart saved as regression_result.png")`
             }
         },
         initialCode: "",
@@ -1917,7 +1963,8 @@ y_pred = model.predict(X)
 r2 = r2_score(y, y_pred)
 rmse = np.sqrt(mean_squared_error(y, y_pred))
 
-print("\n【简单线性回归】")
+print("")
+print("【简单线性回归】")
 print(f"截距: {model.intercept_:.4f}")
 print(f"斜率: {model.coef_[0]:.4f}")
 print(f"R²: {r2:.4f}")
@@ -1943,7 +1990,8 @@ plt.title('残差图')
 
 plt.tight_layout()
 plt.savefig('regression_analysis.png', dpi=150)
-print("\\nChart saved as regression_analysis.png")
+print("")
+print("Chart saved as regression_analysis.png")
 `
     },
     {
@@ -2128,7 +2176,8 @@ data = trend + seasonality + noise
 df = pd.DataFrame({'date': dates, 'value': data})
 df.set_index('date', inplace=True)
 
-print("\\n【Data概览】")
+print("")
+print("【Data概览】")
 print(df.describe())
 
 # 滑动统计量
@@ -2138,8 +2187,8 @@ df['rolling_std'] = df['value'].rolling(window=30).std()
 
 # 按月汇总
 monthly = df.resample('M').mean()
-print("\\n
-【Monthly Summary】")
+print("")
+print("【Monthly Summary】")
 print(monthly)
 
 # 可视化
@@ -2165,7 +2214,8 @@ axes[2].set_ylabel('标准差')
 
 plt.tight_layout()
 plt.savefig('time_series_analysis.png', dpi=150)
-print("\\nChart saved as time_series_analysis.png")
+print("")
+print("Chart saved as time_series_analysis.png")
 `
     },
     {
@@ -2325,7 +2375,62 @@ print("\\nChart saved as time_series_analysis.png")
             codeQuestion: {
                 question: "编写代码：创建交易Data集，使用Apriori算法挖掘频繁项集，生成关联规则，并筛选高提升度的规则",
                 initialCode: "# 请在此处编写代码\nimport pandas as pd\nfrom collections import defaultdict\nimport itertools\n\n# 模拟交易Data\ntransactions = [\n    ['Milk', 'Bread', 'Eggs'],\n    ['Milk', 'Diapers', 'Beer'],\n    ['Bread', 'Diapers', 'Beer'],\n    ['Milk', 'Bread', 'Diapers'],\n    ['Milk', 'Bread', 'Eggs', 'Diapers'],\n    ['Bread', 'Eggs'],\n    ['Milk', 'Eggs'],\n]\n\n# 分析项集计数\n\n\n# 计算支持度\n\n\n# 找出频繁项集",
-                solutionCode: "import pandas as pd\nfrom collections import defaultdict\nimport itertools\n\ntransactions = [\n    ['Milk', 'Bread', 'Eggs'],\n    ['Milk', 'Diapers', 'Beer'],\n    ['Bread', 'Diapers', 'Beer'],\n    ['Milk', 'Bread', 'Diapers'],\n    ['Milk', 'Bread', 'Eggs', 'Diapers'],\n    ['Bread', 'Eggs'],\n    ['Milk', 'Eggs'],\n]\n\n# 统计单个项的支持度\nitem_counts = defaultdict(int)\nfor trans in transactions:\n    for item in trans:\n        item_counts[item] += 1\n\n# 计算支持度\nsupport = {}\nn_transactions = len(transactions)\nfor item, count in item_counts.items():\n    support[frozenset([item])] = count / n_transactions\n\n# 统计两两组合\npair_counts = defaultdict(int)\nfor trans in transactions:\n    for pair in itertools.combinations(trans, 2):\n        pair_counts[frozenset(pair)] += 1\n\nfor pair, count in pair_counts.items():\n    support[pair] = count / n_transactions\n\n# 打印结果\nprint(\"=\"*60)\nprint(\"Frequent Itemsets (Support > 0.3)\")\nprint(\"=\"*60)\nfor itemset, supp in sorted(support.items(), key=lambda x: x[1], reverse=True):\n    if supp >= 0.3:\n        print(f\"{set(itemset)}: {supp:.2f}\")\n\nprint(\"\\n\" + \"=\"*60)\nprint(\"Simple Association Rules\")\nprint(\"=\"*60)\nfor pair, supp in pair_counts.items():\n    if supp / n_transactions >= 0.3:\n        items = list(pair)\n        for i in range(2):\n            antecedent = {items[i]}\n            consequent = {items[1-i]}\n            conf = (pair_counts[pair] / n_transactions) / (item_counts[items[i]] / n_transactions)\n            if conf > 0.5:\n                print(f\"{antecedent} -> {consequent}: conf={conf:.2f}, supp={pair_counts[pair]/n_transactions:.2f}\")"
+                solutionCode: `import pandas as pd
+from collections import defaultdict
+import itertools
+
+transactions = [
+    ['Milk', 'Bread', 'Eggs'],
+    ['Milk', 'Diapers', 'Beer'],
+    ['Bread', 'Diapers', 'Beer'],
+    ['Milk', 'Bread', 'Diapers'],
+    ['Milk', 'Bread', 'Eggs', 'Diapers'],
+    ['Bread', 'Eggs'],
+    ['Milk', 'Eggs'],
+]
+
+# 统计单个项的支持度
+item_counts = defaultdict(int)
+for trans in transactions:
+    for item in trans:
+        item_counts[item] += 1
+
+# 计算支持度
+support = {}
+n_transactions = len(transactions)
+for item, count in item_counts.items():
+    support[frozenset([item])] = count / n_transactions
+
+# 统计两两组合
+pair_counts = defaultdict(int)
+for trans in transactions:
+    for pair in itertools.combinations(trans, 2):
+        pair_counts[frozenset(pair)] += 1
+
+for pair, count in pair_counts.items():
+    support[pair] = count / n_transactions
+
+# 打印结果
+print("="*60)
+print("Frequent Itemsets (Support > 0.3)")
+print("="*60)
+for itemset, supp in sorted(support.items(), key=lambda x: x[1], reverse=True):
+    if supp >= 0.3:
+        print(f"{set(itemset)}: {supp:.2f}")
+
+print("")
+print("="*60)
+print("Simple Association Rules")
+print("="*60)
+for pair, supp in pair_counts.items():
+    if supp / n_transactions >= 0.3:
+        items = list(pair)
+        for i in range(2):
+            antecedent = {items[i]}
+            consequent = {items[1-i]}
+            conf = (pair_counts[pair] / n_transactions) / (item_counts[items[i]] / n_transactions)
+            if conf > 0.5:
+                print(f"{antecedent} -> {consequent}: conf={conf:.2f}, supp={pair_counts[pair]/n_transactions:.2f}")`
             }
         },
         initialCode: "",
@@ -2374,13 +2479,15 @@ for pair, count in pair_counts.items():
     support[pair] = count / n_transactions
 
 # 打印结果
-print("\n【Frequent Itemsets (Support > 0.3)】")
+print("")
+print("【Frequent Itemsets (Support > 0.3)】")
 for itemset, supp in sorted(support.items(), key=lambda x: x[1], reverse=True):
     if supp >= 0.3:
         print(f"{set(itemset)}: {supp:.2f}")
 
 # 简单规则生成
-print("\n【Simple Association Rules】")
+print("")
+print("【Simple Association Rules】")
 rules_data = []
 for pair, count in pair_counts.items():
     if count / n_transactions >= 0.3:
@@ -2423,7 +2530,8 @@ if rules_data:
     
     plt.tight_layout()
     plt.savefig('association_rules.png', dpi=150)
-    print("\nChart saved as association_rules.png")
+    print("")
+    print("Chart saved as association_rules.png")
 `
     },
     {
@@ -2625,7 +2733,8 @@ y_hier = hierarchical.fit_predict(X)
 sil_kmeans = silhouette_score(X, y_kmeans)
 sil_hier = silhouette_score(X, y_hier)
 
-print(f"\\n【Clustering Evaluation】")
+print("")
+print("【Clustering Evaluation】")
 print(f"K-Means Silhouette: {sil_kmeans:.4f}")
 print(f"Hierarchical Silhouette: {sil_hier:.4f}")
 
@@ -2667,7 +2776,8 @@ axes[1, 1].set_title(f'Hierarchical Clustering (Silhouette={sil_hier:.3f})')
 
 plt.tight_layout()
 plt.savefig('clustering_analysis.png', dpi=150)
-print("\\nChart saved as clustering_analysis.png")
+print("")
+print("Chart saved as clustering_analysis.png")
 `
     }
 ];
