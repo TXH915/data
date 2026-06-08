@@ -560,6 +560,7 @@ function initResizers() {
 
     resizers.forEach(resizer => {
         let startY, startHeight1, startHeight2;
+        let startX, startWidth1, startWidth2;
         let isDragging = false;
 
         const isHorizontal = resizer.classList.contains('horizontal');
@@ -576,6 +577,10 @@ function initResizers() {
                 startY = e.clientY;
                 startHeight1 = prevPanel.offsetHeight;
                 startHeight2 = nextPanel.offsetHeight;
+            } else if (isVertical) {
+                startX = e.clientX;
+                startWidth1 = prevPanel.offsetWidth;
+                startWidth2 = nextPanel.offsetWidth;
             }
 
             document.body.style.cursor = isHorizontal ? 'row-resize' : 'col-resize';
@@ -597,6 +602,15 @@ function initResizers() {
                 prevPanel.style.height = newHeight1 + 'px';
                 nextPanel.style.flex = '0 0 ' + newHeight2 + 'px';
                 nextPanel.style.height = newHeight2 + 'px';
+            } else if (isVertical) {
+                const dx = e.clientX - startX;
+                const newWidth1 = Math.max(150, startWidth1 + dx);
+                const newWidth2 = Math.max(150, startWidth2 - dx);
+
+                prevPanel.style.flex = '0 0 ' + newWidth1 + 'px';
+                prevPanel.style.width = newWidth1 + 'px';
+                nextPanel.style.flex = '0 0 ' + newWidth2 + 'px';
+                nextPanel.style.width = newWidth2 + 'px';
             }
         };
 

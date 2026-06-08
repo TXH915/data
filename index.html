@@ -37,9 +37,12 @@
                 <div class="panel theory-panel" id="theoryPanel">
                     <div class="panel-header">
                         <h3>📖 理论知识</h3>
+                        <button class="btn btn-small collapse-btn" onclick="togglePanel('theoryPanel')">−</button>
                     </div>
                     <div class="panel-content scrollable" id="theoryContent"></div>
                 </div>
+
+                <div class="resizer vertical" id="resizerV1"></div>
 
                 <div class="panel center-panel">
                     <div class="panel code-panel" id="codePanel">
@@ -90,30 +93,43 @@
                     </div>
                 </div>
 
+                <div class="resizer vertical" id="resizerV2"></div>
+
                 <div class="panel right-panel">
-                    <div class="panel solution-panel">
+                    <div class="panel solution-panel" id="solutionPanel">
                         <div class="panel-header">
                             <h3>✅ 参考答案</h3>
-                            <button class="btn btn-small" id="toggleSolutionBtn">👁️ 显示</button>
+                            <div>
+                                <button class="btn btn-small collapse-btn" onclick="togglePanel('solutionPanel')">−</button>
+                                <button class="btn btn-small" id="toggleSolutionBtn">👁️ 显示</button>
+                            </div>
                         </div>
                         <div class="panel-content scrollable solution-scrollable" id="solutionContent">
                             <div class="placeholder">点击显示参考答案</div>
                         </div>
                     </div>
 
-                    <div class="panel quiz-panel">
+                    <div class="resizer horizontal" id="resizer2"></div>
+
+                    <div class="panel quiz-panel" id="quizPanel">
                         <div class="panel-header">
                             <h3>📝 测评练习</h3>
+                            <button class="btn btn-small collapse-btn" onclick="togglePanel('quizPanel')">−</button>
                         </div>
                         <div class="panel-content scrollable" id="quizContent">
                             <div class="placeholder">选择项目后显示测评</div>
                         </div>
                     </div>
 
-                    <div class="panel exam-panel">
+                    <div class="resizer horizontal" id="resizer3"></div>
+
+                    <div class="panel exam-panel" id="examPanel">
                         <div class="panel-header">
                             <h3>📋 阶段考试</h3>
-                            <button class="btn btn-small" id="startExamBtn">开始考试</button>
+                            <div>
+                                <button class="btn btn-small collapse-btn" onclick="togglePanel('examPanel')">−</button>
+                                <button class="btn btn-small" id="startExamBtn">开始考试</button>
+                            </div>
                         </div>
                         <div class="panel-content scrollable" id="examContent">
                             <div class="placeholder">点击"开始考试"进入考试模式</div>
