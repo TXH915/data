@@ -3,6 +3,9 @@ class DataAnalysisApp {
         this.currentProject = null;
         this.solutionVisible = false;
         this.quizAnswers = {};
+        this.examStarted = false;
+        this.examAnswers = {};
+        this.examCodeAnswer = '';
         this.init();
     }
 
@@ -65,6 +68,8 @@ class DataAnalysisApp {
         this.currentProject = project;
         this.solutionVisible = false;
         this.quizAnswers = {};
+        this.examStarted = false;
+        this.examAnswers = {};
 
         document.querySelectorAll('.project-item').forEach(item => {
             item.classList.remove('active');
@@ -87,9 +92,271 @@ class DataAnalysisApp {
         document.getElementById('toggleSolutionBtn').textContent = '👁️ 显示';
 
         this.renderQuiz(project);
+        this.renderExamPlaceholder(project);
+        document.getElementById('startExamBtn').textContent = '开始考试';
 
         achievementSystem.completeProject(projectId);
         this.updateBadgeCount();
+    }
+
+    renderExamPlaceholder(project) {
+        const examContent = document.getElementById('examContent');
+        examContent.innerHTML = '<div class="placeholder">点击"开始考试"进入考试模式</div>';
+    }
+
+    renderExam(project) {
+        if (!project.exam) return;
+        
+        const examContent = document.getElementById('examContent');
+        examContent.innerHTML = '';
+        this.examStarted = true;
+        this.examAnswers = {};
+        document.getElementById('startExamBtn').textContent = '退出考试';
+
+        // 单选题部分
+        if (project.exam.singleChoice && project.exam.singleChoice.length > 0) {
+            const singleSection = document.createElement('div');
+            singleSection.className = 'exam-section';
+            singleSection.innerHTML = `
+                <h4 style="color: #ffd700; margin-bottom: 1rem;">一、单项选择题（共${project.exam.singleChoice.length}题）</h4>
+            `;
+            
+            project.exam.singleChoice.forEach((q, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'exam-question';
+                qDiv.innerHTML = `
+                    <p style="margin-bottom: 0.5rem;"><b>${idx + 1}.</b> ${q.question}</p>
+                    <div style="display: flex; flex-direction: column; gap: 0.3rem; margin-left: 1rem;">
+                        ${q.options.map((opt, optIdx) => `
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="radio" name="single_${idx}" value="${optIdx}">
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div class="exam-result" style="margin-top: 0.5rem; padding: 0.5rem; border-radius: 4px; display: none;"></div>
+                `;
+                
+                qDiv.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        this.examAnswers[`single_${idx}`] = parseInt(e.target.value);
+                    });
+                });
+                
+                singleSection.appendChild(qDiv);
+            });
+            
+            examContent.appendChild(singleSection);
+        }
+
+        // 多选题部分
+        if (project.exam.multipleChoice && project.exam.multipleChoice.length > 0) {
+            const multiSection = document.createElement('div');
+            multiSection.className = 'exam-section';
+            multiSection.innerHTML = `
+                <h4 style="color: #ffd700; margin-bottom: 1rem; margin-top: 1.5rem;">二、多项选择题（共${project.exam.multipleChoice.length}题）</h4>
+            `;
+            
+            project.exam.multipleChoice.forEach((q, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'exam-question';
+                qDiv.innerHTML = `
+                    <p style="margin-bottom: 0.5rem;"><b>${idx + 1}.</b> ${q.question} <span style="color: #888; font-size: 0.8rem;">（多选）</span></p>
+                    <div style="display: flex; flex-direction: column; gap: 0.3rem; margin-left: 1rem;">
+                        ${q.options.map((opt, optIdx) => `
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" name="multi_${idx}" value="${optIdx}">
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div class="exam-result" style="margin-top: 0.5rem; padding: 0.5rem; border-radius: 4px; display: none;"></div>
+                `;
+                
+                qDiv.querySelectorAll('input[type="checkbox"]').forEach(input => {
+                    input.addEventListener('change', () => {
+                        const checked = Array.from(qDiv.querySelectorAll('input[type="checkbox"]:checked'))
+                            .map(cb => parseInt(cb.value));
+                        this.examAnswers[`multi_${idx}`] = checked;
+                    });
+                });
+                
+                multiSection.appendChild(qDiv);
+            });
+            
+            examContent.appendChild(multiSection);
+        }
+
+        // 判断题部分
+        if (project.exam.trueFalse && project.exam.trueFalse.length > 0) {
+            const tfSection = document.createElement('div');
+            tfSection.className = 'exam-section';
+            tfSection.innerHTML = `
+                <h4 style="color: #ffd700; margin-bottom: 1rem; margin-top: 1.5rem;">三、判断题（共${project.exam.trueFalse.length}题）</h4>
+            `;
+            
+            project.exam.trueFalse.forEach((q, idx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'exam-question';
+                qDiv.innerHTML = `
+                    <p style="margin-bottom: 0.5rem;"><b>${idx + 1}.</b> ${q.question}</p>
+                    <div style="display: flex; gap: 1rem; margin-left: 1rem;">
+                        <label style="display: flex; align-items: center; gap: 0.3rem; cursor: pointer;">
+                            <input type="radio" name="tf_${idx}" value="true">
+                            <span>正确</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.3rem; cursor: pointer;">
+                            <input type="radio" name="tf_${idx}" value="false">
+                            <span>错误</span>
+                        </label>
+                    </div>
+                    <div class="exam-result" style="margin-top: 0.5rem; padding: 0.5rem; border-radius: 4px; display: none;"></div>
+                `;
+                
+                qDiv.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        this.examAnswers[`tf_${idx}`] = e.target.value === 'true';
+                    });
+                });
+                
+                tfSection.appendChild(qDiv);
+            });
+            
+            examContent.appendChild(tfSection);
+        }
+
+        // 代码题部分
+        if (project.exam.codeQuestion) {
+            const codeSection = document.createElement('div');
+            codeSection.className = 'exam-section';
+            codeSection.innerHTML = `
+                <h4 style="color: #ffd700; margin-bottom: 1rem; margin-top: 1.5rem;">四、编程题（共1题）</h4>
+                <div class="exam-question">
+                    <p style="margin-bottom: 1rem;"><b>${project.exam.singleChoice.length + project.exam.multipleChoice.length + project.exam.trueFalse.length + 1}.</b> ${project.exam.codeQuestion.question}</p>
+                    <textarea id="examCodeEditor" style="width: 100%; min-height: 150px; background: #1e1e1e; color: #d4d4d4; border: 1px solid #444; border-radius: 6px; padding: 0.5rem; font-family: monospace;" placeholder="在此输入代码...">${project.exam.codeQuestion.initialCode}</textarea>
+                    <button class="btn btn-primary" style="margin-top: 0.5rem;" id="runExamCodeBtn">▶️ 运行代码</button>
+                    <div id="examCodeOutput" style="margin-top: 0.5rem; padding: 0.5rem; background: #1e1e1e; border-radius: 6px; min-height: 50px; font-family: monospace; white-space: pre-wrap;"></div>
+                </div>
+            `;
+            
+            examContent.appendChild(codeSection);
+            
+            // 绑定代码运行按钮
+            setTimeout(() => {
+                const runBtn = document.getElementById('runExamCodeBtn');
+                if (runBtn) {
+                    runBtn.addEventListener('click', async () => {
+                        const code = document.getElementById('examCodeEditor').value;
+                        const outputDiv = document.getElementById('examCodeOutput');
+                        outputDiv.textContent = '正在运行...';
+                        try {
+                            await pythonRunner.run(code);
+                            outputDiv.innerHTML = pythonRunner.lastOutput || '代码执行完成';
+                        } catch (err) {
+                            outputDiv.textContent = '错误: ' + err.message;
+                        }
+                    });
+                }
+            }, 100);
+        }
+
+        // 提交按钮
+        const submitBtn = document.createElement('button');
+        submitBtn.className = 'btn btn-primary';
+        submitBtn.style.marginTop = '1.5rem';
+        submitBtn.style.width = '100%';
+        submitBtn.textContent = '提交试卷';
+        submitBtn.addEventListener('click', () => this.submitExam(project));
+        examContent.appendChild(submitBtn);
+    }
+
+    submitExam(project) {
+        if (!project.exam) return;
+        
+        let score = 0;
+        let total = 0;
+        const results = [];
+
+        // 批改单选题
+        if (project.exam.singleChoice) {
+            project.exam.singleChoice.forEach((q, idx) => {
+                const userAnswer = this.examAnswers[`single_${idx}`];
+                const isCorrect = userAnswer === q.answer;
+                if (isCorrect) score += 10;
+                total += 10;
+                results.push({ type: '单选', index: idx + 1, correct: isCorrect, correctAnswer: q.options[q.answer] });
+            });
+        }
+
+        // 批改多选题
+        if (project.exam.multipleChoice) {
+            project.exam.multipleChoice.forEach((q, idx) => {
+                const userAnswer = this.examAnswers[`multi_${idx}`] || [];
+                const isCorrect = JSON.stringify(userAnswer.sort()) === JSON.stringify(q.answer.sort());
+                if (isCorrect) score += 15;
+                total += 15;
+                results.push({ type: '多选', index: idx + 1, correct: isCorrect, correctAnswer: q.options.filter((_, i) => q.answer.includes(i)) });
+            });
+        }
+
+        // 批改判断题
+        if (project.exam.trueFalse) {
+            project.exam.trueFalse.forEach((q, idx) => {
+                const userAnswer = this.examAnswers[`tf_${idx}`];
+                const isCorrect = userAnswer === q.answer;
+                if (isCorrect) score += 10;
+                total += 10;
+                results.push({ type: '判断', index: idx + 1, correct: isCorrect, correctAnswer: q.answer ? '正确' : '错误' });
+            });
+        }
+
+        // 编程题默认给20分（老师手动批改）
+        const codeAnswer = document.getElementById('examCodeEditor')?.value || '';
+        const hasCode = codeAnswer.trim().length > 50;
+        total += 20;
+        if (hasCode) score += 20;
+
+        const percentage = Math.round((score / total) * 100);
+        let grade = '';
+        if (percentage >= 90) grade = '优秀';
+        else if (percentage >= 75) grade = '良好';
+        else if (percentage >= 60) grade = '及格';
+        else grade = '不及格';
+
+        const resultHTML = `
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.5rem; border-radius: 12px; color: white; text-align: center; margin-bottom: 1rem;">
+                <h3 style="margin: 0 0 0.5rem 0;">考试完成！</h3>
+                <p style="font-size: 2rem; margin: 0.5rem 0;">${percentage}分</p>
+                <p style="margin: 0; opacity: 0.9;">${grade} · ${score}/${total}分</p>
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <h4 style="color: #ffd700;">答题情况：</h4>
+                ${results.map(r => `
+                    <div style="padding: 0.5rem; margin: 0.3rem 0; border-radius: 4px; background: ${r.correct ? '#1a3322' : '#3d2020'}; color: ${r.correct ? '#69db7c' : '#ff6b6b'};">
+                        ${r.type}第${r.index}题: ${r.correct ? '✅ 正确' : '❌ 错误 (答案: ' + (Array.isArray(r.correctAnswer) ? r.correctAnswer.join(', ') : r.correctAnswer) + ')'}
+                    </div>
+                `).join('')}
+                <div style="padding: 0.5rem; margin: 0.3rem 0; border-radius: 4px; background: ${hasCode ? '#1a3322' : '#3d2020'}; color: ${hasCode ? '#69db7c' : '#ff6b6b'};">
+                    编程题: ${hasCode ? '✅ 已作答 (老师手动批改)' : '❌ 未作答'}
+                </div>
+            </div>
+            <button class="btn btn-secondary" onclick="app.loadProject(${project.id})">重新开始</button>
+        `;
+
+        document.getElementById('examContent').innerHTML = resultHTML;
+        this.examStarted = false;
+    }
+
+    toggleExam() {
+        if (!this.currentProject) return;
+        
+        if (this.examStarted) {
+            this.examStarted = false;
+            this.renderExamPlaceholder(this.currentProject);
+            document.getElementById('startExamBtn').textContent = '开始考试';
+        } else {
+            this.renderExam(this.currentProject);
+        }
     }
 
     renderQuiz(project) {
@@ -222,6 +489,7 @@ class DataAnalysisApp {
         document.getElementById('resetBtn').addEventListener('click', () => this.resetCode());
         document.getElementById('clearOutputBtn').addEventListener('click', () => this.clearOutput());
         document.getElementById('toggleSolutionBtn').addEventListener('click', () => this.toggleSolution());
+        document.getElementById('startExamBtn').addEventListener('click', () => this.toggleExam());
 
         document.getElementById('achievementsBadge').addEventListener('click', () => {
             document.getElementById('achievementsModal').classList.add('active');

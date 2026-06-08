@@ -535,3 +535,50 @@ body {
     50% { opacity: 0.5; }
 }
 
+/* 考试板块样式 */
+.exam-panel {
+    background: var(--card-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.exam-section {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.exam-question {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.exam-question:last-child {
+    border-bottom: none;
+}
+
+.exam-question label:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#startExamBtn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#startExamBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
