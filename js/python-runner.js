@@ -3,7 +3,7 @@ class PythonRunner {
         this.pyodide = null;
         this.initialized = false;
         this.packagesLoaded = false;
-        this.initPromise = this.init();
+        this.initPromise = null;
         this.currentProgress = 0;
         this.loadingMessages = [
             '正在初始化 Python 引擎...',
@@ -12,6 +12,14 @@ class PythonRunner {
             '即将完成...'
         ];
         this.messageIndex = 0;
+    }
+
+    async ensureInitialized() {
+        if (this.initPromise) {
+            return this.initPromise;
+        }
+        this.initPromise = this.init();
+        return this.initPromise;
     }
 
     async init() {
@@ -43,7 +51,6 @@ class PythonRunner {
             this.updateLoadingMessage('正在配置环境...', '设置 matplotlib 后端');
             console.log('Pyodide & Data Science packages initialized successfully');
 
-            // 等待一下让用户看到完成状态
             await new Promise(resolve => setTimeout(resolve, 300));
             this.setProgress(100);
             this.updateLoadingMessage('初始化完成！', '准备就绪');
@@ -152,9 +159,7 @@ from io import StringIO
     }
 
     async run(code) {
-        if (!this.initialized) {
-            await this.initPromise;
-        }
+        await this.ensureInitialized();
 
         if (!this.pyodide) {
             this.showOutput('❌ Python环境未就绪', 'error');
