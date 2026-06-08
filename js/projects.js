@@ -468,9 +468,10 @@ x = np.linspace(0, 10, 100)
 y1 = np.sin(x)
 y2 = np.cos(x)
 
-# 折线图
+# 创建画布
 plt.figure(figsize=(12, 8))
 
+# 1. 折线图
 plt.subplot(2, 2, 1)
 plt.plot(x, y1, label='sin(x)', color='blue')
 plt.plot(x, y2, label='cos(x)', color='red', linestyle='--')
@@ -480,7 +481,7 @@ plt.ylabel('y')
 plt.legend()
 plt.grid(True, alpha=0.3)
 
-# 柱状图
+# 2. 柱状图
 plt.subplot(2, 2, 2)
 categories = ['A', 'B', 'C', 'D']
 values = [30, 45, 25, 50]
@@ -488,7 +489,7 @@ plt.bar(categories, values, color=['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3'])
 plt.title('类别比较')
 plt.ylabel('数值')
 
-# 散点图
+# 3. 散点图
 plt.subplot(2, 2, 3)
 x_scatter = np.random.rand(50)
 y_scatter = x_scatter + np.random.randn(50) * 0.1
@@ -497,7 +498,7 @@ plt.title('散点图')
 plt.xlabel('X')
 plt.ylabel('Y')
 
-# 直方图
+# 4. 直方图
 plt.subplot(2, 2, 4)
 data = np.random.randn(1000)
 plt.hist(data, bins=30, color='skyblue', edgecolor='black')
@@ -506,6 +507,7 @@ plt.title('正态分布直方图')
 plt.tight_layout()
 plt.savefig('visualization.png', dpi=150)
 print("Chart saved as visualization.png")
+plt.show()  # 显示图片
 `
     },
     {
